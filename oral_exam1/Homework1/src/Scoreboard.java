@@ -4,17 +4,17 @@ public class Scoreboard {
 
     public boolean gameOver = true; /* boolean to track if the game has started and when it finishes */
 
-    public void setHomeTeamName(String homeTeam){
+    public void setHomeTeamName(String homeTeam){ /* Set home teams name */
         this.homeTeam = homeTeam;
-    } /* Set home teams name */
+    }
 
     public void setAwayTeamName(String awayTeam) {
         this.awayTeam =awayTeam;
     } /* Set away teams name */
 
-    public String getHomeTeamName(){
+    public String getHomeTeamName(){ /* Gets home teams name */
         return homeTeam;
-    } /* Gets home teams name */
+    }
 
     public String getAwayTeamName(){
         return awayTeam;
@@ -34,7 +34,6 @@ public class Scoreboard {
 
     public void endCurrentPeriod() { /* Adds one to the period */
         period += 1;
-
     }
 
     public int getCurrentPeriod() {

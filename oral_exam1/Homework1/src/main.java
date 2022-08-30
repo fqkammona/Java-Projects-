@@ -7,6 +7,10 @@ public class main {
 
         ball.setHomeTeamName("no thanks");
         System.out.println(ball.getHomeTeamName());
+        String[] s = ball.getScoringMethods();
+        System.out.println(s[0]);
+
+        System.out.println(ball.getAwayScore());
 
 
         System.out.println("Select the type of game:");
