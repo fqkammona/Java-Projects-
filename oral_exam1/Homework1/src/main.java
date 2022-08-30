@@ -24,7 +24,7 @@ public class main {
             System.out.println("Please Enter");
         }
 
-//        while(game.isGameOve == false){
+//        while(game.isGameOver == false){
 //
 //        }
 
