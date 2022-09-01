@@ -2,10 +2,6 @@ public class Scoreboard {
     public String homeTeam, awayTeam; /* Team names */
     public int homeScore, awayScore, period;
 
-//    public Scoreboard(String homeTeam, String awayTeam){
-//        this.homeTeam = homeTeam;
-//        this.awayTeam = awayTeam;
-//    }
     public boolean gameOver = true; /* boolean to track if the game has started and when it finishes */
 
     public void setHomeTeamName(String homeTeam){ /* Set home teams name */
@@ -34,6 +30,7 @@ public class Scoreboard {
 
     public void startGame() { /* starts game */
         gameOver = false;
+        period = 1;
     }
 
     public void endCurrentPeriod() { /* Adds one to the period */

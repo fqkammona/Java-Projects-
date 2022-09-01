@@ -5,7 +5,6 @@ public class Football extends Scoreboard{
     public int[] scoringPoints = {6,3,1,2,2}; /* an array that holds the points for the scoring methods */
 
     public String[] getScoringMethods(){
-        awayScore = 18;
         return scoringMethods;
     }
 
@@ -34,6 +33,5 @@ public class Football extends Scoreboard{
         }
         return gameOver;
     }
-
 
 }

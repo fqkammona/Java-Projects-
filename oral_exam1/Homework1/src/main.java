@@ -29,19 +29,22 @@ public class main {
         while(!thisGameOver){
 
             /* This is the Score and period section */
+            System.out.println();
             System.out.print(game.getHomeTeamName() + " - ");
-            System.out.println(game.getHomeScore() + ", ");
+            System.out.print(game.getHomeScore() + ", ");
 
             System.out.print(game.getAwayTeamName() + " - ");
             System.out.println(game.getAwayScore());
 
             System.out.print("Current " + game.getPeriodName());
-            System.out.println(":" + game.getCurrentPeriod());
+            System.out.println(": " + game.getCurrentPeriod());
+            System.out.println();
 
             /* This is the Menu section */
+            System.out.println("Menu");
             String[] methods = game.getScoringMethods();
             int count = 0;
-            int number = 1;
+            int number = 1; // The number for the associated with scoring methods
 
             while(count < 2){ //This loop is to go through the scoring methods twice
                 String teamName = game.getHomeTeamName();
@@ -56,15 +59,22 @@ public class main {
 
             System.out.println(number + ". End " + game.getPeriodName()); // This is the final option to end the period
 
-            /* */
+            /* This is the adding score section  */
             System.out.print("Enter Choice: ");
 
+            Scanner choiceInput = new Scanner(System.in);
+            int choice = choiceInput.nextInt();
 
+            if(choice <= methods.length){ // choice is between 1-5
+                game.addScoreHome(choice);
+            } else if (choice <= (methods.length * 2)){ // choice is between 6-10
+                game.addScoreAway(choice - methods.length);
+            }else{
+                game.endCurrentPeriod();
+            }
 
+            thisGameOver = game.isGameOver();
         }
-
-
-
 
     }
 }
