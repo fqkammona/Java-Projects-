@@ -28,10 +28,11 @@ public class Football extends Scoreboard{
 
     public boolean isGameOver(){
         if (period == 5){
-            return true;
+            gameOver = true;
         }else {
-            return false;
+            gameOver = false;
         }
+        return gameOver;
     }
 
 
