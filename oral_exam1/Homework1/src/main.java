@@ -1,15 +1,25 @@
 import java.util.Scanner;
-
+import java.util.LinkedList;
 public class main {
     public static void main(String[] args) {
-        Football game = new Football();
+        LinkedList<String> replay = new LinkedList<>();
+
+        Basketball game = new Basketball();
 
         System.out.println("Select the type of game:");
         System.out.println("1. Football");
+        System.out.println("2. Basketball");
         System.out.print("Enter Choice: ");
 
         Scanner input = new Scanner(System.in);
         int in = input.nextInt();
+
+//        switch (in){
+//            case 1: Football nea = new Football();
+//                    break;
+//            default: Basketball iame = new Basketball();
+//
+//        }
 
         System.out.println();
         System.out.print("Enter Home Team: ");
@@ -67,13 +77,39 @@ public class main {
 
             if(choice <= methods.length){ // choice is between 1-5
                 game.addScoreHome(choice);
+                replay.add(game.getHomeTeamName() + " " + methods[choice -1]); // Adding the choice to the replay list
             } else if (choice <= (methods.length * 2)){ // choice is between 6-10
-                game.addScoreAway(choice - methods.length);
-            }else{
+                game.addScoreAway(choice - methods.length); // Subtrack by the length so that we start at the begining of the array
+                replay.add(game.getAwayTeamName() + " " + methods[choice - methods.length -1]); // Adding the choice to the replay list
+            }else if (choice == (methods.length * 2) +1){
                 game.endCurrentPeriod();
+            }else{
+                System.out.println("Please chose a valid option.");
             }
 
             thisGameOver = game.isGameOver();
+        }
+
+        /* This is the Result section */
+        System.out.println();
+        System.out.println("Game is over.");
+
+        System.out.print(game.getHomeTeamName() + " - ");
+        System.out.print(game.getHomeScore() + ", ");
+
+        System.out.print(game.getAwayTeamName() + " - ");
+        System.out.println(game.getAwayScore());
+
+        System.out.print("Current " + game.getPeriodName());
+        System.out.println(": Final");
+        System.out.println("Winner: " + game.getWinnter());
+
+        /* This section prints the Replay */
+        System.out.println();
+        System.out.println("Replay");
+
+        for(String play : replay){
+            System.out.println(play);
         }
 
     }
