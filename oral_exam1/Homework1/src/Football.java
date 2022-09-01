@@ -1,6 +1,5 @@
 
 public class Football extends Scoreboard{
-    public String periodName = "quarter";
     public String[] scoringMethods = {"touchdown", "field goal", "extra-point", "two-point conversion", "safety"};
     public int[] scoringPoints = {6,3,1,2,2}; /* an array that holds the points for the scoring methods */
 
@@ -20,18 +19,6 @@ public class Football extends Scoreboard{
 
     public int getPeriodLength(){
         return 15;
-    }
-    public String getPeriodName(){
-        return periodName;
-    }
-
-    public boolean isGameOver(){
-        if (period == 5){
-            gameOver = true;
-        }else {
-            gameOver = false;
-        }
-        return gameOver;
     }
 
 }
