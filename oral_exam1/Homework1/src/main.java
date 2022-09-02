@@ -4,11 +4,12 @@ public class main {
     public static void main(String[] args) {
         LinkedList<String> replay = new LinkedList<>();
 
-        Basketball game = new Basketball();
+        Soccer game = new Soccer();
 
         System.out.println("Select the type of game:");
         System.out.println("1. Football");
         System.out.println("2. Basketball");
+        System.out.println("3. Soccer");
         System.out.print("Enter Choice: ");
 
         Scanner input = new Scanner(System.in);
@@ -30,6 +31,16 @@ public class main {
         Scanner awayInput = new Scanner(System.in);
         String awayTeam = awayInput.nextLine();
 
+//        if(in == 1){
+//            Basketball game = new Basketball();
+//            game.startGame();
+//        } else {
+//            Football game = new Football();
+//            game.startGame();
+//        }
+//        if(!game.isGameOver()){
+//
+//        }
         game.setHomeTeamName(homeTeam);
         game.setAwayTeamName(awayTeam);
 
@@ -75,7 +86,9 @@ public class main {
             Scanner choiceInput = new Scanner(System.in);
             int choice = choiceInput.nextInt();
 
-            if(choice <= methods.length){ // choice is between 1-5
+            if(choice <= 0){
+                System.out.println("Please chose a valid option.");
+            } else if(choice <= methods.length){ // choice is between 1-5
                 game.addScoreHome(choice);
                 replay.add(game.getHomeTeamName() + " " + methods[choice -1]); // Adding the choice to the replay list
             } else if (choice <= (methods.length * 2)){ // choice is between 6-10

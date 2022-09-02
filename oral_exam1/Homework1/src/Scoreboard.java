@@ -30,11 +30,11 @@ public class Scoreboard {
         return awayScore;
     } /* Returns Away Teams score */
 
-    public void addScoreHome(){ /* Standard scoring */
+    public void addScoreHome(int i){ /* Standard scoring */
         homeScore += 1;
     }
 
-    public void addScoreAway(){ /* Standard scoring */
+    public void addScoreAway(int i){ /* Standard scoring */
         awayScore += 1;
     }
 
