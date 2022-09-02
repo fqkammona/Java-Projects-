@@ -72,4 +72,13 @@ public class Scoreboard {
         }
         return gameOver;
     }
+
+    public String printScoreUpdate(){ // This returns the string with info about home/away score
+        String print = "";
+
+        print = homeTeam + " - " + homeScore + ", ";
+        print = print + awayTeam + " - " + awayScore + ", ";
+
+        return print;
+    }
 }

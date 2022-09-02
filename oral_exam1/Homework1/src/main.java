@@ -15,13 +15,6 @@ public class main {
         Scanner input = new Scanner(System.in);
         int in = input.nextInt();
 
-//        switch (in){
-//            case 1: Football nea = new Football();
-//                    break;
-//            default: Basketball iame = new Basketball();
-//
-//        }
-
         System.out.println();
         System.out.print("Enter Home Team: ");
         Scanner homeInput = new Scanner(System.in);
@@ -31,16 +24,6 @@ public class main {
         Scanner awayInput = new Scanner(System.in);
         String awayTeam = awayInput.nextLine();
 
-//        if(in == 1){
-//            Basketball game = new Basketball();
-//            game.startGame();
-//        } else {
-//            Football game = new Football();
-//            game.startGame();
-//        }
-//        if(!game.isGameOver()){
-//
-//        }
         game.setHomeTeamName(homeTeam);
         game.setAwayTeamName(awayTeam);
 
@@ -51,18 +34,14 @@ public class main {
 
             /* This is the Score and period section */
             System.out.println();
-            System.out.print(game.getHomeTeamName() + " - ");
-            System.out.print(game.getHomeScore() + ", ");
-
-            System.out.print(game.getAwayTeamName() + " - ");
-            System.out.println(game.getAwayScore());
+            System.out.println(game.printScoreUpdate());
 
             System.out.print("Current " + game.getPeriodName());
             System.out.println(": " + game.getCurrentPeriod());
             System.out.println();
 
             /* This is the Menu section */
-            System.out.println("Menu");
+            System.out.println("Menu:");
             String[] methods = game.getScoringMethods();
             int count = 0;
             int number = 1; // The number for the associated with scoring methods
@@ -107,11 +86,7 @@ public class main {
         System.out.println();
         System.out.println("Game is over.");
 
-        System.out.print(game.getHomeTeamName() + " - ");
-        System.out.print(game.getHomeScore() + ", ");
-
-        System.out.print(game.getAwayTeamName() + " - ");
-        System.out.println(game.getAwayScore());
+        System.out.println(game.printScoreUpdate());
 
         System.out.print("Current " + game.getPeriodName());
         System.out.println(": Final");
