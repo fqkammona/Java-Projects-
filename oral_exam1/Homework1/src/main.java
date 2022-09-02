@@ -4,7 +4,7 @@ public class main {
     public static void main(String[] args) {
         LinkedList<String> replay = new LinkedList<>();
 
-        Soccer game = new Soccer();
+        Football game = new Football();
 
         System.out.println("Select the type of game:");
         System.out.println("1. Football");
@@ -30,6 +30,7 @@ public class main {
         game.startGame();
         boolean thisGameOver = game.isGameOver();
 
+        /* This is the loop for the game */
         while(!thisGameOver){
 
             /* This is the Score and period section */
@@ -58,25 +59,28 @@ public class main {
             }
 
             System.out.println(number + ". End " + game.getPeriodName()); // This is the final option to end the period
-
-            /* This is the adding score section  */
             System.out.print("Enter Choice: ");
 
+            /* This section is to make sure a valid choice is inputed */
             Scanner choiceInput = new Scanner(System.in);
             int choice = choiceInput.nextInt();
 
-            if(choice <= 0){
-                System.out.println("Please chose a valid option.");
-            } else if(choice <= methods.length){ // choice is between 1-5
+            while(choice <= 0 || choice > (methods.length * 2) + 1){ // To stop user from trying to break the program
+                System.out.println("\nPlease chose a valid option.");
+                System.out.print("Enter Choice: ");
+
+                choice = choiceInput.nextInt();
+            }
+
+            /* This is the adding score section  */
+            if(choice <= methods.length){ // Choice is for home team
                 game.addScoreHome(choice);
-                replay.add(game.getHomeTeamName() + " " + methods[choice -1]); // Adding the choice to the replay list
-            } else if (choice <= (methods.length * 2)){ // choice is between 6-10
+                replay.add(game.getHomeTeamName() + " " + methods[choice -1] + " " + game.printScoreUpdate()); // Adding the choice to the replay list
+            } else if (choice <= (methods.length * 2)){ // choice is for away team
                 game.addScoreAway(choice - methods.length); // Subtrack by the length so that we start at the begining of the array
-                replay.add(game.getAwayTeamName() + " " + methods[choice - methods.length -1]); // Adding the choice to the replay list
-            }else if (choice == (methods.length * 2) +1){
+                replay.add(game.getAwayTeamName() + " " + methods[choice - methods.length -1] + " " + game.printScoreUpdate()); // Adding the choice to the replay list
+            } else {
                 game.endCurrentPeriod();
-            }else{
-                System.out.println("Please chose a valid option.");
             }
 
             thisGameOver = game.isGameOver();
