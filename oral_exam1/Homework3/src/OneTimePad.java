@@ -32,7 +32,7 @@ public class OneTimePad {
         return message;
     }
 
-    public String EncryptMessage(){
+    public String EncryptMessage1(){
         String OldMessage = message;
         String newMessage = "";
 
