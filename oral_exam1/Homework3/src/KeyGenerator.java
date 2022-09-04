@@ -5,13 +5,27 @@ import java.io.IOException;
 
 public class KeyGenerator {
     public static void main(String[] args) {
-        System.out.println("Key File has been created.");
+       System.out.println("Enter the name of the file you would like to create: ");
+
+        Scanner fileName = new Scanner(System.in);
+        File keyFile = new File(fileName.nextLine()); // Creates the file
+
+        try{
+            boolean fileCreated = keyFile.createNewFile(); // See if file is created
+            if(fileCreated){
+                System.out.println("Key File has been created.");
+            }else {
+                System.out.println("The key file already exists.");
+            }
+        }
+        catch(Exception e) {
+            e.getStackTrace();
+        }
+
         System.out.println("Please choices a number to be your n. This number will be the starting point.");
-        System.out.println("Number: ");
+        System.out.print("Number: ");
 
-        Scanner input = new Scanner(System.in);
-        int key = input.nextInt();
-
+        int key = fileName.nextInt();
 
     }
 }
