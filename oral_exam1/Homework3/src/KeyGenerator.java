@@ -1,11 +1,26 @@
 import java.util.Scanner; // So that I write to the screen
 import java.io.File;
 import java.io.FileWriter; // To write to a file
-import java.io.IOException;
+import java.lang.Math; //importing this class so i can use math.Random
 
 public class KeyGenerator {
+
+    /* This method generates the key */
+    public static String createKeyList(int nValues){
+        int i = 1;
+        String keyList = "";
+
+        while(i <= nValues){
+            int newKey = (int)(Math.random() * 25);
+            keyList = keyList + newKey + ",";
+
+            i++;
+        }
+
+        return keyList;
+    }
     public static void main(String[] args) {
-        System.out.println("Enter the name of the file you would like to create: ");
+        System.out.print("Enter the name of the file you would like to create: ");
 
         Scanner inputFileName = new Scanner(System.in);
         String fileName = inputFileName.nextLine() + ".txt/";
@@ -14,28 +29,33 @@ public class KeyGenerator {
 
         try{
             boolean fileCreated = keyFile.createNewFile(); // See if file is created
-            if(fileCreated){
-                System.out.println("Key File has been created.");
-            }else {
+            if(!fileCreated){ // If the file has already been created
                 System.out.println("The key file already exists.");
+            }else {
+                System.out.println("Key File has been created.");
+
+                /* This section gets the number of n values and the starting position */
+                System.out.print("\nPlease enter how many n values you would like: ");
+                Scanner values = new Scanner(System.in);
+                int nValues = values.nextInt();
+
+                System.out.print("What position would you like to start at: ");
+                Scanner nPosition = new Scanner(System.in);
+                int position = nPosition.nextInt();
+
+                /* This section writes the information to the file */
+                FileWriter writeKey = new FileWriter(keyFile);
+
+                writeKey.write(String.valueOf(position)); // you have to change the integer into a string.
+
+                writeKey.write("\n\n" + createKeyList(nValues));
+
+                writeKey.close(); // You have to close the file
             }
 
-            FileWriter writeKey = new FileWriter(keyFile);
-
-            /* This section creates the key and writes it to the file*/
-            writeKey.write("key");
-
-
-            writeKey.close(); // Close the file
         }
         catch(Exception e) {
-            e.getStackTrace();
+            System.out.println("Incorrect path has been entered.");
         }
-
-//        System.out.println("Please choices a number to be your n. This number will be the starting point.");
-//        System.out.print("Number: ");
-//
-//        int key = fileName.nextInt();
-
     }
 }

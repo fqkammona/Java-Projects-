@@ -10,7 +10,7 @@ public class Encryptor {
             'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     public static void main(String[] args) {
-        System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
+        System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyList.txt");
         System.out.print("Please enter the path to the file: ");
 
         Scanner path = new Scanner(System.in);
@@ -20,8 +20,10 @@ public class Encryptor {
             File keyFile = new File(fileName);
             Scanner key = new Scanner(keyFile);
 
-            String output = key.nextLine();
-            System.out.println(output);
+            while(key.hasNextLine()){
+                String output = key.nextLine();
+                System.out.println(output);
+            }
 
             key.close();
         } catch (FileNotFoundException e) {
