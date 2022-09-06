@@ -4,7 +4,7 @@ public class main {
     public static void main(String[] args) {
         LinkedList<String> replay = new LinkedList<>();
 
-        Football game = new Football();
+        Scoreboard game = new Scoreboard();
 
         System.out.println("Select the type of game:");
         System.out.println("1. Football");
@@ -14,6 +14,14 @@ public class main {
 
         Scanner input = new Scanner(System.in);
         int in = input.nextInt();
+
+        if(in == 1){
+            game = new Football();
+        }else if(in == 2){
+            game = new Basketball();
+        }else {
+            game = new Soccer();
+        }
 
         System.out.println();
         System.out.print("Enter Home Team: ");

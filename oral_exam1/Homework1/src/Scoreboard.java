@@ -4,6 +4,11 @@ public class Scoreboard {
 
     public String periodName = "quarter"; /* Default period name */
 
+    public String[] scoringMethods = {"Goal"};
+
+    public String[] getScoringMethods(){
+        return scoringMethods;
+    }
     public boolean gameOver = true; /* boolean to track if the game has started and when it finishes */
 
     public void setHomeTeamName(String homeTeam){ /* Set home teams name */

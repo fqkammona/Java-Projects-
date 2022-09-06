@@ -48,7 +48,7 @@ public class KeyGenerator {
 
                 writeKey.write(String.valueOf(position)); // you have to change the integer into a string.
 
-                writeKey.write("\n\n" + createKeyList(nValues));
+                writeKey.write("\n" + createKeyList(nValues));
 
                 writeKey.close(); // You have to close the file
             }
