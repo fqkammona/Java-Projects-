@@ -60,30 +60,30 @@ public class Scoreboard {
         return period;
     } /* Returns the period number */
 
-    public String getWinnter(){ /* to find out who is the winner */
-        if(homeScore > awayScore){
-            return homeTeam;
-        } else if( awayScore > homeScore){
-            return awayTeam;
-        } else {
-            return "Tie";
-        }
-    }
-    public boolean isGameOver(){ /* the base rules for game rules */
-        if (period == 5){
-            gameOver = true;
-        }else {
-            gameOver = false;
-        }
-        return gameOver;
-    }
+//    public String getWinnter(){ /* to find out who is the winner */
+//        if(homeScore > awayScore){
+//            return homeTeam;
+//        } else if( awayScore > homeScore){
+//            return awayTeam;
+//        } else {
+//            return "Tie";
+//        }
+//    }
+//    public boolean isGameOver(){ /* the base rules for game rules */
+//        if (period == 5){
+//            gameOver = true;
+//        }else {
+//            gameOver = false;
+//        }
+//        return gameOver;
+//    }
 
-    public String printScoreUpdate(){ // This returns the string with info about home/away score
-        String print = "";
-
-        print = homeTeam + " - " + homeScore + ", ";
-        print = print + awayTeam + " - " + awayScore + ", ";
-
-        return print;
-    }
+//    public String printScoreUpdate(){ // This returns the string with info about home/away score
+//        String print = "";
+//
+//        print = homeTeam + " - " + homeScore + ", ";
+//        print = print + awayTeam + " - " + awayScore + ", ";
+//
+//        return print;
+//    }
 }
