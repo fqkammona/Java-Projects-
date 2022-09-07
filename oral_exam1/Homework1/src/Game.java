@@ -1,16 +1,13 @@
 public abstract class Game {
     public Team homeTeam, awayTeam;
-
     public boolean gameOver = true;
     public int period;
-
-    public String[] scoringMethods;
-    public int[] scoringPoints;
     public String periodName = "quarter"; /* Default period name */
     public String getPeriodName(){
         return periodName;
     }
     public int getCurrentPeriod(){ return period;}
+    public int getPeriodLength(){ return 45; }
 
     public void endCurrentPeriod() { /* Adds one to the period */
         period += 1;

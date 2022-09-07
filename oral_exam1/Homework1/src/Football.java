@@ -1,34 +1,26 @@
-
 public class Football extends Game{
 
-    public String[] scoringMethods = {"touchdown", "field goal", "extra-point", "two-point conversion", "safety"};
-    public int[] scoringPoints = {6,3,1,2,2}; /* an array that holds the points for the scoring methods */
-
+    /**This section is creating all the ... and then
+     * adding them into an array of ScoringMethods
+     * called scoringMethods */
+    ScoringMethod method1 = new ScoringMethod("Touchdown", 6);
+    ScoringMethod method2 = new ScoringMethod("Field Goal", 3);
+    ScoringMethod method3 = new ScoringMethod("Extra-point", 1);
+    ScoringMethod method4 = new ScoringMethod("Two-point Conversion", 2);
+    ScoringMethod method5 = new ScoringMethod("Safety", 2);
+    ScoringMethod[] scoringMethods = {method1, method2, method3, method4, method5};
 
     public Football(Team homeTeam, Team awayTeam){
         super.homeTeam = homeTeam;
         super.awayTeam = awayTeam;
-
     }
 
-
-
-    public String[] getScoringMethods(){
+    public ScoringMethod[] getScoringMethods(){
         return scoringMethods;
     }
-//
-//    /* Adds points to the home teams score */
-//    public void addScoreHome(int method){
-//        homeScore += scoringPoints[method -1];
-//    }
-//
-//    /* Adds points to the away teams score */
-//    public void addScoreAway(int method){
-//        awayScore += scoringPoints[method -1];
-//    }
-//
-//    public int getPeriodLength(){
-//        return 15;
-//    }
+
+    public int getPeriodLength(){
+        return 15;
+    }
 
 }
