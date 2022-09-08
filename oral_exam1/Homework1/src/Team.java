@@ -1,4 +1,4 @@
-public class Team{
+public class Team {
     public String TeamName;
     public int TeamScore;
     public Team(String TeamName){
@@ -7,5 +7,13 @@ public class Team{
 
     public String getTeamName(){
         return TeamName;
+    }
+
+    public void addScore(int point){
+        TeamScore += point;
+    }
+
+    public int getTeamScore() {
+        return TeamScore;
     }
 }

@@ -13,6 +13,21 @@ public abstract class Game {
         period += 1;
     }
 
+    public abstract ScoringMethod[] getScoringMethods();
+
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public Team getAwayTeam(){
+        return awayTeam;
+    }
+
+    public void addScore(ScoringMethod method, Team name){
+        int point = method.getPoint();
+        name.addScore(point);
+    }
 
     /** This method will set the period and change gameOver to false. */
     public void startGame() { /* starts game */
@@ -44,8 +59,8 @@ public abstract class Game {
     public String printScoreUpdate(){
         String print = "";
 
-        print = homeTeam + " - " + "homeScore" + ", ";
-        print = print + awayTeam + " - " + "awayScore" + ", ";
+        print = homeTeam.getTeamName() + " - " + homeTeam.getTeamScore() + ", ";
+        print = print + awayTeam.getTeamName() + " - " + awayTeam.getTeamScore() + ", ";
 
         return print;
     }

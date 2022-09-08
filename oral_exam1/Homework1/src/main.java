@@ -47,37 +47,50 @@ public class main {
             System.out.println();
 
             /* This is the Menu section */
-//            System.out.println("Menu:");
-//            String[] methods = game.getScoringMethods();
-//            int count = 0;
-//            int number = 1; // The number for the associated with scoring methods
-//
-//            while(count < 2){ //This loop is to go through the scoring methods twice
-//                String teamName = game.getHomeTeamName();
-//                if(count == 1){ teamName = game.getAwayTeamName(); }
-//
-//                for(String method: methods){
-//                    System.out.println(number + ". " + teamName + " " + method);
-//                    number++;
-//                }
-//                count++;
-//            }
-//
-//            System.out.println(number + ". End " + game.getPeriodName()); // This is the final option to end the period
-//            System.out.print("Enter Choice: ");
+            System.out.println("Menu:");
+            ScoringMethod[] methods = game.getScoringMethods(); // Not a hundered % about this sooooo ask about it
+            int count = 0;
+            int number = 1; // The number for the associated with scoring methods
 
-//            /* This section is to make sure a valid choice is inputed */
-//            Scanner choiceInput = new Scanner(System.in);
-//            int choice = choiceInput.nextInt();
-//
-//            while(choice <= 0 || choice > (methods.length * 2) + 1){ // To stop user from trying to break the program
-//                System.out.println("\nPlease chose a valid option.");
-//                System.out.print("Enter Choice: ");
-//
-//                choice = choiceInput.nextInt();
-//            }
-//
-//            /* This is the adding score section  */
+            while(count < 2){ //This loop is to go through the scoring methods twice
+
+                /* Which team we are talking about */
+//                if (count == 0){
+//                    Team thisTeam = homeTeam;
+//                } else {
+//                    Team thisTeam = game.getHomeTeam();
+//                }
+
+
+                String teamName = homeTeam.getTeamName(); // Is this right??
+                if(count == 1){ teamName = awayTeam.TeamName; } // is this right??
+
+                for(ScoringMethod method: methods){
+                    System.out.println(number + ". " + teamName + " " + method);
+                    number++;
+                }
+                count++;
+            }
+
+            System.out.println(number + ". End " + game.getPeriodName()); // This is the final option to end the period
+            System.out.print("Enter Choice: ");
+
+            /* This section is to make sure a valid choice is inputed */
+            Scanner choiceInput = new Scanner(System.in);
+            int choice = choiceInput.nextInt();
+
+            while(choice <= 0 || choice > (methods.length * 2) + 1){ // To stop user from trying to break the program
+                System.out.println("\nPlease chose a valid option.");
+                System.out.print("Enter Choice: ");
+
+                choice = choiceInput.nextInt();
+            }
+
+            /* This is the adding score section  */
+
+
+
+
 //            if(choice <= methods.length){ // Choice is for home team
 //                game.addScoreHome(choice);
 //                replay.add(game.getHomeTeamName() + " " + methods[choice -1] + " " + game.printScoreUpdate()); // Adding the choice to the replay list
