@@ -16,6 +16,8 @@ public abstract class Game {
     public abstract ScoringMethod[] getScoringMethods();
 
 
+//    public abstract ScoringMethod get(int c);
+
     public Team getHomeTeam() {
         return homeTeam;
     }

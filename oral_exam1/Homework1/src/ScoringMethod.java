@@ -1,7 +1,7 @@
-public class ScoringMethod{
+public class ScoringMethod {
     private String nameOfMethod;
     private int point;
-    public ScoringMethod(String nameOfMethod, int point){
+    public ScoringMethod(String nameOfMethod, int point) {
         this.nameOfMethod = nameOfMethod;
         this.point = point;
     }

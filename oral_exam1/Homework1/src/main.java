@@ -35,6 +35,10 @@ public class main {
         game.startGame();
         boolean thisGameOver = game.isGameOver();
 
+//        ScoringMethod touchdown = game.getScoringMethods()[0];
+
+//        System.out.println(touchdown.getNameOfMethod());
+
         /* This is the loop for the game */
         while(!thisGameOver){
 
@@ -56,12 +60,12 @@ public class main {
 
                 /* Which team we are talking about */
 //                if (count == 0){
-//                    Team thisTeam = homeTeam;
+//                    Team thisTeam = game.getHomeTeam();
 //                } else {
 //                    Team thisTeam = game.getHomeTeam();
 //                }
 
-
+/** I DON'T LIKE THIS WAY COME BACK LATER AND SEE IF YOU CAN DO IT IN A DIFFERENT WAY */
                 String teamName = homeTeam.getTeamName(); // Is this right??
                 if(count == 1){ teamName = awayTeam.TeamName; } // is this right??
 
@@ -88,6 +92,15 @@ public class main {
 
             /* This is the adding score section  */
 
+            if(choice <= methods.length){ // This is home team
+                ScoringMethod methodChoice = game.getScoringMethods()[choice - 1];
+                game.addScore(methodChoice, homeTeam);
+            } else if (choice <= (methods.length * 2)){
+                ScoringMethod methodChoice = game.getScoringMethods()[choice - methods.length - 1];
+                game.addScore(methodChoice, awayTeam);
+            } else {
+                game.endCurrentPeriod();
+            }
 
 
 
@@ -101,8 +114,8 @@ public class main {
 //                game.endCurrentPeriod();
 //            }
 //
-//            thisGameOver = game.isGameOver();
-//        }
+            thisGameOver = game.isGameOver();
+        }
 //
 //        /* This is the Result section */
 //        System.out.println();
@@ -120,7 +133,7 @@ public class main {
 //
 //        for(String play : replay){
 //            System.out.println(play);
-        }
+
 
     }
 }
