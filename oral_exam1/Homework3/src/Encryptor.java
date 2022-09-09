@@ -21,7 +21,6 @@ public class Encryptor {
 
         String encryptedMessage = "";
 
-
         int i = 0;
 
         while(i < message.length()){ // Loop until we have gone through the whole message
@@ -30,12 +29,15 @@ public class Encryptor {
             int index = -1; // To know if the char is not a letter
             char letter = message.charAt(i); // Take the char of the old message, one letter at a time
 
-            for (int k = 0; k < alphabet.length; k++) { // For loop to find the index of the char
-                char tempLetter = alphabet[k];
+            int k = 0;
 
+            /* A while loop is faster than a for loop because then once we find index we can move on */
+            while(index == -1 && k < alphabet.length){
+                char tempLetter = alphabet[k];
                 if (letter == tempLetter) {
                     index = k;
                 }
+                k++;
             }
 
             // Now we have the index i.e M = 12//
@@ -106,11 +108,8 @@ public class Encryptor {
 
             /* This section class the encryptor function and then prints it out and closes the file */
 
-
             String encryptedMessage = encryptor.EncryptMessage(position,keyList, message);
-
             System.out.println("Message has been encrypted");
-
             keyRead.close();
 
             /* This Section updates */
@@ -119,18 +118,14 @@ public class Encryptor {
             BufferedWriter keyWrite = new BufferedWriter(writeKey);
 
             keyWrite.append(String.valueOf(encryptor.position));
-
             keyWrite.append("\n" + keyList);
             keyWrite.close();
 
             /* This section creates a new file with */
 
             FileWriter encryptedFile = new FileWriter(encryptorFile);
-
             encryptedFile.write(encryptedMessage);
-
             encryptedFile.close();
-
 
         }
         catch(Exception e) {

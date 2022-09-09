@@ -1,15 +1,9 @@
-import java.io.FileWriter;
 import java.util.Scanner; // So that I write to the screen
 import java.io.File;
 import java.io.FileReader; // Reads from file
-import java.io.FileNotFoundException;  // Import this class to handle errors
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
-import java.io.*;
-
 
 public class Decryptor {
-
     final static char alphabet [] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
             'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
@@ -25,19 +19,18 @@ public class Decryptor {
             /* This section finds the index of the letter form the alphabet */
             int index = -1; // To know if the char is not a letter
             char letter = message.charAt(i); // Take the char of the old message, one letter at a time
+            int k = 0;
 
-
-//Break loop if we got letter //
-            for (int k = 0; k < alphabet.length; k++) { // For loop to find the index of the char
+            /* A while loop is faster than a for loop because then once we find index we can move on */
+            while(index == -1 && k < alphabet.length){
                 char tempLetter = alphabet[k];
-
                 if (letter == tempLetter) {
                     index = k;
                 }
+                k++;
             }
 
             // Now we have the index i.e M = 12//
-
             String newLetter = "";
 
             if(index == -1){ // If the index is still -1 then we know it is not a letter therefor it doesn't change
@@ -86,7 +79,6 @@ public class Decryptor {
         //String encrypted = encryptedPath.nextLine();
         File encryptedFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txtEncrypted.txt");
 
-
         try{
             FileReader readKey = new FileReader(keyFile);
             BufferedReader keyRead = new BufferedReader(readKey);
@@ -100,16 +92,11 @@ public class Decryptor {
            Scanner encrypt = new Scanner(encryptedFile);
            String encryptedMessage = encrypt.nextLine();
 
-
             /* This section class the function and then prints out the message */
 
            String decryptedMessage = decryptor.DecryptMessage(position,keyList, encryptedMessage);
-
-            System.out.println(decryptedMessage);
-
-            keyRead.close();
-
-
+           System.out.println(decryptedMessage);
+           keyRead.close();
         }
         catch(Exception e) {
             System.out.println("Incorrect path has been entered.");
