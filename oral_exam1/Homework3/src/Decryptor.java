@@ -14,8 +14,52 @@ public class Decryptor {
             'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     public String DecryptMessage(int position, String keyList, String message){
-
+        position = position - 2; // You have to sub track by one because arrays start at zero
+        String[] keyArray = keyList.split("[,]",0); // makes an array(size 21) of strings of each element of
         String decryptedMessage = "";
+
+        int i = message.length() - 1;
+
+        while(i >= 0) { // Loop until we have gone through the whole message
+
+            /* This section finds the index of the letter form the alphabet */
+            int index = -1; // To know if the char is not a letter
+            char letter = message.charAt(i); // Take the char of the old message, one letter at a time
+
+
+
+//Break loop if we got letter //
+            for (int k = 0; k < alphabet.length; k++) { // For loop to find the index of the char
+                char tempLetter = alphabet[k];
+
+                if (letter == tempLetter) {
+                    index = k;
+                }
+            }
+
+            // Now we have the index i.e M = 12//
+
+            String newLetter = "";
+
+            if(index == -1){ // If the index is still -1 then we know it is not a letter therefor it doesn't change
+                newLetter = String.valueOf(letter);
+            }else{
+                int keyIndex = Integer.parseInt(keyArray[position]); // Gets the value of n and changes it into an int
+                int newIndex = index - keyIndex;
+
+                if(newIndex < 0){ // If we get to the beging of the array
+                    newIndex = newIndex + 26; // subtract the alphabet. Since arrays start at 0 we need to subtract 26 instead of 25
+                }
+
+                newLetter = String.valueOf(alphabet[newIndex]); // converting the new letter from a char to a string
+
+            }
+
+            decryptedMessage =  newLetter + decryptedMessage; // Adding the newLetter to the newMessage
+            position--;
+            i--;
+        }
+
         return decryptedMessage;
     }
 
@@ -23,19 +67,19 @@ public class Decryptor {
         Decryptor decryptor = new Decryptor();
 
         /* This section gets the path and opens the files */
-        System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
-        System.out.print("Please enter the path to the key file: ");
+      //  System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
+       // System.out.print("Please enter the path to the key file: ");
 
-        Scanner keyPath = new Scanner(System.in);
-        String key = keyPath.nextLine();
-        File keyFile = new File(key);
+       // Scanner keyPath = new Scanner(System.in);
+       // String key = keyPath.nextLine();
+        File keyFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
 
-        System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txtEncrypted.txt");
-        System.out.print("Please enter the path to the encrypted file: ");
+      //  System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txtEncrypted.txt");
+       // System.out.print("Please enter the path to the encrypted file: ");
 
-        Scanner encryptedPath = new Scanner(System.in);
-        String encrypted = encryptedPath.nextLine();
-        File encryptedFile = new File(encrypted);
+       // Scanner encryptedPath = new Scanner(System.in);
+        //String encrypted = encryptedPath.nextLine();
+        File encryptedFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txtEncrypted.txt");
 
 
         try{
@@ -54,21 +98,12 @@ public class Decryptor {
 
             /* This section class the function and then prints out the message */
 
-            String decryptedMessage = decryptor.DecryptMessage(position,keyList, encryptedMessage);
+           String decryptedMessage = decryptor.DecryptMessage(position,keyList, encryptedMessage);
 
             System.out.println(decryptedMessage);
 
             keyRead.close();
 
-            /* This Section updates */
-
-//            FileWriter writeKey = new FileWriter(keyFile);
-//            BufferedWriter keyWrite = new BufferedWriter(writeKey);
-//
-//            keyWrite.append(String.valueOf(encryptor.position));
-
-        //    keyWrite.append("\n" + keyList);
-      //      keyWrite.close();
 
         }
         catch(Exception e) {
