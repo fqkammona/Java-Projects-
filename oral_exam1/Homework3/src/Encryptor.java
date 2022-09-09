@@ -87,8 +87,8 @@ public class Encryptor {
 
         File keyFile = new File(fileName);
 
+        /* This section creates the encrypted file */
         String nameOfFile = keyFile.getName() + "Encrypted.txt";
-
         File encryptorFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + nameOfFile);
 
 
