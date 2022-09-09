@@ -18,7 +18,9 @@ public class Encryptor {
     public String EncryptMessage(int position, String keyList, String message){
         position--; // You have to sub track by one because arrays start at zero
         String[] keyArray = keyList.split("[,]",0); // makes an array(size 21) of strings of each element of
+
         String encryptedMessage = "";
+
 
         int i = 0;
 
@@ -49,11 +51,19 @@ public class Encryptor {
                 if(newIndex > 25){ // if we are at the end of the alphabet
                     newIndex = newIndex - 26; // subtract the alphabet. Since arrays start at 0 we need to subtract 26 instead of 25
                 }
+
                 newLetter = String.valueOf(alphabet[newIndex]); // converting the new letter from a char to a string
             }
 
             encryptedMessage = encryptedMessage + newLetter; // Adding the newLetter to the newMessage
-            position++;
+
+            /* This section is the logic to loop the position */
+            if(position >= keyArray.length - 1) { // If we get to the end of the array of keys
+                position = 0; // Change the position to the start of the array
+            }else{
+                position++;
+            }
+
             i++;
         }
 
@@ -95,6 +105,7 @@ public class Encryptor {
             String keyList = keyRead.readLine();
 
             /* This section class the encryptor function and then prints it out and closes the file */
+
 
             String encryptedMessage = encryptor.EncryptMessage(position,keyList, message);
 

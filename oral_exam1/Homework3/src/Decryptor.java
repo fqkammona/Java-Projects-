@@ -27,7 +27,6 @@ public class Decryptor {
             char letter = message.charAt(i); // Take the char of the old message, one letter at a time
 
 
-
 //Break loop if we got letter //
             for (int k = 0; k < alphabet.length; k++) { // For loop to find the index of the char
                 char tempLetter = alphabet[k];
@@ -52,11 +51,17 @@ public class Decryptor {
                 }
 
                 newLetter = String.valueOf(alphabet[newIndex]); // converting the new letter from a char to a string
-
             }
 
-            decryptedMessage =  newLetter + decryptedMessage; // Adding the newLetter to the newMessage
-            position--;
+            decryptedMessage =  newLetter + decryptedMessage; // Adding the newLetter to the newMessage and making sure it prints the correct way
+
+            /* This section is the logic to loop the position */
+            if(position == 0) { // If we get to the beginning of the array of keys
+                position = keyArray.length - 1; // Change the position to the start of the array
+            }else{
+                position--;
+            }
+
             i--;
         }
 
