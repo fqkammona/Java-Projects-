@@ -27,9 +27,9 @@ public class main {
         if(in == 1){
              game = new Football(homeTeam, awayTeam);
         }else if(in == 2){
-           game = new Football(homeTeam, awayTeam);
+           game = new Basketball(homeTeam, awayTeam);
         }else {
-            game = new Football(homeTeam, awayTeam);
+            game = new Soccer(homeTeam, awayTeam);
         }
 
         game.startGame();

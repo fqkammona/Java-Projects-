@@ -1,19 +1,23 @@
-public class Basketball extends Scoreboard{
-    public String[] scoringMethods = {"two", "three", "free throw"};
-    public int[] scoringPoints = {2,3,1}; /* an array that holds the points for the scoring methods */
+public class Basketball extends Game{
 
-    public String[] getScoringMethods(){
+    /**This section is creating all the method objects and then
+     * adding them into an array of ScoringMethods
+     * called scoringMethods */
+    ScoringMethod method1 = new ScoringMethod("Two Pointer", 2);
+    ScoringMethod method2 = new ScoringMethod("Three Pointer", 3);
+    ScoringMethod method3 = new ScoringMethod("Free Throw", 1);
+
+    ScoringMethod[] scoringMethods = {method1, method2, method3};
+
+    public Basketball(Team homeTeam, Team awayTeam){
+        super.homeTeam = homeTeam;
+        super.awayTeam = awayTeam;
+    }
+
+    public ScoringMethod[] getScoringMethods(){
         return scoringMethods;
     }
-    /* Adds points to the home teams score */
-    public void addScoreHome(int method){
-        homeScore += scoringPoints[method -1];
-    }
 
-    /* Adds points to the away teams score */
-    public void addScoreAway(int method){
-        awayScore += scoringPoints[method -1];
-    }
     public int getPeriodLength(){
         return 12;
     }

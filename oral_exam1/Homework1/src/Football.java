@@ -19,10 +19,6 @@ public class Football extends Game{
         return scoringMethods;
     }
 
-//    public ScoringMethod get(int whichMethod){
-//        return ScoringMethod[whichMethod];
-//    }
-
     public int getPeriodLength(){
         return 15;
     }
