@@ -25,6 +25,13 @@ public class KeyGenerator {
         Scanner inputFileName = new Scanner(System.in);
         String fileName = inputFileName.nextLine() + ".txt/";
 
+//        while(fileName == " .txt/"){
+//            System.out.println("Please enter a name: ");
+//
+//            Scanner inputFilebame = new Scanner(System.in);
+//            fileName = inputFilebame.nextLine() + ".txt/";
+//        }
+
         File keyFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + fileName);
 
         try{

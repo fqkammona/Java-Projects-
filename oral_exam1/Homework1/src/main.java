@@ -10,6 +10,7 @@ public class main {
         System.out.println("1. Football");
         System.out.println("2. Basketball");
         System.out.println("3. Soccer");
+        System.out.println("4. Hockey");
         System.out.print("Enter Choice: ");
 
         Scanner input = new Scanner(System.in);
@@ -28,8 +29,10 @@ public class main {
              game = new Football(homeTeam, awayTeam);
         }else if(in == 2){
            game = new Basketball(homeTeam, awayTeam);
-        }else {
+        }else if(in == 3){
             game = new Soccer(homeTeam, awayTeam);
+        }else{
+            game = new Hockey(homeTeam, awayTeam);
         }
 
         game.startGame();
