@@ -15,9 +15,6 @@ public abstract class Game {
 
     public abstract ScoringMethod[] getScoringMethods();
 
-
-//    public abstract ScoringMethod get(int c);
-
     public Team getHomeTeam() {
         return homeTeam;
     }
@@ -48,15 +45,16 @@ public abstract class Game {
         return gameOver;
     }
 
-//    public String getWinnter(){ /* to find out who is the winner */
-//        if(homeScore > awayScore){
-//            return homeTeam;
-//        } else if( awayScore > homeScore){
-//            return awayTeam;
-//        } else {
-//            return "Tie";
-//        }
-//    }
+    /** This method compares the scores and sends the name of the winning team */
+    public String getWinnter(){ /* to find out who is the winner */
+        if(homeTeam.getTeamScore() > awayTeam.getTeamScore()){
+            return homeTeam.getTeamName();
+        } else if(awayTeam.getTeamScore() > homeTeam.getTeamScore()){
+            return awayTeam.getTeamName();
+        } else {
+            return "Tie";
+        }
+    }
     /** This returns the string with info about home/away score */
     public String printScoreUpdate(){
         String print = "";

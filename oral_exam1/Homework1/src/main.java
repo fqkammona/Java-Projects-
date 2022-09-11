@@ -35,10 +35,6 @@ public class main {
         game.startGame();
         boolean thisGameOver = game.isGameOver();
 
-//        ScoringMethod touchdown = game.getScoringMethods()[0];
-
-//        System.out.println(touchdown.getNameOfMethod());
-
         /* This is the loop for the game */
         while(!thisGameOver){
 
@@ -70,7 +66,7 @@ public class main {
                 if(count == 1){ teamName = awayTeam.TeamName; } // is this right??
 
                 for(ScoringMethod method: methods){
-                    System.out.println(number + ". " + teamName + " " + method);
+                    System.out.println(number + ". " + teamName + " " + method.getNameOfMethod());
                     number++;
                 }
                 count++;
@@ -95,45 +91,35 @@ public class main {
             if(choice <= methods.length){ // This is home team
                 ScoringMethod methodChoice = game.getScoringMethods()[choice - 1];
                 game.addScore(methodChoice, homeTeam);
-            } else if (choice <= (methods.length * 2)){
+                replay.add(homeTeam.TeamName + " " + methodChoice.getNameOfMethod()); // Add a short method for score 9-8 hawks
+            } else if (choice <= (methods.length * 2)){ // This is away team
                 ScoringMethod methodChoice = game.getScoringMethods()[choice - methods.length - 1];
                 game.addScore(methodChoice, awayTeam);
+                replay.add(awayTeam.TeamName + " " + methodChoice.getNameOfMethod());
             } else {
                 game.endCurrentPeriod();
             }
 
-
-
-//            if(choice <= methods.length){ // Choice is for home team
-//                game.addScoreHome(choice);
-//                replay.add(game.getHomeTeamName() + " " + methods[choice -1] + " " + game.printScoreUpdate()); // Adding the choice to the replay list
-//            } else if (choice <= (methods.length * 2)){ // choice is for away team
-//                game.addScoreAway(choice - methods.length); // Subtrack by the length so that we start at the begining of the array
-//                replay.add(game.getAwayTeamName() + " " + methods[choice - methods.length -1] + " " + game.printScoreUpdate()); // Adding the choice to the replay list
-//            } else {
-//                game.endCurrentPeriod();
-//            }
-//
             thisGameOver = game.isGameOver();
         }
-//
-//        /* This is the Result section */
-//        System.out.println();
-//        System.out.println("Game is over.");
-//
-//        System.out.println(game.printScoreUpdate());
-//
-//        System.out.print("Current " + game.getPeriodName());
-//        System.out.println(": Final");
-//        System.out.println("Winner: " + game.getWinnter());
-//
-//        /* This section prints the Replay */
-//        System.out.println();
-//        System.out.println("Replay");
-//
-//        for(String play : replay){
-//            System.out.println(play);
 
+        /* This is the Result section */
+        System.out.println();
+        System.out.println("Game is over.");
+
+        System.out.println(game.printScoreUpdate());
+
+        System.out.print("Current " + game.getPeriodName());
+        System.out.println(": Final");
+        System.out.println("Winner: " + game.getWinnter());
+
+        /* This section prints the Replay */
+        System.out.println();
+        System.out.println("Replay");
+
+        for(String play : replay) {
+            System.out.println(play);
+        }
 
     }
 }
