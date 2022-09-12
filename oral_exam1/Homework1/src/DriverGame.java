@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.LinkedList;
-public class main {
+public class DriverGame {
     public static void main(String[] args) {
         LinkedList<String> replay = new LinkedList<>();
 
@@ -11,6 +11,7 @@ public class main {
         System.out.println("2. Basketball");
         System.out.println("3. Soccer");
         System.out.println("4. Hockey");
+        System.out.println("5. Baseball");
         System.out.print("Enter Choice: ");
 
         Scanner input = new Scanner(System.in);
@@ -31,8 +32,10 @@ public class main {
            game = new Basketball(homeTeam, awayTeam);
         }else if(in == 3){
             game = new Soccer(homeTeam, awayTeam);
-        }else{
+        }else if(in == 4){
             game = new Hockey(homeTeam, awayTeam);
+        }else{
+            game = new Baseball(homeTeam,awayTeam);
         }
 
         game.startGame();
