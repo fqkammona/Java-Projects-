@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 public class Account {
     private static double currency;
     private final int accountNum; // This is final because you should always have the same number
@@ -10,6 +11,8 @@ public class Account {
     }
 
     public double getBalance() {
+        BigDecimal changeB =new BigDecimal(balance);
+       // return rounded(changeB);
         return balance;
     }
 
@@ -27,5 +30,9 @@ public class Account {
 
     public static void setCurrency(double currency) {
         Account.currency = currency;
+    }
+
+    public static double getCurrency() {
+        return currency;
     }
 }
