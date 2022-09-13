@@ -1,10 +1,11 @@
 public class Hockey extends Game{
 
-    /**This section is creating all the ... and then
-     * adding them into an array of ScoringMethods
-     * called scoringMethods */
-    ScoringMethod method1 = new ScoringMethod("Goal", 1);
-    ScoringMethod[] scoringMethods = {method1};
+    /** Using an Anonymous create all the scoringMethod objects
+     * and then adding them into an array of ScoringMethods called scoringMethods. */
+    ScoringMethod[] scoringMethods = {
+            new ScoringMethod("Goal", 1)
+    };
+
     public String periodName = "Period";
 
     public Hockey(Team homeTeam, Team awayTeam){
@@ -23,11 +24,7 @@ public class Hockey extends Game{
         return 20;
     }
     public boolean isGameOver(){ /* the base rules for game rules */
-        if (period == 4){
-            gameOver = true;
-        }else {
-            gameOver = false;
-        }
+        gameOver = period == 4; // if period == 4 then gameOver = true otherwise gameOver stays false
         return gameOver;
     }
 }

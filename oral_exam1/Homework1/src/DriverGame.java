@@ -26,6 +26,7 @@ public class DriverGame {
         Scanner awayInput = new Scanner(System.in);
         Team awayTeam = new Team(awayInput.nextLine());
 
+        /* This is polymorphism */
         if(in == 1){
              game = new Football(homeTeam, awayTeam);
         }else if(in == 2){

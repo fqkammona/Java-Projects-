@@ -1,13 +1,14 @@
 public class Baseball extends Game{
-    /**This section is creating all the ... and then
-     * adding them into an array of ScoringMethods
-     * called scoringMethods */
-    ScoringMethod method1 = new ScoringMethod("Single", 1);
-    ScoringMethod method2 = new ScoringMethod("Double", 2);
-    ScoringMethod method3 = new ScoringMethod("Triple", 3);
 
-    ScoringMethod method4 = new ScoringMethod("Home-Rune", 4);
-    ScoringMethod[] scoringMethods = {method1, method2, method3,method4};
+    /** Using an Anonymous create all the scoringMethod objects
+     * and then adding them into an array of ScoringMethods called scoringMethods. */
+    ScoringMethod[] scoringMethods = {
+            new ScoringMethod("Single", 1),
+            new ScoringMethod("Double", 2),
+            new ScoringMethod("Triple", 3),
+            new ScoringMethod("Home-Run", 4)
+    };
+
     public String periodName = "inning";
     public Baseball(Team homeTeam, Team awayTeam){
         super.homeTeam = homeTeam;
@@ -22,11 +23,7 @@ public class Baseball extends Game{
     }
 
     public boolean isGameOver(){ /* the base rules for game rules */
-        if (period == 10){
-            gameOver = true;
-        }else {
-            gameOver = false;
-        }
+        gameOver = period == 10; // if period == 10 then gameOver = true otherwise gameOver stays false
         return gameOver;
     }
 }

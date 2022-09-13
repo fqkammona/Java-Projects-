@@ -1,5 +1,5 @@
 public class Team {
-    public String TeamName;
+    public final String TeamName;
     public int TeamScore;
     public Team(String TeamName){
         this.TeamName = TeamName;
