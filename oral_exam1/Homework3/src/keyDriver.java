@@ -7,7 +7,7 @@ import java.lang.Math; //importing this class so i can use math.Random
 public class keyDriver {
 
     public static void main(String[] args) {
-        KeyGenerator keyG = new KeyGenerator();
+      //  KeyGenerator keyG = new KeyGenerator();
         System.out.print("Enter the name of the file you would like to create: ");
 
         Scanner inputFileName = new Scanner(System.in);
@@ -43,7 +43,7 @@ public class keyDriver {
 
                 writeKey.write(String.valueOf(position)); // you have to change the integer into a string.
 
-                writeKey.write("\n" + keyG.createKeyList(nValues));
+                writeKey.write("\n" + KeyGenerator.createKeyList(nValues)); // is this using anonymous?
 
                 writeKey.close(); // You have to close the file
             }
