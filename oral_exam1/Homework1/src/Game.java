@@ -15,7 +15,6 @@ public abstract class Game {
 
     public abstract ScoringMethod[] getScoringMethods();
 
-
     public void addScore(ScoringMethod method, Team name){
         int point = method.getPoint();
         name.addScore(point);
@@ -27,19 +26,14 @@ public abstract class Game {
         period = 1;
     }
 
-
     /** This method is the base rules for the game. */
     public boolean isGameOver(){
-        if (period == 5){
-            gameOver = true;
-        }else {
-            gameOver = false;
-        }
+        gameOver = period == 5; // if period == 5 then gameOver = true else gameOver = false
         return gameOver;
     }
 
     /** This method compares the scores and sends the name of the winning team */
-    public String getWinnter(){ /* to find out who is the winner */
+    public String getWinner(){ /* to find out who is the winner */
         if(homeTeam.getTeamScore() > awayTeam.getTeamScore()){
             return homeTeam.getTeamName();
         } else if(awayTeam.getTeamScore() > homeTeam.getTeamScore()){

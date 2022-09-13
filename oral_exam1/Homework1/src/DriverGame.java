@@ -110,7 +110,7 @@ public class DriverGame {
 
         System.out.print("Current " + game.getPeriodName());
         System.out.println(": Final");
-        System.out.println("Winner: " + game.getWinnter());
+        System.out.println("Winner: " + game.getWinner());
 
         /* This section prints the Replay */
         System.out.println();
