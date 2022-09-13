@@ -60,14 +60,6 @@ public class DriverGame {
 
             while(count < 2){ //This loop is to go through the scoring methods twice
 
-                /* Which team we are talking about */
-//                if (count == 0){
-//                    Team thisTeam = game.getHomeTeam();
-//                } else {
-//                    Team thisTeam = game.getHomeTeam();
-//                }
-
-/** I DON'T LIKE THIS WAY COME BACK LATER AND SEE IF YOU CAN DO IT IN A DIFFERENT WAY */
                 String teamName = homeTeam.getTeamName(); // Is this right??
                 if(count == 1){ teamName = awayTeam.TeamName; } // is this right??
 
