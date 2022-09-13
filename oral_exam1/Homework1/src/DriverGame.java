@@ -63,7 +63,7 @@ public class DriverGame {
                 String teamName = homeTeam.getTeamName(); // Is this right??
                 if(count == 1){ teamName = awayTeam.TeamName; } // is this right??
 
-                for(ScoringMethod method: methods){
+                for(ScoringMethod method: methods){ // Iterates through the array of methods and prints out the methods name
                     System.out.println(number + ". " + teamName + " " + method.getNameOfMethod());
                     number++;
                 }

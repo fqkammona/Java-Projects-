@@ -16,14 +16,6 @@ public abstract class Game {
     public abstract ScoringMethod[] getScoringMethods();
 
 
-    public Team getHomeTeam() {
-        return homeTeam;
-    }
-
-    public Team getAwayTeam(){
-        return awayTeam;
-    }
-
     public void addScore(ScoringMethod method, Team name){
         int point = method.getPoint();
         name.addScore(point);
