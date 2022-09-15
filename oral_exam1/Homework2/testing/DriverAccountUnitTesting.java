@@ -24,4 +24,16 @@ class DriverAccountUnitTesting {
         assertEquals(a1.getBalance(), 500);
         assertEquals(a2.getBalance(), 300.2345);
     }
+
+    @Test
+    void currency(){
+        Account.setCurrency(1.2);
+        assertEquals(Account.getCurrency(), 1.2);
+    }
+
+    @Test
+    void withdrawProcess(){
+        Account a1 = new Account(1,500);
+     //   assertEquals(a1.Withdraw(300), "8 SWD Bill");
+    }
 }
