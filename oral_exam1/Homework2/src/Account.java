@@ -3,10 +3,8 @@ import java.math.RoundingMode;
 import java.util.LinkedList;
 
 public class Account {
-    private static double currency;
-    private final double[] swdDollars = {25, 10, 5, 1, .20, .08, 0.05, 0.01}; // static or no ?
-
-    private BigDecimal[] dollars = {
+    private static double currency = 1;
+    private final BigDecimal[] dollars = {
             new BigDecimal(Double.toString(25)),
             new BigDecimal(Double.toString(10)),
             new BigDecimal(Double.toString(5)),
@@ -20,10 +18,9 @@ public class Account {
     private BigDecimal balance;
     private final int accountNum; // This is final because you should always have the same number
 
-
     public Account(int accountNum, double balance){
         this.accountNum = accountNum;
-        this.balance = new BigDecimal(Double.toString(balance));
+        updateBalance(balance);
     }
 
     public BigDecimal getBalance() {
@@ -31,8 +28,7 @@ public class Account {
     }
 
     public String getWithdraw(double amount1){
-        amount1 = amount1 * currency;
-        BigDecimal amount = new BigDecimal(Double.toString(amount1));
+        BigDecimal amount = new BigDecimal(Double.toString(getExchangeAmount(amount1)));
         String hold = "";
 
         if(amount.compareTo(balance) == 1){ // if you try taking more than you have
@@ -62,10 +58,17 @@ public class Account {
     public int getAccountNum() {
         return accountNum;
     }
-    public void updateBalance(BigDecimal balance){
-        this.balance = balance;
+
+    /* The method that does the exchange rate and updated it and intizlize balance */
+    private void updateBalance(double balance){
+        // anoumys var of getEchangeAmount
+        this.balance = new BigDecimal(Double.toString(getExchangeAmount(balance)));
     }
 
+    public double getExchangeAmount(double balance){ // This balance has nothing to do with my acutal balance var
+        balance = balance * currency;
+        return balance;
+    }
     public static void setCurrency(double currency) {
         Account.currency = currency;
     }
