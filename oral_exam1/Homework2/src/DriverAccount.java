@@ -13,13 +13,7 @@ public class DriverAccount {
 
      //   System.out.println(a1.Withdraw(10.20));
 
-        System.out.print(a1.getWithdraw(400));
+        System.out.print(a1.getWithdraw(600));
 
-//        Account a1 = new Account(1,500);
-//        Account a2 = new Account(2,300.2345);
-//
-//        accounts.add(a1);
-//        accounts.add(a2);
-//        System.out.println();
     }
 }

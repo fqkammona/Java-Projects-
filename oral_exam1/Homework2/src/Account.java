@@ -14,76 +14,47 @@ public class Account {
             new BigDecimal(Double.toString(.20)),
             new BigDecimal(Double.toString(.08)),
             new BigDecimal(Double.toString(.05)),
-            new BigDecimal(Double.toString(.001))
+            new BigDecimal(Double.toString(.01))
     };
 
-    private BigDecimal balance1;
+    private BigDecimal balance;
     private final int accountNum; // This is final because you should always have the same number
-    private double balance;
+
 
     public Account(int accountNum, double balance){
         this.accountNum = accountNum;
-        this.balance = balance;
-        this.balance1 = new BigDecimal(Double.toString(balance));
+        this.balance = new BigDecimal(Double.toString(balance));
     }
 
-    public double getBalance() {
-        BigDecimal changeB =new BigDecimal(balance);
-       // return rounded(changeB);
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public String getnewB(){
-        BigDecimal hold = new BigDecimal(Double.toString(.10));
-        BigDecimal answ = new BigDecimal(Double.toString(.15444679955));
-
-
-
-        answ = answ.add(hold);
-        answ = answ.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        String str = answ.stripTrailingZeros().toPlainString();
-
-        return str;
-
-    }
     public String getWithdraw(double amount1){
+        amount1 = amount1 * currency;
         BigDecimal amount = new BigDecimal(Double.toString(amount1));
         String hold = "";
 
-        if(amount.compareTo(balance1) == 1){ // if you try taking more than you have
+        if(amount.compareTo(balance) == 1){ // if you try taking more than you have
             return "Error: not enough money";
         }
 
-
-        //        while(amount > 0){
-//            int countBill = 0;
-//            while(amount >=  swdDollars[i]){
-//                countBill++;
-//                amount -= swdDollars[i];
-//            }
-//            hold = hold + countBill + " - " + swdDollars[i] + " SWD Bill, \n";
-//           // replay.add(countBill, ", SWD Bill");
-//            i++;
-//        }
-//
-//        balance -= amount;
+        /* Subtract balance before we start the withdraw process */
+        balance = balance.subtract(amount);
 
         int i = 0;
-        while(!amount.equals(0)){
+        while(amount.compareTo(new BigDecimal(Double.toString(0))) > 0){
             int countBill = 0;
-            while(amount.compareTo(dollars[i]) == 1){
+            while(amount.compareTo(dollars[i]) >= 0){
                 countBill++;
                 amount = amount.subtract(dollars[i]);
             }
-            //hold = hold + countBill + " - " + swdDollars[i] + " SWD Bill, \n";
-           // replay.add(countBill, ", SWD Bill");
-            amount = amount.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-//            String str = amount.stripTrailingZeros().toPlainString();
+
+            amount = amount.setScale(2, BigDecimal.ROUND_HALF_EVEN); // This rounds bigDecimal by 2 and rounds up.
 
             hold = hold + countBill + " - " + dollars[i] + " SWD Bill, \n";
             i++;
         }
-
 
         return hold;
     }
@@ -91,35 +62,8 @@ public class Account {
     public int getAccountNum() {
         return accountNum;
     }
-
-    public void updateBalance(double balance){
+    public void updateBalance(BigDecimal balance){
         this.balance = balance;
-    }
-
-    public String Withdraw(double amount){
-       if(amount > balance) return "error Funds not effiecent"; // To make sure you don't with draw more then you have.
-        String hold = "";
-        int i = 0;
-
-//        while(amount > 0){
-//            int countBill = 0;
-//            while(amount >=  swdDollars[i]){
-//                countBill++;
-//                amount -= swdDollars[i];
-//            }
-//            hold = hold + countBill + " - " + swdDollars[i] + " SWD Bill, \n";
-//           // replay.add(countBill, ", SWD Bill");
-//            i++;
-//        }
-//
-//        balance -= amount;
-
-
-
-
-
-
-        return hold;
     }
 
     public static void setCurrency(double currency) {
