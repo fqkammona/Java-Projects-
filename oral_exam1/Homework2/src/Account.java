@@ -5,7 +5,6 @@ import java.util.function.BiFunction;
 public class Account {
     private static BigDecimal currency = new BigDecimal(1);
 
-    private boolean inUSD = false;
     private final BigDecimal[] USDdollars = {
             new BigDecimal(Double.toString(20)),
             new BigDecimal(Double.toString(10)),
@@ -54,8 +53,7 @@ public class Account {
     }
 
     public static BigDecimal getCurrency() {
-        BigDecimal c = currency.setScale(2, BigDecimal.ROUND_HALF_EVEN); // This rounds bigDecimal by 2 and rounds up.
-        return c;
+        return currency;
     }
 
 
@@ -73,7 +71,7 @@ public class Account {
 
     /** These are the exchangeToSWD methods
      * The one that takes the double is best for when the user just wants to see exchange rate
-     * the other is best when doing the withdraw method.*/
+     * the other is best when doing the withdrawal method.*/
     public BigDecimal getExchangeToSWD(BigDecimal amount){
         amount = amount.multiply(currency);
         return amount;
@@ -97,7 +95,7 @@ public class Account {
 
 
 
-    /* this is the withdraw method in SWD */
+    /* this is the withdrawal method in SWD */
     public String withdrawSWD(double amount){
         // amount is given in SWD
         // amountAfterExchange is the amount in USD
@@ -116,25 +114,41 @@ public class Account {
         BigDecimal amountBigD = new BigDecimal(Double.toString(amount));
 
         /* 5. We Set the inUSD to false because we want to print in SWD */
-        inUSD = false;
+
 
         /* 6. We can now call the withdraw method */
-        output = getWithdraw(amountBigD);
+        output = getWithdraw(amountBigD, SWDdollars); /// ASK about this.
 
         return output;
     }
 
+    public String withdrawUSD(double amount){
+        // amount is given in SWD
+        // amountAfterExchange is the amount in USD
 
-    private String getWithdraw(BigDecimal amountBigD){
+        /* 1. Amount is given in SWD, so we need to exchange it into USD */
+
+
+        /* 2. We need to verify that the amount is less than the balance */
+
+
+        /* 3. Update the balance. Balance is always in USD therefor we use the amountAfterExchange to update it */
+
+
+        /* 4. Create a BigDecimal of amount */
+        BigDecimal amountBigD = new BigDecimal(Double.toString(amount));
+
+        /* 5. We Set the inUSD to false because we want to print in SWD */
+
+
+        /* 6. We can now call the withdraw method */
+        String output = getWithdraw(amountBigD, USDdollars); /// ASK about this.
+
+        return output;
+    }
+
+    private String getWithdraw(BigDecimal amountBigD, BigDecimal[] dollars){
         String hold = "";
-
-        BigDecimal[] dollars;
-
-        if(inUSD == false){
-            dollars = SWDdollars.clone();
-        }else {
-            dollars = USDdollars.clone();
-        }
 
         int i = 0;
         while(amountBigD.compareTo(new BigDecimal(Double.toString(0))) > 0){
@@ -149,7 +163,6 @@ public class Account {
             hold = hold + countBill + " - " + dollars[i] + " SWD Bill, \n";
             i++;
         }
-
         return hold;
     }
 
