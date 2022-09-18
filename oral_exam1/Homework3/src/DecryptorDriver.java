@@ -13,14 +13,14 @@ public class DecryptorDriver {
 
         // Scanner keyPath = new Scanner(System.in);
         // String key = keyPath.nextLine();
-        File keyFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/youWork.txt");
+        File keyFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
 
         //  System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txtEncrypted.txt");
         // System.out.print("Please enter the path to the encrypted file: ");
 
         // Scanner encryptedPath = new Scanner(System.in);
         //String encrypted = encryptedPath.nextLine();
-        File encryptedFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/Encrypted.youWork.txt");
+        File encryptedFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/Encrypted.keyFile.txt");
 
         try{
             FileReader readKey = new FileReader(keyFile);

@@ -10,9 +10,13 @@ public class DriverAccount {
        // Account.setCurrency(1.2);
 
         Account a1 = new Account(1,500);
-
-        System.out.print(a1.getWithdraw(400));
-        System.out.println(a1.getWithdraw(17.53));
+        Account.setCurrency(1.2);
+       // System.out.println(a1.getExchangeFromSWD(80));
+        System.out.println(a1.withdrawSWD(80));
         System.out.println(a1.getBalance());
+//
+//        System.out.print(a1.getWithdraw(400));
+//        System.out.println(a1.getWithdraw(17.53));
+//        System.out.println(a1.getBalance());
     }
 }

@@ -29,20 +29,29 @@ class DriverAccountUnitTesting {
         assertEquals(a2.getBalance(), new BigDecimal("300.2345"));
     }
 
-    @Test
-    void currency(){
-        Account.setCurrency(1.2);
-        assertEquals(Account.getCurrency(), 1.2);
-        Account.setCurrency(1.5);
-        assertEquals(Account.getCurrency(), 1.5);
-        Account.setCurrency(1);
-        assertEquals(Account.getCurrency(), 1);
-    }
 
-    @Test
-    void withdrawProcess(){
-        Account a1 = new Account(1,500);
-        assertEquals(a1.getWithdraw(400), "16 - 25.0 SWD Bill, \n");
 
-    }
+//    @Test
+//    void settingAndGettingCurrency(){
+//        Account.setCurrency(1.2);
+//        assertEquals(Account.getCurrency(), new BigDecimal(1.2));
+//        Account.setCurrency(1.5);
+//        assertEquals(Account.getCurrency(), new BigDecimal(1.5));
+//        Account.setCurrency(1);
+//        assertEquals(Account.getCurrency(), new BigDecimal(1));
+//    }
+//
+//    @Test
+//    void callingCurrency(){
+//        Account a1 = new Account(1,500);
+//        Account a2 = new Account(2,300);
+//        Account.setCurrency(1.3);
+//        assertEquals(a1.getCurrency(), 1);
+//    }
+//
+//    @Test
+//    void withdrawProcess(){
+//        Account a1 = new Account(1,500);
+//        assertEquals(a1.withdrawSWD(80), "4 - 25.0 SWD Bill, \n");
+//    }
 }
