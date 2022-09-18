@@ -92,9 +92,6 @@ public class Account {
     }
 
 
-
-
-
     /* this is the withdrawal method in SWD */
     public String withdrawSWD(double amount){
         // amount is given in SWD
@@ -122,18 +119,20 @@ public class Account {
         return output;
     }
 
-    public String withdrawUSD(double amount){
-        // amount is given in SWD
-        // amountAfterExchange is the amount in USD
-
-        /* 1. Amount is given in SWD, so we need to exchange it into USD */
+    public String withdrawFromUSDtoSWD(double amount){
+        // amount is given in USD
+        // amountAfterExchange is the amount in SWD
 
 
-        /* 2. We need to verify that the amount is less than the balance */
+        /* 1. We need to verify that the amount is less than the balance */
+        String output = verifyWithdraw(new BigDecimal(Double.toString(amount)));
+        if(!output.equals("")){ return output; }
 
+        /* 2. Amount is given in USD, so we need to exchange it into SWD */
+        BigDecimal amountAfterExchange = getExchangeToSWD(amount);
 
         /* 3. Update the balance. Balance is always in USD therefor we use the amountAfterExchange to update it */
-
+        updateBalance(getExchangeToSWD(amount));
 
         /* 4. Create a BigDecimal of amount */
         BigDecimal amountBigD = new BigDecimal(Double.toString(amount));
@@ -142,7 +141,7 @@ public class Account {
 
 
         /* 6. We can now call the withdraw method */
-        String output = getWithdraw(amountBigD, USDdollars); /// ASK about this.
+         output = getWithdraw(amountBigD, USDdollars); /// ASK about this.
 
         return output;
     }
@@ -158,15 +157,12 @@ public class Account {
                 amountBigD = amountBigD.subtract(dollars[i]);
             }
 
-            amountBigD = amountBigD.setScale(2, BigDecimal.ROUND_HALF_EVEN); // This rounds bigDecimal by 2 and rounds up.
+            amountBigD = amountBigD.setScale(2, RoundingMode.HALF_UP); // This rounds bigDecimal by 2 and rounds up.
 
             hold = hold + countBill + " - " + dollars[i] + " SWD Bill, \n";
             i++;
         }
         return hold;
     }
-
-
-
 
 }

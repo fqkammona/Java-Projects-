@@ -10,9 +10,10 @@ public class DriverAccount {
        // Account.setCurrency(1.2);
 
         Account a1 = new Account(1,500);
-        Account.setCurrency(15);
+        Account.setCurrency(1.2);
 
-        System.out.println(Account.getCurrency());
+
+        System.out.println(a1.withdrawFromUSDtoSWD(100));
 
 
        // System.out.println(a1.getExchangeFromSWD(80));
