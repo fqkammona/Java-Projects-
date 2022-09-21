@@ -75,4 +75,70 @@ class DriverAccountUnitTesting {
         accounts.remove(account1);
     }
 
+    @Test
+    void makingNewAccounts(){ //
+        Bank b = new Bank();
+        b.makeNewAccount(1,500);
+
+        assertEquals(b.getBalance(), new BigDecimal("500.0"));
+    }
+
+    @Test
+    void makingMultipleNewAccounts(){ //
+        Bank b = new Bank();
+        b.makeNewAccount(1,500);
+        b.makeNewAccount(2,100);
+        b.makeNewAccount(3,50);
+
+        assertEquals(b.getBalance(), new BigDecimal("50.0"));
+    }
+
+    @Test
+    void makingExchange(){ //
+        Bank b = new Bank();
+        b.makeNewAccount(1,500);
+        b.makeNewAccount(2,530);
+        Bank.setCurrency(1.2);
+
+        assertEquals(Bank.getCurrency(), new BigDecimal(Double.toString(1.2)));
+    }
+
+    @Test
+    void makingMultipleExchange(){ // Tests calling currency from exchange
+        Bank.setCurrency(1.2);
+
+        assertEquals(Bank.getCurrency(), new BigDecimal(Double.toString(1.2)));
+        assertEquals(Exchange.getCurrency(), new BigDecimal(Double.toString(1.2)));
+    }
+
+    @Test
+    void exchangeWithoutCurrency(){ // testing exchange methods with BigD and double and without putting currency
+        Bank b = new Bank();
+        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(80.0)));
+        assertEquals(b.getExchangeFromSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
+
+        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(80.0)));
+        assertEquals(b.getExchangeToSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
+    }
+
+    @Test
+    void exchangeWithCurrency(){ // testing exchange methods with BigD and double and without putting currency
+        Bank b = new Bank();
+        Bank.setCurrency(1.2);
+        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(66.7)));
+        assertEquals(b.getExchangeFromSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(66.7)));
+
+        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(96.0)));
+        assertEquals(b.getExchangeToSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(96.0)));
+    }
+
+    @Test
+    void differentExchanges(){
+        Bank b = new Bank();
+
+        Bank.setCurrency(1.27);
+        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(63)));
+        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(101.6)));
+    }
+
 }

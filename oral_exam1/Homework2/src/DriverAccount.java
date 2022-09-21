@@ -1,27 +1,27 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.text.NumberFormat;
+import java.util.*;
 
 public class DriverAccount {
 
     public static void main(String[] args) {
         ArrayList<Account> accounts = new ArrayList<Account>();
 
-       // Account.setCurrency(1.2);
 
-        Account a1 = new Account(1,500);
-        Account.setCurrency(1.2);
+        Bank b = new Bank();
+        b.makeNewAccount(1, 500);
+        b.makeNewAccount(2, 530);
+       Bank.setCurrency(1.27);
 
+        System.out.println(b.getBalance());
+       System.out.println(Bank.getCurrency());
+        System.out.println(Exchange.getCurrency());
+        System.out.println(b.getExchangeFromSWD(80));
+        System.out.println(b.getExchangeToSWD(80));
 
-        System.out.println(a1.withdrawFromUSDtoSWD(100));
+        // Account.setCurrency(1.2);
 
-
-       // System.out.println(a1.getExchangeFromSWD(80));
-//        System.out.println(a1.withdrawSWD(80));
-//        System.out.println(a1.getBalance());
-//
-//        System.out.print(a1.getWithdraw(400));
-//        System.out.println(a1.getWithdraw(17.53));
-//        System.out.println(a1.getBalance());
     }
 }
