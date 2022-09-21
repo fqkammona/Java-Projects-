@@ -94,6 +94,16 @@ class DriverAccountUnitTesting {
     }
 
     @Test
+    void exchangeWithoutCurrency(){ // testing exchange methods with BigD and double and without putting currency
+        Bank b = new Bank();
+        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(80.0)));
+        assertEquals(b.getExchangeFromSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
+
+        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(80.0)));
+        assertEquals(b.getExchangeToSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
+    }
+
+    @Test
     void makingExchange(){ //
         Bank b = new Bank();
         b.makeNewAccount(1,500);
@@ -111,15 +121,7 @@ class DriverAccountUnitTesting {
         assertEquals(Exchange.getCurrency(), new BigDecimal(Double.toString(1.2)));
     }
 
-    @Test
-    void exchangeWithoutCurrency(){ // testing exchange methods with BigD and double and without putting currency
-        Bank b = new Bank();
-        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(80.0)));
-        assertEquals(b.getExchangeFromSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
 
-        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(80.0)));
-        assertEquals(b.getExchangeToSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
-    }
 
     @Test
     void exchangeWithCurrency(){ // testing exchange methods with BigD and double and without putting currency
@@ -139,6 +141,20 @@ class DriverAccountUnitTesting {
         Bank.setCurrency(1.27);
         assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(63)));
         assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(101.6)));
+
+        Bank.setCurrency(0.387);
+        assertEquals(b.getExchangeFromSWD(91.25), new BigDecimal(Double.toString(235.79)));
+        assertEquals(b.getExchangeToSWD(104.32), new BigDecimal(Double.toString(40.4)));
+    }
+
+    @Test
+    void differentVerifyWithdraw(){
+        Bank b = new Bank();
+        b.makeNewAccount(1,500);
+
+        assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(600))), "Error: not enough money");
+        assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(500))), "");
+        assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(499.99))), "");
     }
 
 }

@@ -7,15 +7,6 @@ public class Bank extends Exchange {
 
     public newAccount currentAccount;
 
-//    public static void setCurrency(double newCurrency) {
-//        Exchange.setCurrency(newCurrency);
-//
-//    }
-
-//    public static BigDecimal getCurrency() {
-//        return Exchange.getCurrency();
-//    }
-
     public void makeNewAccount(int accountNum, double balance){
         currentAccount = new newAccount(accountNum, balance);
         accounts.add(currentAccount);
@@ -29,4 +20,10 @@ public class Bank extends Exchange {
         return currentAccount.getAccountNum();
     }
 
+    public String verifyWithdraw(BigDecimal amount){
+        if(amount.compareTo(currentAccount.getBalance()) == 1){ // if you try taking more than you have
+            return "Error: not enough money";
+        }
+        return "";
+    }
 }

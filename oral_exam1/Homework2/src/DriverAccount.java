@@ -13,7 +13,7 @@ public class DriverAccount {
         Bank b = new Bank();
         b.makeNewAccount(1, 500);
         b.makeNewAccount(2, 530);
-       Bank.setCurrency(1.27);
+
 
         System.out.println(b.getBalance());
        System.out.println(Bank.getCurrency());
