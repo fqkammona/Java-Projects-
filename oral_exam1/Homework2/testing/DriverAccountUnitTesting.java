@@ -1,7 +1,5 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -116,11 +114,10 @@ class DriverAccountUnitTesting {
     @Test
     void makingMultipleExchange(){ // Tests calling currency from exchange
         Bank.setCurrency(1.2);
-
+        assertEquals(Exchange.getCurrency(), new BigDecimal(Double.toString(1.2)));
         assertEquals(Bank.getCurrency(), new BigDecimal(Double.toString(1.2)));
         assertEquals(Exchange.getCurrency(), new BigDecimal(Double.toString(1.2)));
     }
-
 
 
     @Test
@@ -157,4 +154,23 @@ class DriverAccountUnitTesting {
         assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(499.99))), "");
     }
 
+    @Test
+    void withdrawalBank(){
+        Bank b = new Bank();
+        b.makeNewAccount(1,500);
+
+        Bank.setCurrency(1.2);
+        assertEquals(b.withdrawSWD(80), "3 - 25.0 SWD Bill, \n" +
+                "0 - 10.0 SWD Bill, \n" +
+                "1 - 5.0 SWD Bill, \n");
+
+        b.makeNewAccount(2,75);
+
+        assertEquals(b.withdrawSWD(300), "Error: not enough money");
+        assertEquals(b.withdrawSWD(90), "3 - 25.0 SWD Bill, \n" +
+                "1 - 10.0 SWD Bill, \n" +
+                "1 - 5.0 SWD Bill, \n");
+        assertEquals(b.getBalance(), new BigDecimal(Double.toString(0.00)));
+        assertEquals(b.withdrawSWD(0.01), "Error: not enough money");
+    }
 }

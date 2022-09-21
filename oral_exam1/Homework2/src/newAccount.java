@@ -20,4 +20,8 @@ public class newAccount extends Bank {
         return balance;
     }
 
+    public void setBalance(BigDecimal balance){
+        this.balance = balance;
+    }
+
 }

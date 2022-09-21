@@ -4,7 +4,7 @@ import java.math.RoundingMode;
 public abstract class Exchange {
     private static BigDecimal currency = new BigDecimal(1);
 
-    private final BigDecimal[] USDdollars = {
+    public final BigDecimal[] USDdollars = {
             new BigDecimal(Double.toString(20)),
             new BigDecimal(Double.toString(10)),
             new BigDecimal(Double.toString(5)),
@@ -15,7 +15,7 @@ public abstract class Exchange {
             new BigDecimal(Double.toString(.01))
     };
 
-    private final BigDecimal[] SWDdollars = {
+    public final BigDecimal[] SWDdollars = {
             new BigDecimal(Double.toString(25)),
             new BigDecimal(Double.toString(10)),
             new BigDecimal(Double.toString(5)),
@@ -60,22 +60,22 @@ public abstract class Exchange {
         return amountBigD;
     }
 
-//    private String getWithdraw(BigDecimal amountBigD, BigDecimal[] dollars){
-//        String hold = "";
-//
-//        int i = 0;
-//        while(amountBigD.compareTo(new BigDecimal(Double.toString(0))) > 0){
-//            int countBill = 0;
-//            while(amountBigD.compareTo(dollars[i]) >= 0){
-//                countBill++;
-//                amountBigD = amountBigD.subtract(dollars[i]);
-//            }
-//
-//            amountBigD = amountBigD.setScale(2, RoundingMode.HALF_UP); // This rounds bigDecimal by 2 and rounds up.
-//
-//            hold = hold + countBill + " - " + dollars[i] + " SWD Bill, \n";
-//            i++;
-//        }
-//        return hold;
-//    }
+    public String getWithdraw(BigDecimal amountBigD, BigDecimal[] dollars){
+        String hold = "";
+
+        int i = 0;
+        while(amountBigD.compareTo(new BigDecimal(Double.toString(0))) > 0){
+            int countBill = 0;
+            while(amountBigD.compareTo(dollars[i]) >= 0){
+                countBill++;
+                amountBigD = amountBigD.subtract(dollars[i]);
+            }
+
+            amountBigD = amountBigD.setScale(2, RoundingMode.HALF_UP); // This rounds bigDecimal by 2 and rounds up.
+
+            hold = hold + countBill + " - " + dollars[i] + " SWD Bill, \n";
+            i++;
+        }
+        return hold;
+    }
 }

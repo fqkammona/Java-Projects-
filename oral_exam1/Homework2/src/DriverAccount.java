@@ -7,7 +7,6 @@ import java.util.*;
 public class DriverAccount {
 
     public static void main(String[] args) {
-        ArrayList<Account> accounts = new ArrayList<Account>();
 
 
         Bank b = new Bank();
@@ -16,10 +15,9 @@ public class DriverAccount {
 
 
         System.out.println(b.getBalance());
-       System.out.println(Bank.getCurrency());
-        System.out.println(Exchange.getCurrency());
-        System.out.println(b.getExchangeFromSWD(80));
-        System.out.println(b.getExchangeToSWD(80));
+
+        System.out.println(b.withdrawSWD(80));
+        System.out.println(b.getBalance());
 
         // Account.setCurrency(1.2);
 
