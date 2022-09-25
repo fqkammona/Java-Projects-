@@ -173,4 +173,18 @@ class DriverAccountUnitTesting {
         assertEquals(b.getBalance(), new BigDecimal(Double.toString(0.00)));
         assertEquals(b.withdrawSWD(0.01), "Error: not enough money");
     }
+
+    @Test
+    void findYourAccount(){
+        Bank bank = new Bank();
+        bank.makeNewAccount(1,500);
+        bank.makeNewAccount(2,900);
+        bank.makeNewAccount(3,5.87);
+        bank.makeNewAccount(4,3129.98);
+
+        assertEquals(bank.findAccount(1), "Account has been found.");
+        assertEquals(bank.getBalance(), new BigDecimal(Double.toString(500)));
+        assertEquals(bank.findAccount(89), "");
+
+    }
 }

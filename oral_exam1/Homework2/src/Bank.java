@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class Bank extends Exchange {
     ArrayList<newAccount> accounts = new ArrayList<newAccount>();
-
     public newAccount currentAccount;
 
     public void makeNewAccount(int accountNum, double balance){
@@ -13,13 +12,13 @@ public class Bank extends Exchange {
 
     public BigDecimal getBalance(){
         return currentAccount.getBalance();
-    }
+    } /** GET RID OF THE WORD PUBLIC */
 
     public int getAccountNum() {
         return currentAccount.getAccountNum();
-    }
+    } /** GET RID OF THE WORD PUBLIC */
 
-    public String verifyWithdraw(BigDecimal amount){
+    public String verifyWithdraw(BigDecimal amount){ /** GET RID OF THE WORD PUBLIC */
         if(amount.compareTo(currentAccount.getBalance()) == 1){ // if you try taking more than you have
             return "Error: not enough money";
         }
@@ -30,7 +29,7 @@ public class Bank extends Exchange {
         currentAccount.setBalance(getBalance().subtract(amount));
     }
 
-    public String withdrawSWD(double amount){
+    public String withdrawSWD(double amount){ /** GET RID OF THE WORD PUBLIC */
         // amount is given in SWD
         // amountAfterExchange is the amount in USD
 
@@ -56,7 +55,7 @@ public class Bank extends Exchange {
         return output;
     }
 
-    public String withdrawFromUSDtoSWD(double amount){
+    public String withdrawFromUSDtoSWD(double amount){ /** GET RID OF THE WORD PUBLIC */
         // amount is given in USD
         // amountAfterExchange is the amount in SWD
 
@@ -81,6 +80,18 @@ public class Bank extends Exchange {
         output = getWithdraw(amountBigD, USDdollars); /// ASK about this.
 
         return output;
+    }
+
+    public String findAccount(int number){
+
+        for (newAccount account : accounts){
+            if (account.getAccountNum() == number){
+                currentAccount = account;
+                return "Account has been found.";
+            }
+        }
+
+        return "";
     }
 
 
