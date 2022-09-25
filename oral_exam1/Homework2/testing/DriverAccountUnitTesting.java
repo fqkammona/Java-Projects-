@@ -184,7 +184,20 @@ class DriverAccountUnitTesting {
 
         assertEquals(bank.findAccount(1), "Account has been found.");
         assertEquals(bank.getBalance(), new BigDecimal(Double.toString(500)));
-        assertEquals(bank.findAccount(89), "");
+        assertEquals(bank.findAccount(89), "Error: account was not found.");
+    }
+
+    @Test
+    void deleteAccount(){
+        Bank bank = new Bank();
+        bank.makeNewAccount(1,500);
+        bank.makeNewAccount(21,900);
+        bank.makeNewAccount(300,5.87);
+        bank.makeNewAccount(14,3129.98);
+
+        assertEquals(bank.findAccount(21), "Account has been found.");
+        assertEquals(bank.deleteAccount(21), "Account has been deleted.");
+        assertEquals(bank.findAccount(21), "Error: account was not found.");
 
     }
 }

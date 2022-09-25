@@ -91,7 +91,19 @@ public class Bank extends Exchange {
             }
         }
 
-        return "";
+        return "Error: account was not found.";
+    }
+
+    public String deleteAccount(int number){
+
+        for (newAccount account : accounts){
+            if (account.getAccountNum() == number){
+                accounts.remove(account);
+                return "Account has been deleted.";
+            }
+        }
+
+        return "Error: account was not found.";
     }
 
 
