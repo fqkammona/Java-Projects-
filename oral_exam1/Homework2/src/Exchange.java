@@ -1,30 +1,8 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public abstract class Exchange {
-    private static BigDecimal currency = new BigDecimal(1);
-
-    public final BigDecimal[] USDdollars = {
-            new BigDecimal(Double.toString(20)),
-            new BigDecimal(Double.toString(10)),
-            new BigDecimal(Double.toString(5)),
-            new BigDecimal(Double.toString(1)),
-            new BigDecimal(Double.toString(.25)),
-            new BigDecimal(Double.toString(.10)),
-            new BigDecimal(Double.toString(.05)),
-            new BigDecimal(Double.toString(.01))
-    };
-
-    public final BigDecimal[] SWDdollars = {
-            new BigDecimal(Double.toString(25)),
-            new BigDecimal(Double.toString(10)),
-            new BigDecimal(Double.toString(5)),
-            new BigDecimal(Double.toString(1)),
-            new BigDecimal(Double.toString(.20)),
-            new BigDecimal(Double.toString(.08)),
-            new BigDecimal(Double.toString(.05)),
-            new BigDecimal(Double.toString(.01))
-    };
+public class Exchange extends Currencies{
+    private static BigDecimal currency = new BigDecimal(Double.toString(1.00));
 
     public static void setCurrency(double newCurrency) {
         Exchange.currency = new BigDecimal(Double.toString(newCurrency));
