@@ -1,13 +1,38 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 public class Exchange extends Currencies{
-    private static BigDecimal currency = new BigDecimal(Double.toString(1.00));
+    public static BigDecimal currency = new BigDecimal(Double.toString(1.00));
 
+    ArrayList<CurrenciesList> currenciesList = new ArrayList<CurrenciesList>(){
+        {
+            add(new CurrenciesList("USD", USDdollars, USDcurrency));
+            add(new CurrenciesList("CAD", CADdollars, CADcurrency));
+            add(new CurrenciesList("SWD", SWDdollars, SWDcurrency));
+        }
+    };
+
+
+    public CurrenciesList currentCurrencie;
+
+
+    public void findCurrentCurrency(String name){
+
+    }
+
+    public String getCurrencyName() {
+        return currentCurrencie.getName();
+    } /** GET RID OF THE WORD PUBLIC */
+
+ //   public static final BigDecimal currency;
     public static void setCurrency(double newCurrency) {
         Exchange.currency = new BigDecimal(Double.toString(newCurrency));
     }
 
+//    public Exchange(BigDecimal currency){
+//        this.currency = currency;
+//    }
     public static BigDecimal getCurrency() {
         return currency;
     }
@@ -17,11 +42,19 @@ public class Exchange extends Currencies{
         amount = amount.divide(currency, RoundingMode.HALF_UP);
         return amount;
     }
-    public BigDecimal getExchangeFromSWD(double amount){
+    public static BigDecimal getExchangeFromSWD(double amount){
         BigDecimal amountBigD = new BigDecimal(Double.toString(amount));
         amountBigD = amountBigD.divide(currency, RoundingMode.HALF_UP);
         return amountBigD;
     }
+
+
+    public static BigDecimal getIdeaToSWD(double amount, Currencies Name){
+        BigDecimal amountBigD = new BigDecimal(Double.toString(amount));
+        //amountBigD = amountBigD.divide(Currencies.SWD, RoundingMode.HALF_UP);
+        return amountBigD;
+    }
+
 
     /** These are the exchangeToSWD methods
      * The one that takes the double is best for when the user just wants to see exchange rate

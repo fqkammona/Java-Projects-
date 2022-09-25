@@ -5,9 +5,18 @@ public class Bank extends Exchange {
     ArrayList<newAccount> accounts = new ArrayList<newAccount>();
     public newAccount currentAccount;
 
+
+
+
+    public static void setCurrency(double newCurrency) {
+        BigDecimal currency = new BigDecimal(Double.toString(newCurrency));
+
+    }
+
     public void makeNewAccount(int accountNum, double balance){
         currentAccount = new newAccount(accountNum, balance);
         accounts.add(currentAccount);
+
     }
 
     public BigDecimal getBalance(){
