@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Currencies {
+public abstract class Currencies {
 
     public final BigDecimal[] USDdollars = {
             new BigDecimal(Double.toString(20)),
@@ -39,7 +39,7 @@ public class Currencies {
 
     public static BigDecimal CADcurrency = new BigDecimal(Double.toString(0.74));
 
-    public static BigDecimal SWDcurrency = new BigDecimal(Double.toString(1.5));
+    public static BigDecimal SWDcurrency = new BigDecimal(Double.toString(1));
     public static BigDecimal USDcurrency = new BigDecimal(Double.toString(1));
 
 }

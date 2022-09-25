@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Exchange extends Currencies{
     public static BigDecimal currency = new BigDecimal(Double.toString(1.00));
 
-    ArrayList<CurrenciesList> currenciesList = new ArrayList<CurrenciesList>(){
+    ArrayList<CurrenciesList> currencies = new ArrayList<CurrenciesList>(){
         {
             add(new CurrenciesList("USD", USDdollars, USDcurrency));
             add(new CurrenciesList("CAD", CADdollars, CADcurrency));
@@ -14,21 +14,39 @@ public class Exchange extends Currencies{
     };
 
 
-    public CurrenciesList currentCurrencie;
+    public CurrenciesList myCurrentCurrency;
 
+    public  BigDecimal getExchangeRate() {
+        return myCurrentCurrency.getExchangeRate();
+    }
 
-    public void findCurrentCurrency(String name){
+    public void upDateCurrency(BigDecimal newCurrency, String name){
+        String hold = findCurrentCurrency(name);
 
+        if(hold.equals("")){
+            myCurrentCurrency.upDateExchangeRate(newCurrency);
+        }
+    }
+
+    public String findCurrentCurrency(String name){
+
+        for(CurrenciesList holdCurrency : currencies){
+            if(holdCurrency.getName().equals(name)){
+                myCurrentCurrency = holdCurrency;
+                return "";
+            }
+        }
+        return "Error Currency not found";
     }
 
     public String getCurrencyName() {
-        return currentCurrencie.getName();
+        return myCurrentCurrency.getName();
     } /** GET RID OF THE WORD PUBLIC */
 
  //   public static final BigDecimal currency;
-    public static void setCurrency(double newCurrency) {
-        Exchange.currency = new BigDecimal(Double.toString(newCurrency));
-    }
+//    public static void setCurrency(double newCurrency) {
+//        Exchange.currency = new BigDecimal(Double.toString(newCurrency));
+//    }
 
 //    public Exchange(BigDecimal currency){
 //        this.currency = currency;

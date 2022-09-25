@@ -6,10 +6,16 @@ public class Bank extends Exchange {
     public newAccount currentAccount;
 
 
+    public void addNewRate(double newCurrency){
+        BigDecimal currency = new BigDecimal(Double.toString(newCurrency));
+        upDateCurrency(currency, "SWD");
+    }
 
 
     public static void setCurrency(double newCurrency) {
         BigDecimal currency = new BigDecimal(Double.toString(newCurrency));
+      //  public void upDateCurrency(BigDecimal newCurrency, String name){
+
 
     }
 
