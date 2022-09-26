@@ -115,25 +115,25 @@ class DriverAccountUnitTesting {
         assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(499.99))), "");
     }
 
-//    @Test
-//    void withdrawalBank(){
-//        Bank b = new Bank();
-//        b.makeNewAccount(1,500);
-//
-//        Bank.setCurrency(1.2);
-//        assertEquals(b.withdrawSWD(80), "3 - 25.0 SWD Bill, \n" +
-//                "0 - 10.0 SWD Bill, \n" +
-//                "1 - 5.0 SWD Bill, \n");
-//
-//        b.makeNewAccount(2,75);
-//
-//        assertEquals(b.withdrawSWD(300), "Error: not enough money");
-//        assertEquals(b.withdrawSWD(90), "3 - 25.0 SWD Bill, \n" +
-//                "1 - 10.0 SWD Bill, \n" +
-//                "1 - 5.0 SWD Bill, \n");
-//        assertEquals(b.getBalance(), new BigDecimal(Double.toString(0.00)));
-//        assertEquals(b.withdrawSWD(0.01), "Error: not enough money");
-//    }
+    @Test
+    void withdrawalBank(){
+        Bank b = new Bank();
+        b.makeNewAccount(1,500);
+
+        b.upDateCurrency(new BigDecimal(Double.toString(1.2)), "SWD");
+        assertEquals(b.withdrawalIn("SWD",80), "3 - 25.0 SWD Bill, \n" +
+                "0 - 10.0 SWD Bill, \n" +
+                "1 - 5.0 SWD Bill, \n");
+
+        b.makeNewAccount(2,75);
+
+        assertEquals(b.withdrawalIn("SWD",300), "Error: not enough money");
+        assertEquals(b.withdrawalIn("SWD",90), "3 - 25.0 SWD Bill, \n" +
+                "1 - 10.0 SWD Bill, \n" +
+                "1 - 5.0 SWD Bill, \n");
+        assertEquals(b.getBalance(), new BigDecimal("0.00"));
+        assertEquals(b.withdrawalIn("SWD",0.01), "Error: not enough money");
+    }
 
     @Test
     void findYourAccount(){
