@@ -77,42 +77,33 @@ public class Exchange extends Currencies{
 
 // From Name1 to Name2
     public BigDecimal exchangeCurrency(String currencyName1, String currencyName2, double amount1){
-        BigDecimal amountOne = new BigDecimal(Double.toString(amount1));
-      //  BigDecimal amountTwo = new BigDecimal(Double.toString(amount2));
 
-        // Put everything in terms of USD
-
-        CurrenciesList standard = new CurrenciesList("USD", USDdollars, USDcurrency);
-        CurrenciesList currencyOne = new CurrenciesList("USD", USDdollars, USDcurrency);
-        // USD to CAD
-
-         BigDecimal amountTwo = standard.getExchangeRate();
-        if(setMyCurrentCurrency(currencyName1).equals("")) {
-            currencyOne = this.myCurrentCurrency;
-            if(currencyOne.getExchangeRate().compareTo(standard.getExchangeRate()) < 0 ){ // CurrencyOne has a greater exchange rate then USD
-                amountOne = amountOne.multiply(currencyOne.getExchangeRate());
-                amountOne = amountOne.setScale(2, RoundingMode.HALF_UP);
-            } else {
-                amountOne = amountOne.divide(amountTwo, RoundingMode.HALF_UP);
-               //amountOne = amountOne.setScale(1, RoundingMode.HALF_UP);
-            }
+        // We are already in USD and now need to convert
+        if(currencyName1.equals("USD")){ return convertFromUSD(currencyName2, new BigDecimal(Double.toString(amount1))); }
+        else if(currencyName2.equals("USD")) { return convertToUSD(currencyName1, new BigDecimal(Double.toString(amount1))); }
+        else {
+           BigDecimal amount = convertToUSD(currencyName1, new BigDecimal(Double.toString(amount1)));
+           return convertFromUSD(currencyName2, amount);
         }
-
-        if(setMyCurrentCurrency(currencyName2).equals("")) {
-            if(myCurrentCurrency.getExchangeRate().compareTo(standard.getExchangeRate()) < 0 ){ // CurrencyTwo has a greater exchange rate then USD
-                amountOne = amountOne.multiply(myCurrentCurrency.getExchangeRate());
-                amountOne = amountOne.setScale(2, RoundingMode.HALF_UP);
-            } else {
-                amountOne = amountOne.divide(myCurrentCurrency.getExchangeRate(), RoundingMode.HALF_UP);
-                //amountOne = amountOne.setScale(1, RoundingMode.HALF_UP);
-            }
-        }
-
-        return amountOne;
 
     }
 
-    //private BigDecimal
+    // We are in USD and now need to the exchange
+    private BigDecimal convertFromUSD(String currencyName, BigDecimal amount){
+
+        if(setMyCurrentCurrency(currencyName).equals("")) {
+            amount = amount.multiply(myCurrentCurrency.getExchangeRate());
+        }
+        return amount.setScale(2, RoundingMode.HALF_UP);
+    }
+    private BigDecimal convertToUSD(String currencyName, BigDecimal amount){
+
+        if(setMyCurrentCurrency(currencyName).equals("")) {
+            amount.setScale(2);
+            amount = amount.divide(myCurrentCurrency.getExchangeRate(), 2, RoundingMode.CEILING);
+        }
+        return amount;
+    }
 
     /** These are the exchangeFromSWD methods */
 //    public BigDecimal getExchangeFromSWD(BigDecimal amount){

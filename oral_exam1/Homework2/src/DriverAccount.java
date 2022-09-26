@@ -13,14 +13,20 @@ public class DriverAccount {
         Exchange exchange = new Exchange();
 
         Bank b = new Bank();
-
+        b.upDateCurrency(new BigDecimal(Double.toString(1.2)), "SWD");
         //exchangeCurrency(String currencyName1, String currencyName2, double amount1){
 
-        System.out.println(b.printCurrencyList());
-        BigDecimal amount = b.exchangeCurrency("CAD", "POUND",2);
-        BigDecimal amount1 = b.exchangeCurrency("POUND", "USD",2);
+    //    System.out.println(b.getExchangeRate());
+        BigDecimal amount = b.exchangeCurrency("USD", "SWD",80);
+        BigDecimal amount1 = b.exchangeCurrency("SWD", "USD",80);
+        BigDecimal amount2 = b.exchangeCurrency("CAD", "POUND",2);
+        BigDecimal amount3 = b.exchangeCurrency("CAD", "USD",2);
+       BigDecimal amount4 = b.exchangeCurrency("USD", "POUND",1);
         System.out.println(amount);
         System.out.println(amount1);
+        System.out.println(amount2);
+        System.out.println(amount3);
+        System.out.println(amount4);
 //
 //
 //        BigDecimal amountBigD = new BigDecimal(Double.toString(1.90));

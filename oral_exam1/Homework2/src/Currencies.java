@@ -37,7 +37,7 @@ public abstract class Currencies {
             new BigDecimal(Double.toString(.01))
     };
 
-    public BigDecimal CADcurrency = new BigDecimal(Double.toString(0.74));
+    public BigDecimal CADcurrency = new BigDecimal(Double.toString(1.37));
 
     public  BigDecimal SWDcurrency = new BigDecimal(Double.toString(1));
     public  BigDecimal USDcurrency = new BigDecimal(Double.toString(1));

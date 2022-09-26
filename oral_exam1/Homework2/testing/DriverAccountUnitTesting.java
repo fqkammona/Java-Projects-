@@ -47,7 +47,7 @@ class DriverAccountUnitTesting {
     void defaultPrintList(){ //
         Bank b = new Bank();
         assertEquals(b.printCurrencyList(), "USD: 1.0\n" +
-                "CAD: 0.74\n" +
+                "CAD: 1.37\n" +
                 "SWD: 1.0\n" +
                 "POUND: 0.93\n");
     }
@@ -69,8 +69,8 @@ class DriverAccountUnitTesting {
         BigDecimal amount = b.exchangeCurrency("CAD", "POUND",2);
         BigDecimal amount1 = b.exchangeCurrency("POUND", "USD",2);
 
-        assertEquals(amount, new BigDecimal(Double.toString(1.38)));
-        assertEquals(amount1, new BigDecimal(Double.toString(1.86)));
+        assertEquals(amount, new BigDecimal("1.36"));
+        assertEquals(amount1, new BigDecimal(Double.toString(2.16)));
     }
 
 
@@ -88,11 +88,8 @@ class DriverAccountUnitTesting {
         Bank b = new Bank();
         b.upDateCurrency(new BigDecimal(Double.toString(1.2)), "SWD");
 
-        assertEquals(b.exchangeCurrency("USD", "SWD",80), new BigDecimal(Double.toString(66.7)));
-//        assertEquals(b.getExchangeFromSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(66.7)));
-//
-//        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(96.0)));
-//        assertEquals(b.getExchangeToSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(96.0)));
+        assertEquals(b.exchangeCurrency("USD", "SWD",80), new BigDecimal("96.00"));
+        assertEquals(b.exchangeCurrency("SWD", "USD",80), new BigDecimal(Double.toString(66.67)));
     }
 
 //    @Test
