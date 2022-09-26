@@ -1,4 +1,4 @@
-public class Football extends Game{
+public class Football extends Game{ // is a game therefor inhertance
 
     /** Using an Anonymous create all the scoringMethod objects
      * and then adding them into an array of ScoringMethods called scoringMethods. */

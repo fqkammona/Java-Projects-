@@ -13,12 +13,19 @@ public class DriverAccount {
         Exchange exchange = new Exchange();
 
         Bank b = new Bank();
+
+        System.out.println(b.printCurrencyList());
+
+
         BigDecimal amountBigD = new BigDecimal(Double.toString(1.90));
-        b.upDateCurrency(amountBigD, "SWD");
+
+        String temp = b.upDateCurrency(amountBigD, "SWD");
         System.out.println(b.getExchangeRate());
         System.out.println(b.getCurrencyName());
-      //  System.out.println(exchange.getExchangeRate());
-
+        System.out.println(exchange.getExchangeRate());
+        String hold = b.findCurrentCurrency("CAD");
+        System.out.println(b.getCurrencyName());
+        System.out.println(b.getExchangeRate());
 
 //        b.makeNewAccount(1, 500);
 //        b.makeNewAccount(2, 530);

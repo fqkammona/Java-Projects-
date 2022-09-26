@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public abstract class Currencies {
 
-    public final BigDecimal[] USDdollars = {
+    public static final BigDecimal[] USDdollars = {
             new BigDecimal(Double.toString(20)),
             new BigDecimal(Double.toString(10)),
             new BigDecimal(Double.toString(5)),
@@ -14,7 +14,7 @@ public abstract class Currencies {
             new BigDecimal(Double.toString(.01))
     };
 
-    public final BigDecimal[] SWDdollars = {
+    public static final BigDecimal[] SWDdollars = {
             new BigDecimal(Double.toString(25)),
             new BigDecimal(Double.toString(10)),
             new BigDecimal(Double.toString(5)),
@@ -25,7 +25,7 @@ public abstract class Currencies {
             new BigDecimal(Double.toString(.01))
     };
 
-    public final BigDecimal[] CADdollars = {
+    public static final BigDecimal[] CADdollars = {
             new BigDecimal(Double.toString(20)),
             new BigDecimal(Double.toString(10)),
             new BigDecimal(Double.toString(5)),
@@ -37,9 +37,11 @@ public abstract class Currencies {
             new BigDecimal(Double.toString(.01))
     };
 
-    public static BigDecimal CADcurrency = new BigDecimal(Double.toString(0.74));
+    public BigDecimal CADcurrency = new BigDecimal(Double.toString(0.74));
 
-    public static BigDecimal SWDcurrency = new BigDecimal(Double.toString(1));
-    public static BigDecimal USDcurrency = new BigDecimal(Double.toString(1));
+    public  BigDecimal SWDcurrency = new BigDecimal(Double.toString(1));
+    public  BigDecimal USDcurrency = new BigDecimal(Double.toString(1));
+
+
 
 }
