@@ -9,11 +9,13 @@ public class Exchange extends Currencies{
             add(new CurrenciesList("USD", USDdollars, USDcurrency));
             add(new CurrenciesList("CAD", CADdollars, CADcurrency));
             add(new CurrenciesList("SWD", SWDdollars, SWDcurrency));
+            add(new CurrenciesList("POUND", SWDdollars, POUNDcurrency));
         }
     };
 
     /* Default for myCurrentCurrency is USD */
     public CurrenciesList myCurrentCurrency = new CurrenciesList("USD", USDdollars, USDcurrency);
+
 
 
     /** Returns the exchangeRate for the currentCurrency */
@@ -73,8 +75,44 @@ public class Exchange extends Currencies{
         return myCurrentCurrency.getName();
     } /** GET RID OF THE WORD PUBLIC */
 
+// From Name1 to Name2
+    public BigDecimal exchangeCurrency(String currencyName1, String currencyName2, double amount1){
+        BigDecimal amountOne = new BigDecimal(Double.toString(amount1));
+      //  BigDecimal amountTwo = new BigDecimal(Double.toString(amount2));
 
+        // Put everything in terms of USD
 
+        CurrenciesList standard = new CurrenciesList("USD", USDdollars, USDcurrency);
+        CurrenciesList currencyOne = new CurrenciesList("USD", USDdollars, USDcurrency);
+        // USD to CAD
+
+         BigDecimal amountTwo = standard.getExchangeRate();
+        if(setMyCurrentCurrency(currencyName1).equals("")) {
+            currencyOne = this.myCurrentCurrency;
+            if(currencyOne.getExchangeRate().compareTo(standard.getExchangeRate()) < 0 ){ // CurrencyOne has a greater exchange rate then USD
+                amountOne = amountOne.multiply(currencyOne.getExchangeRate());
+                amountOne = amountOne.setScale(2, RoundingMode.HALF_UP);
+            } else {
+                amountOne = amountOne.divide(amountTwo, RoundingMode.HALF_UP);
+               //amountOne = amountOne.setScale(1, RoundingMode.HALF_UP);
+            }
+        }
+
+        if(setMyCurrentCurrency(currencyName2).equals("")) {
+            if(myCurrentCurrency.getExchangeRate().compareTo(standard.getExchangeRate()) < 0 ){ // CurrencyTwo has a greater exchange rate then USD
+                amountOne = amountOne.multiply(myCurrentCurrency.getExchangeRate());
+                amountOne = amountOne.setScale(2, RoundingMode.HALF_UP);
+            } else {
+                amountOne = amountOne.divide(myCurrentCurrency.getExchangeRate(), RoundingMode.HALF_UP);
+                //amountOne = amountOne.setScale(1, RoundingMode.HALF_UP);
+            }
+        }
+
+        return amountOne;
+
+    }
+
+    //private BigDecimal
 
     /** These are the exchangeFromSWD methods */
 //    public BigDecimal getExchangeFromSWD(BigDecimal amount){

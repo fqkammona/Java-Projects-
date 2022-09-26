@@ -14,18 +14,35 @@ public class DriverAccount {
 
         Bank b = new Bank();
 
+        //exchangeCurrency(String currencyName1, String currencyName2, double amount1){
+
         System.out.println(b.printCurrencyList());
+        BigDecimal amount = b.exchangeCurrency("CAD", "POUND",2);
+        BigDecimal amount1 = b.exchangeCurrency("POUND", "USD",2);
+        System.out.println(amount);
+        System.out.println(amount1);
+//
+//
+//        BigDecimal amountBigD = new BigDecimal(Double.toString(1.90));
+//
+//        String temp = b.upDateCurrency(amountBigD, "SWD");
+//        System.out.println(b.getExchangeRate());
+//        System.out.println(b.getCurrencyName());
+//        System.out.println(exchange.getExchangeRate());
+//        String hold = b.findCurrentCurrency("CAD");
+//        System.out.println(b.getCurrencyName());
+//        System.out.println(b.getExchangeRate());
+//
+//
+//
+//        BigDecimal amountBigDD = new BigDecimal(Double.toString(1.50));
+//        String tempp = b.upDateCurrency(amountBigDD, "SWD");
+//        System.out.println(b.getCurrencyName());
+//        System.out.println(b.getExchangeRate());
+//        System.out.println(b.getCurrencyName());
+//        System.out.println(exchange.getExchangeRate());
+//        System.out.println(exchange.getCurrencyName());
 
-
-        BigDecimal amountBigD = new BigDecimal(Double.toString(1.90));
-
-        String temp = b.upDateCurrency(amountBigD, "SWD");
-        System.out.println(b.getExchangeRate());
-        System.out.println(b.getCurrencyName());
-        System.out.println(exchange.getExchangeRate());
-        String hold = b.findCurrentCurrency("CAD");
-        System.out.println(b.getCurrencyName());
-        System.out.println(b.getExchangeRate());
 
 //        b.makeNewAccount(1, 500);
 //        b.makeNewAccount(2, 530);

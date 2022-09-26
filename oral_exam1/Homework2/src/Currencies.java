@@ -42,6 +42,8 @@ public abstract class Currencies {
     public  BigDecimal SWDcurrency = new BigDecimal(Double.toString(1));
     public  BigDecimal USDcurrency = new BigDecimal(Double.toString(1));
 
+    public  BigDecimal POUNDcurrency = new BigDecimal(Double.toString(0.93));
+
 
 
 }

@@ -5,23 +5,6 @@ public class Bank extends Exchange {
     ArrayList<newAccount> accounts = new ArrayList<newAccount>();
     public newAccount currentAccount;
 
-
-    public void addNewRate(double newCurrency){
-        BigDecimal currency = new BigDecimal(Double.toString(newCurrency));
-        upDateCurrency(currency, "SWD");
-    }
-
-//    public  BigDecimal getExchangeRate() {
-//        return ;
-//    }
-
-    public static void setCurrency(double newCurrency) {
-        BigDecimal currency = new BigDecimal(Double.toString(newCurrency));
-      //  public void upDateCurrency(BigDecimal newCurrency, String name){
-
-
-    }
-
     public void makeNewAccount(int accountNum, double balance){
         currentAccount = new newAccount(accountNum, balance);
         accounts.add(currentAccount);
