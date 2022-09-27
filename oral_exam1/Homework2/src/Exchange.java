@@ -86,7 +86,6 @@ public class Exchange extends Currencies{
     private BigDecimal convertToUSD(String currencyName, BigDecimal amount){
 
         if(setMyCurrentCurrency(currencyName).equals("")) {
-            amount.setScale(2);
             amount = amount.divide(myCurrentCurrency.getExchangeRate(), 2, RoundingMode.CEILING);
         }
         return amount;

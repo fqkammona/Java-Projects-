@@ -1,8 +1,6 @@
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public abstract class Currencies {
-
     public static final BigDecimal[] USDdollars = {
             new BigDecimal(Double.toString(20)),
             new BigDecimal(Double.toString(10)),

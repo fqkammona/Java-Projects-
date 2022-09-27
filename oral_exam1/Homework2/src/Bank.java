@@ -1,5 +1,4 @@
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class Bank extends Exchange {
@@ -58,7 +57,6 @@ public class Bank extends Exchange {
 
     }
 
-
     public String findAccount(int number){
 
         for (newAccount account : accounts){
@@ -82,6 +80,5 @@ public class Bank extends Exchange {
 
         return "Error: account was not found.";
     }
-
 
 }

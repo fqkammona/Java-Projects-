@@ -1,10 +1,8 @@
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class CurrenciesList {
     public String name; // This is final because you should always have the same number
     public BigDecimal[] dollars;
-
     public BigDecimal exchangeRate;
 
     public CurrenciesList(String name, BigDecimal[] dollars, BigDecimal exchangeRate) {
