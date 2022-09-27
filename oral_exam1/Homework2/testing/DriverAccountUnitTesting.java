@@ -162,7 +162,7 @@ class DriverAccountUnitTesting {
         bank.makeNewAccount(14,3129.98);
 
         assertEquals(bank.findAccount(21), "Account has been found.");
-        assertEquals(bank.deleteAccount(21), "Account has been deleted.");
+        assertEquals(bank.deleteAccount(21), "45 -  20 Dollar Bills\n");
         assertEquals(bank.findAccount(21), "Error: account was not found.");
 
     }

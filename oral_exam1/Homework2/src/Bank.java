@@ -15,7 +15,8 @@ public class Bank extends Exchange {
         return "1. Create new account\n"
                 + "2. Log in to account\n"
                 + "3. Exchange\n"
-                + "4. Exit Program"
+                + "4. Set SWD Exchange Rate\n"
+                + "5. Exit Program\n"
                 + "Enter Choice: ";
     }
 
