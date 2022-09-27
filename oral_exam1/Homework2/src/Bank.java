@@ -24,6 +24,7 @@ public class Bank extends Exchange {
                 + "2. Withdraw\n"
                 + "3. Delete Account\n"
                 + "4. Log out of Account\n"
+                + "5. Log out of Account and Exit Program\n"
                 + "Enter Choice: ";
     }
 
