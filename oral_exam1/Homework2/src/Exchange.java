@@ -6,15 +6,15 @@ public class Exchange extends Currencies{
 
     ArrayList<CurrenciesList> currencies = new ArrayList<CurrenciesList>(){
         {
-            add(new CurrenciesList("USD", USDdollars, USDcurrency));
-            add(new CurrenciesList("CAD", CADdollars, CADcurrency));
-            add(new CurrenciesList("SWD", SWDdollars, SWDcurrency));
-            add(new CurrenciesList("POUND", SWDdollars, POUNDcurrency));
+            add(new CurrenciesList("USD", USDdollars, USDcurrency, USDbillNames));
+            add(new CurrenciesList("CAD", CADdollars, CADcurrency, USDbillNames)); // not correct
+            add(new CurrenciesList("SWD", SWDdollars, SWDcurrency, SWDbillNames));
+            add(new CurrenciesList("POUND", SWDdollars, POUNDcurrency, USDbillNames)); // not correct
         }
     };
 
     /* Default for myCurrentCurrency is USD */
-    public CurrenciesList myCurrentCurrency = new CurrenciesList("USD", USDdollars, USDcurrency);
+    public CurrenciesList myCurrentCurrency = new CurrenciesList("USD", USDdollars, USDcurrency, USDbillNames);
 
     /** Returns the exchangeRate for the currentCurrency */
     public BigDecimal getExchangeRate() {
@@ -94,10 +94,12 @@ public class Exchange extends Currencies{
     public String getWithdraw(BigDecimal amountBigD){
         String hold = "";
 
-        BigDecimal[] dollars = myCurrentCurrency.dollars;
+        BigDecimal[] dollars = myCurrentCurrency.getDollars();
+        String[] typeOfBill = myCurrentCurrency.getBillNames();
         int i = 0;
         while(amountBigD.compareTo(new BigDecimal(Double.toString(0))) > 0){
             int countBill = 0;
+
             while(amountBigD.compareTo(dollars[i]) >= 0){
                 countBill++;
                 amountBigD = amountBigD.subtract(dollars[i]);
@@ -105,7 +107,12 @@ public class Exchange extends Currencies{
 
             amountBigD = amountBigD.setScale(2, RoundingMode.HALF_UP); // This rounds bigDecimal by 2 and rounds up.
 
-            hold = hold + countBill + " - " + dollars[i] + " SWD Bill, \n";
+
+            if(countBill == 1){ hold = hold + countBill + " - "
+                     + " " + typeOfBill[i] + "\n";}
+            if(countBill > 1){ hold = hold + countBill + " - "
+                    + " " + typeOfBill[i] + "s\n";}
+
             i++;
         }
         return hold;
