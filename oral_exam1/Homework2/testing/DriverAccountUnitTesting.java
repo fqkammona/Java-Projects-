@@ -1,15 +1,25 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest; // A method that allows the ability to run a test multiple times
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.math.BigDecimal;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.provider.CsvSource; // An ArgumentsSource which reads comma separated values from one or more CSV lines
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DriverAccountUnitTesting {
 
-    @Test
-    void makingNewAccounts(){ //
+//    @Before
+//    void setUpBank(){
+//        Bank bank = new Bank();
+//    }
+
+    @Test // Identifies a method as a test method
+    void makingNewAccounts(){
         Bank b = new Bank();
         b.makeNewAccount(1,500);
 
@@ -105,18 +115,17 @@ class DriverAccountUnitTesting {
 //        assertEquals(b.getExchangeToSWD(104.32), new BigDecimal(Double.toString(40.4)));
 //    }
 
-    @Test
-    void differentVerifyWithdraw(){
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"600, Error: not enough money", "500,''", "499.99,''" })
+    void differentVerifyWithdraw(BigDecimal amount, String output){
         Bank b = new Bank();
         b.makeNewAccount(1,500);
 
-        assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(600))), "Error: not enough money");
-        assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(500))), "");
-        assertEquals(b.verifyWithdraw(new BigDecimal(Double.toString(499.99))), "");
-    }
+        assertEquals(b.verifyWithdraw(amount), output);
 
+    }
     @Test
-    void withdrawalBank(){
+    void withdrawalBankInSWD(){
         Bank b = new Bank();
         b.makeNewAccount(1,500);
 
@@ -159,6 +168,24 @@ class DriverAccountUnitTesting {
         assertEquals(bank.findAccount(21), "Account has been found.");
         assertEquals(bank.deleteAccount(21), "Account has been deleted.");
         assertEquals(bank.findAccount(21), "Error: account was not found.");
+
+    }
+
+    @Disabled
+    void withdralwNegative(){
+
+    }
+
+    @Disabled // When the currency given doesn't exist
+    void exchangeBetweenFakeCurrency(){
+
+    }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"MON, Error: Currency not found", "USD,''"})
+    void setIllegalCurrency(String currencyName, String output){
+        Bank bank = new Bank();
+        assertEquals(bank.setMyCurrentCurrency(currencyName), output);
 
     }
 }

@@ -35,7 +35,7 @@ public class Bank extends Exchange {
 
     public String withdrawalIn(String currencyName, double amount){
 
-        /* 1. Amount is given in SWD, so we need to exchange it into USD */
+        /* 1. Amount is given in any Currency, so we need to exchange it into USD */
         BigDecimal amountAfterExchange = exchangeCurrency(currencyName, "USD", amount);
 
         /* 2. We need to verify that the amount is less than the balance */

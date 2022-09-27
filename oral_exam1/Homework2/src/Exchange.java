@@ -21,6 +21,7 @@ public class Exchange extends Currencies{
         return myCurrentCurrency.getExchangeRate();
     }
 
+    /** A function that finds ...*/
     public String setMyCurrentCurrency(String name){
         for(CurrenciesList holdCurrency : currencies){
             if(holdCurrency.getName().equals(name)){
@@ -28,7 +29,7 @@ public class Exchange extends Currencies{
                 return "";
             }
         }
-        return "Error Currency not found";
+        return "Error: Currency not found";
     }
 
     public String printCurrencyList(){
@@ -42,7 +43,7 @@ public class Exchange extends Currencies{
 
     /** This method finds the current Currency and then updates it */
     public String upDateCurrency(BigDecimal newCurrency, String name){
-        String hold = findCurrentCurrency(name);
+        String hold = setMyCurrentCurrency(name);
 
         if(hold.equals("")){
             updateExchangeRate(newCurrency);
@@ -56,18 +57,6 @@ public class Exchange extends Currencies{
         myCurrentCurrency.upDateExchangeRate(newCurrency);
     }
 
-
-    /** A function that finds ...*/
-    public String findCurrentCurrency(String name){
-
-        for(CurrenciesList holdCurrency : currencies){
-            if(holdCurrency.getName().equals(name)){
-                myCurrentCurrency = holdCurrency;
-                return "";
-            }
-        }
-        return "Error Currency not found";
-    }
 
     public String getCurrencyName() {
         return myCurrentCurrency.getName();
