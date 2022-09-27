@@ -117,4 +117,10 @@ public class Exchange extends Currencies{
         }
         return hold;
     }
+
+    public String getListOfCurrency(){
+        String list = "";
+
+        return list;
+    }
 }

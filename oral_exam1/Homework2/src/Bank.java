@@ -95,11 +95,12 @@ public class Bank extends Exchange {
 
         for (newAccount account : accounts){
             if (account.getAccountNum() == number){
+                double balanceInDouble = Double.parseDouble(String.valueOf(account.getBalance()));
+                String output = withdrawalIn("USD", balanceInDouble);
                 accounts.remove(account);
-                return "Account has been deleted.";
+                return output;
             }
         }
-
         return "Error: account was not found.";
     }
 

@@ -1,3 +1,5 @@
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.UpperCase;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -34,7 +36,7 @@ public class DriverAccount {
                         logOn = true;
                         break;
                     case 2: // Log in to account
-                        System.out.println("Please enter your bank number: ");
+                        System.out.println("\nPlease enter your bank number: ");
                         String foundAccount = bank.findAccount(input.nextInt());
                         System.out.println(foundAccount);
 
@@ -45,7 +47,14 @@ public class DriverAccount {
                         }
                         break;
                     case 3: // Exchange
-                        System.out.println("Wednesday");
+                        System.out.println(bank.printCurrencyList());
+                        System.out.print("First Currency: ");
+                        String first = input.next().toUpperCase();
+                        System.out.print("Second Currency: ");
+                        String second = input.next().toUpperCase();
+                        System.out.print("Amount: ");
+                        double amount = input.nextDouble();
+                        System.out.println(bank.exchangeCurrency(first,second,amount));
                         break;
                     case 4: // Exit Program
                         endProgram = true;
