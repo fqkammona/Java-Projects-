@@ -11,6 +11,27 @@ public class Bank extends Exchange {
 
     }
 
+    public String bankOptionsAtStartup(){
+        return "1. Create new account\n"
+                + "2. Log in to account\n"
+                + "3. Exchange\n"
+                + "4. Exit Program"
+                + "Enter Choice: ";
+    }
+
+    public String bankOptions(){
+        return "1. Get account information\n"
+                + "2. Withdraw\n"
+                + "3. Delete Account\n"
+                + "4. Log out of Account\n"
+                + "Enter Choice: ";
+    }
+
+    public String yourAccountInfo(){
+        return "Account Number: " + currentAccount.getAccountNum()
+                + "\nAccount Balance: " + currentAccount.getBalance() + "\n";
+    }
+
     public BigDecimal getBalance(){
         return currentAccount.getBalance();
     } /** GET RID OF THE WORD PUBLIC */

@@ -172,9 +172,10 @@ class DriverAccountUnitTesting {
 
     }
 
-    @Disabled // When the currency given doesn't exist
+    @Test // When the currency given doesn't exist
     void exchangeBetweenFakeCurrency(){
-
+        Bank bank = new Bank();
+        BigDecimal amount = bank.exchangeCurrency("MON", "POUND",2);
     }
 
     @ParameterizedTest // A method that allows the ability to run a test multiple times
