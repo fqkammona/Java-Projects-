@@ -1,5 +1,3 @@
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.UpperCase;
-
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -73,7 +71,8 @@ public class DriverAccount {
                         System.out.println(bank.yourAccountInfo());
                         break;
                     case 2: // Withdraw
-                        System.out.println("Tuesday");
+                        System.out.print("Amount to withdraw: ");
+                        System.out.println(bank.withdrawalIn("SWD", input.nextDouble()));
                         break;
                     case 3: // Delete Account
                         System.out.println(bank.deleteAccount(bank.getAccountNum()));
