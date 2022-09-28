@@ -27,15 +27,13 @@ class DriverAccountUnitTesting {
         assertEquals(b.getBalance(), new BigDecimal("50.0"));
     }
 
-//    @Test
-//    void exchangeWithoutCurrency(){ // testing exchange methods with BigD and double and without putting currency
-//        Bank b = new Bank();
-//        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(80.0)));
-//        assertEquals(b.getExchangeFromSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
-//
-//        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(80.0)));
-//        assertEquals(b.getExchangeToSWD(new BigDecimal(Double.toString(80))), new BigDecimal(Double.toString(80)));
-//    }
+    @Test
+    void exchangeWithoutCurrency(){ // Exchange without updating SWD exchange rate.
+        Bank b = new Bank();
+        assertEquals(b.exchangeCurrency("SWD","USD",80), new BigDecimal("80.00"));
+        assertEquals(b.exchangeCurrency("USD","USD",80), new BigDecimal("80.00"));
+        assertEquals(b.exchangeCurrency("USD","SWD",80), new BigDecimal("80.00"));
+    }
 
     @Test
     void defaultMyCurrentCurrency(){ // Should be USD
@@ -75,13 +73,16 @@ class DriverAccountUnitTesting {
     }
 
 
-//    @Test
-//    void makingMultipleExchange(){ // Tests calling currency from exchange
-//        Bank.setCurrency(1.2);
-//        assertEquals(Exchange.getCurrency(), new BigDecimal(Double.toString(1.2)));
-//        assertEquals(Bank.getCurrency(), new BigDecimal(Double.toString(1.2)));
-//        assertEquals(Exchange.getCurrency(), new BigDecimal(Double.toString(1.2)));
-//    }
+    @Test
+    void makingMultipleExchange(){ // Tests calling currency from exchange
+        Bank bank = new Bank();
+
+        assertEquals(bank.upDateCurrency(new BigDecimal(Double.toString(1.2)), "SWD"), "SWD currency has been updated");
+        assertEquals(bank.getExchangeRate(), new BigDecimal(Double.toString(1.2)));
+        assertEquals(bank.upDateCurrency(new BigDecimal(Double.toString(5.789)), "SWD"), "SWD currency has been updated");
+        assertEquals(bank.getExchangeRate(), new BigDecimal(Double.toString(5.789)));
+
+    }
 
 
     @Test
@@ -92,19 +93,6 @@ class DriverAccountUnitTesting {
         assertEquals(b.exchangeCurrency("USD", "SWD",80), new BigDecimal("96.00"));
         assertEquals(b.exchangeCurrency("SWD", "USD",80), new BigDecimal(Double.toString(66.67)));
     }
-
-//    @Test
-//    void differentExchanges(){
-//        Bank b = new Bank();
-//
-//        Bank.setCurrency(1.27);
-//        assertEquals(b.getExchangeFromSWD(80), new BigDecimal(Double.toString(63)));
-//        assertEquals(b.getExchangeToSWD(80), new BigDecimal(Double.toString(101.6)));
-//
-//        Bank.setCurrency(0.387);
-//        assertEquals(b.getExchangeFromSWD(91.25), new BigDecimal(Double.toString(235.79)));
-//        assertEquals(b.getExchangeToSWD(104.32), new BigDecimal(Double.toString(40.4)));
-//    }
 
     @ParameterizedTest // A method that allows the ability to run a test multiple times
     @CsvSource({"600, Error: not enough money", "500,''", "499.99,''" })
@@ -162,17 +150,30 @@ class DriverAccountUnitTesting {
 
     }
 
-    @Disabled
+    @Test
     void bankStartUpOptions(){
-
+        Bank bank = new Bank();
+        assertEquals(bank.bankOptionsAtStartup(), "1. Create new account\n"
+                + "2. Log in to account\n"
+                + "3. Exchange\n"
+                + "4. Set SWD Exchange Rate\n"
+                + "5. Exit Program\n"
+                + "Enter Choice: ");
     }
 
-    @Disabled
+    @Test
     void bankOptions(){
+        Bank bank = new Bank();
+        assertEquals(bank.bankOptions(), "1. Get account information\n"
+                + "2. Withdraw\n"
+                + "3. Delete Account\n"
+                + "4. Log out of Account\n"
+                + "5. Log out of Account and Exit Program\n"
+                + "Enter Choice: ");
 
     }
 
-    @Test // When the currency given doesn't exist
+    @Disabled // When the currency given doesn't exist
     void exchangeBetweenFakeCurrency(){
         Bank bank = new Bank();
         BigDecimal amount = bank.exchangeCurrency("MON", "POUND",2);
