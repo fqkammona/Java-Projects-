@@ -67,12 +67,12 @@ public class DriverAccount {
             }else { // Switch cases when a user is logged on
                 switch (in) {
                     case 1: // Get account info
-                        System.out.println("Account Information:\n");
                         System.out.println(bank.yourAccountInfo());
                         break;
                     case 2: // Withdraw
                         System.out.print("Amount to withdraw: ");
                         System.out.println(bank.withdrawalIn("SWD", input.nextDouble()));
+                        System.out.println(bank.yourAccountInfo());
                         break;
                     case 3: // Delete Account
                         System.out.println(bank.deleteAccount(bank.getAccountNum()));

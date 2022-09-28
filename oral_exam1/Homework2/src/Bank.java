@@ -4,11 +4,15 @@ import java.util.ArrayList;
 public class Bank extends Exchange {
     ArrayList<newAccount> accounts = new ArrayList<newAccount>();
     public newAccount currentAccount;
+   // Exchange.localCurrency("USD", USDdollars, USDcurrency, USDbillNames);
+
+    public Bank(){
+        setLocalCurrency("USD");
+    }
 
     public void makeNewAccount(int accountNum, double balance){
         currentAccount = new newAccount(accountNum, balance);
         accounts.add(currentAccount);
-
     }
 
     public String bankOptionsAtStartup(){
@@ -30,7 +34,8 @@ public class Bank extends Exchange {
     }
 
     public String yourAccountInfo(){
-        return "Account Number: " + currentAccount.getAccountNum()
+        return "Account Information: "
+                + "\nAccount Number: " + currentAccount.getAccountNum()
                 + "\nAccount Balance: " + currentAccount.getBalance() + "\n";
     }
 
@@ -77,7 +82,6 @@ public class Bank extends Exchange {
         output = getWithdraw(amountBigD); /// ASK about this.
 
         return output;
-
     }
 
     public String findAccount(int number){
@@ -88,7 +92,6 @@ public class Bank extends Exchange {
                 return "Account has been found.";
             }
         }
-
         return "Error: account was not found.";
     }
 

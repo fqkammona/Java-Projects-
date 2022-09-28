@@ -16,6 +16,14 @@ public class Exchange extends Currencies{
     /* Default for myCurrentCurrency is USD */
     public CurrenciesList myCurrentCurrency = new CurrenciesList("USD", USDdollars, USDcurrency, USDbillNames);
 
+    public CurrenciesList localCurrency = new CurrenciesList("USD", USDdollars, USDcurrency, USDbillNames);
+
+    public String setLocalCurrency(String name){
+        String output = setMyCurrentCurrency(name);
+
+        if(output.equals("")){ localCurrency = myCurrentCurrency;}
+        return output;
+    }
     /** Returns the exchangeRate for the currentCurrency */
     public BigDecimal getExchangeRate() {
         return myCurrentCurrency.getExchangeRate();
@@ -67,7 +75,9 @@ public class Exchange extends Currencies{
 
         // We are already in USD and now need to convert
         if(currencyName1.equals("USD")){ return convertFromUSD(currencyName2, new BigDecimal(Double.toString(amount1))); }
-        else if(currencyName2.equals("USD")) { return convertToUSD(currencyName1, new BigDecimal(Double.toString(amount1))); }
+        else if(currencyName2.equals("USD")) {
+            return convertToUSD(currencyName1, new BigDecimal(Double.toString(amount1)));
+        }
         else {
            BigDecimal amount = convertToUSD(currencyName1, new BigDecimal(Double.toString(amount1)));
            return convertFromUSD(currencyName2, amount);

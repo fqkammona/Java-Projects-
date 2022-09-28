@@ -9,11 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DriverAccountUnitTesting {
 
-//    @Before
-//    void setUpBank(){
-//        Bank bank = new Bank();
-//    }
-
     @Test // Identifies a method as a test method
     void makingNewAccounts(){
         Bank b = new Bank();
