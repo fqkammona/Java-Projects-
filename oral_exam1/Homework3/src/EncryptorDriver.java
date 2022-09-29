@@ -1,71 +1,81 @@
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner; // So that I write to the screen
 import java.io.File;
 import java.io.FileReader; // Reads from file
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.*;
 
 public class EncryptorDriver {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Encryptor encryptor = new Encryptor();
 
         /* This section gets the path and the message */
         System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
         System.out.print("Please enter the path to the file: ");
 
-        Scanner path = new Scanner(System.in);
-        String fileName = path.nextLine();
+        Scanner pathName = new Scanner(System.in);
 
-        System.out.print("Please enter the message: ");
-        Scanner inputMessage = new Scanner(System.in);
-
-        String message = inputMessage.nextLine();
-        message = message.toUpperCase(); // converts the message to uppercase
-
-        File keyFile = new File(fileName);
-
-        /* This section creates the encrypted file */
-        String nameOfFile ="Encrypted." + keyFile.getName();
-        File encryptorFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + nameOfFile);
+        // create Path object based on user input
+        Path path = Paths.get(pathName.nextLine());
 
 
-        try{
-            FileReader readKey = new FileReader(keyFile);
-            BufferedReader keyRead = new BufferedReader(readKey);
+        if (Files.exists(path)) // if path exists, output info about it
+        {
+            /* This section creates the encrypted file */
+            String nameOfFile ="Encrypted." + path.getFileName();
+            File encryptorFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + nameOfFile);
 
-            /* This section gets the position and keyList from the file */
-            String positionInput = keyRead.readLine();
-            int position = Integer.parseInt(positionInput); // Position needs to go 1 before than the give b/c arrays start at 0
+            System.out.print("File has been found.\nPlease enter the message: ");
+            Scanner inputMessage = new Scanner(System.in);
 
-            String keyList = keyRead.readLine();
+            String message = inputMessage.nextLine();
+            message = message.toUpperCase(); // converts the message to uppercase
 
-            /* This section class the encryptor function and then prints it out and closes the file */
+            try{
+                /* */
+                BufferedReader keyRead = new BufferedReader(new FileReader(path.toFile()));
 
-            encryptor.setPosition(position);
-            String encryptedMessage = encryptor.EncryptMessage(keyList, message);
-            System.out.println("Message has been encrypted");
-            keyRead.close();
+                /* This section gets the position and keyList from the file */
+                String positionInput = keyRead.readLine();
+                int position = Integer.parseInt(positionInput); // Position needs to go 1 before than the give b/c arrays start at 0
 
-            /* This Section updates */
+                String keyList = keyRead.readLine();
 
-            FileWriter writeKey = new FileWriter(keyFile);
-            BufferedWriter keyWrite = new BufferedWriter(writeKey);
+                /* This section class the encryptor function and then prints it out and closes the file */
 
-            keyWrite.append(String.valueOf(encryptor.getPosition()));
-            keyWrite.append("\n" + keyList);
-            keyWrite.close();
+                encryptor.setPosition(position);
+                String encryptedMessage = encryptor.EncryptMessage(keyList, message);
+                System.out.println("Message has been encrypted");
+                keyRead.close();
 
-            /* This section creates a new file with */
+                /* This Section updates */
 
-            FileWriter encryptedFile = new FileWriter(encryptorFile);
-            encryptedFile.write(encryptedMessage);
-            encryptedFile.close();
+                BufferedWriter keyWrite = new BufferedWriter(new FileWriter(path.toFile()));
 
+                keyWrite.append(String.valueOf(encryptor.getPosition()));
+                keyWrite.append("\n" + keyList);
+                keyWrite.close();
+
+                /* This section creates a new file with */
+
+                FileWriter encryptedFile = new FileWriter(encryptorFile);
+                encryptedFile.write(encryptedMessage);
+                encryptedFile.close();
+
+            }  catch(Exception e) {
+            System.out.println("Error has occurred while Encrypting");
+            }
         }
-        catch(Exception e) {
-            System.out.println("Incorrect path has been entered.");
+        else // not file or directory, output error message
+        {
+            System.out.printf("%s does not exist%n", path);
         }
     }
 }
+
