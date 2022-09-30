@@ -1,6 +1,6 @@
 public class Team {
-    public final String TeamName;
-    public int TeamScore;
+    private final String TeamName;
+    private int TeamScore;
     public Team(String TeamName){
         this.TeamName = TeamName;
     }

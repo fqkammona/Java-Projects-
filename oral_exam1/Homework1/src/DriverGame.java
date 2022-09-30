@@ -62,7 +62,7 @@ public class DriverGame {
             while(count < 2){ //This loop is to go through the scoring methods twice
 
                 String teamName = homeTeam.getTeamName(); // Is this right??
-                if(count == 1){ teamName = awayTeam.TeamName; } // is this right??
+                if(count == 1){ teamName = awayTeam.getTeamName(); } // is this right??
 
                 for(ScoringMethod method: methods){ // Iterates through the array of methods and prints out the methods name
                     System.out.println(number + ". " + teamName + " " + method.getNameOfMethod());
@@ -90,11 +90,11 @@ public class DriverGame {
             if(choice <= methods.length){ // This is home team
                 ScoringMethod methodChoice = game.getScoringMethods()[choice - 1];
                 game.addScore(methodChoice, homeTeam);
-                replay.add(homeTeam.TeamName + " " + methodChoice.getNameOfMethod()); // Add a short method for score 9-8 hawks
+                replay.add(homeTeam.getTeamName() + " " + methodChoice.getNameOfMethod()); // Add a short method for score 9-8 hawks
             } else if (choice <= (methods.length * 2)){ // This is away team
                 ScoringMethod methodChoice = game.getScoringMethods()[choice - methods.length - 1];
                 game.addScore(methodChoice, awayTeam);
-                replay.add(awayTeam.TeamName + " " + methodChoice.getNameOfMethod());
+                replay.add(awayTeam.getTeamName() + " " + methodChoice.getNameOfMethod());
             } else {
                 game.endCurrentPeriod();
             }
