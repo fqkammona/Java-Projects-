@@ -28,7 +28,7 @@ public class EncryptorDriver {
         // create Path object based on user input
         Path path = Paths.get(pathName.nextLine());
 
-        if (Files.exists(path)) // if path exists, output info about it
+        if (Files.exists(path)) // if path exists...
         {
             /* This section creates the encrypted file */
             String nameOfFile ="Encrypted." + path.getFileName();

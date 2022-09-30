@@ -1,13 +1,13 @@
-import java.util.Scanner; // So that I write to the screen
-import java.io.File;
-import java.io.FileReader; // Reads from file
-import java.io.BufferedReader;
+/* Decryptor Program by Fatima Kammona */
+
+/** This class .... FINISH
+ * */
 
 public class Decryptor {
     final static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
             'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    public String DecryptMessage(int position, String keyList, String message){
+    String DecryptMessage(int position, String keyList, String message){
         position = position - 2; // You have to sub track by one because arrays start at zero
         String[] keyArray = keyList.split(",",0); // makes an array(size 21) of strings of each element of
         String decryptedMessage = "";
@@ -39,7 +39,7 @@ public class Decryptor {
                 int keyIndex = Integer.parseInt(keyArray[position]); // Gets the value of n and changes it into an int
                 int newIndex = index - keyIndex;
 
-                if(newIndex < 0){ // If we get to the beging of the array
+                if(newIndex < 0){ // If we get to the beginning of the array
                     newIndex = newIndex + 26; // subtract the alphabet. Since arrays start at 0 we need to subtract 26 instead of 25
                 }
 
@@ -63,7 +63,5 @@ public class Decryptor {
         return decryptedMessage;
         // return decryptedMessage.toString();
     }
-
-
 }
 
