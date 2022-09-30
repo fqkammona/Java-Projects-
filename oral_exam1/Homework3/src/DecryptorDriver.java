@@ -26,6 +26,7 @@ public class DecryptorDriver {
 
         if (Files.exists(keyPath) && Files.exists(encryptedPath)) // if path exists...
         {
+
             try{
                 BufferedReader keyRead = new BufferedReader(new FileReader(keyPath.toFile()));
 
@@ -39,7 +40,6 @@ public class DecryptorDriver {
                 String encryptedMessage = encrypt.nextLine();
 
                 /* This section class the function and then prints out the message */
-
                 String decryptedMessage = decryptor.DecryptMessage(position,keyList, encryptedMessage);
                 System.out.println(decryptedMessage);
                 keyRead.close();

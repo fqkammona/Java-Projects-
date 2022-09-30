@@ -20,7 +20,7 @@ public class EncryptorDriver {
         Encryptor encryptor = new Encryptor();
 
         /* This section gets the path and the message */
-        System.out.println("This is the path: /Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/keyFile.txt");
+      //  System.out.println("This is the path: /iahome/f/fq/fqkammona/IdeaProjects/fqkammona_swd/oral_exam1/Homework3/src/keyFile2.txt");
         System.out.print("Please enter the path to the file: ");
 
         // create Path object based on user input
@@ -31,7 +31,7 @@ public class EncryptorDriver {
         {
             /* This section creates the encrypted file */
             String nameOfFile ="Encrypted." + path.getFileName();
-            File encryptorFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + nameOfFile);
+            File encryptorFile = new File("/iahome/f/fq/fqkammona/IdeaProjects/fqkammona_swd/oral_exam1/Homework3/src/" + nameOfFile);
 
             System.out.print("File has been found.\nPlease enter the message: ");
             Scanner inputMessage = new Scanner(System.in);

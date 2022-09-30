@@ -18,7 +18,7 @@ public class keyDriver {
         Scanner inputFileName = new Scanner(System.in);
         String fileName = inputFileName.nextLine() + ".txt";
 
-        File keyFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + fileName);
+        File keyFile = new File("/iahome/f/fq/fqkammona/IdeaProjects/fqkammona_swd/oral_exam1/Homework3/src/"+ fileName);
 
         try{
             if(!keyFile.createNewFile()){ // If the file has already been created
