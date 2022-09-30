@@ -1,19 +1,23 @@
-public class Encryptor {
+/* Encryptor Program by Fatima Kammona */
 
+/** This class takes a message, a list of keys and a position to start.
+ * It then encrypts the message using the key and position and then
+ * returns the message.
+ * */
+public class Encryptor {
     final static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
             'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     private int position;
-    public void setPosition(int position){ this.position = position;}
-    public int getPosition() {
+    void setPosition(int position){ this.position = position;}
+    int getPosition() {
         return position;
     }
-
-    public String EncryptMessage(String keyList, String message){
+    String EncryptMessage(String keyList, String message){
         position--; // You have to sub track by one because arrays start at zero
         String[] keyArray = keyList.split(",",0); // makes an array(size 21) of strings of each element of
 
-        String encryptedMessage = "";
+        StringBuilder encryptedMessage = new StringBuilder();
 
         int i = 0;
 
@@ -36,7 +40,7 @@ public class Encryptor {
 
             // Now we have the index i.e M = 12//
 
-            String newLetter = "";
+            String newLetter;
 
             if(index == -1){ // If the index is still -1 then we know it is not a letter therefor it doesn't change
                 newLetter = String.valueOf(letter);
@@ -47,11 +51,10 @@ public class Encryptor {
                 if(newIndex > 25){ // if we are at the end of the alphabet
                     newIndex = newIndex - 26; // subtract the alphabet. Since arrays start at 0 we need to subtract 26 instead of 25
                 }
-
                 newLetter = String.valueOf(alphabet[newIndex]); // converting the new letter from a char to a string
             }
 
-            encryptedMessage = encryptedMessage + newLetter; // Adding the newLetter to the newMessage
+            encryptedMessage.append(newLetter); // Adding the newLetter to the newMessage
 
             /* This section is the logic to loop the position */
             if(position >= keyArray.length - 1) { // If we get to the end of the array of keys
@@ -63,6 +66,6 @@ public class Encryptor {
             i++;
         }
         setPosition(this.position + 1); // We add by one because we went back by one at the start so we need to account for it.
-        return encryptedMessage;
+        return encryptedMessage.toString();
     }
 }

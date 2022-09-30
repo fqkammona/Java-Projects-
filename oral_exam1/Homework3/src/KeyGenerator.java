@@ -1,9 +1,15 @@
+/* KeyGenerator by Fatima Kammona */
+
+/** This class takes in an int value and then uses Math.random
+ * to generate a string of random integers ......... FINISH THIS
+ * */
+
 import java.lang.Math; //importing this class so i can use math.Random
 
 public class KeyGenerator {
 
     /* This method generates the key */
-    public static String createKeyList(int nValues){
+     String createKeyList(int nValues){
         int i = 1;
         String keyList = "";
 
@@ -13,7 +19,6 @@ public class KeyGenerator {
 
             i++;
         }
-
         return keyList;
     }
 }

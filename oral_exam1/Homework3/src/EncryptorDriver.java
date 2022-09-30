@@ -1,3 +1,9 @@
+/* EncryptorDriver by Fatima Kammona */
+
+/** This is the driver class for the Encryptor program.
+ * ....FINISH
+ * */
+
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -5,14 +11,12 @@ import java.nio.file.Paths;
 import java.util.Scanner; // So that I write to the screen
 import java.io.File;
 import java.io.FileReader; // Reads from file
-import java.io.FileNotFoundException;  // Import this class to handle errors
+//import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.*;
 
 public class EncryptorDriver {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) { //throws FileNotFoundException
         Encryptor encryptor = new Encryptor();
 
         /* This section gets the path and the message */
@@ -23,7 +27,6 @@ public class EncryptorDriver {
 
         // create Path object based on user input
         Path path = Paths.get(pathName.nextLine());
-
 
         if (Files.exists(path)) // if path exists, output info about it
         {
