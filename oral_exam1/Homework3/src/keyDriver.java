@@ -16,9 +16,11 @@ public class keyDriver {
         System.out.print("Enter the name of the file you would like to create: ");
 
         Scanner inputFileName = new Scanner(System.in);
-        String fileName = inputFileName.nextLine() + ".txt/";
+        String fileName = inputFileName.nextLine() + ".txt";
 
-        File keyFile = new File("/Users/fatimakammona/Desktop/swd_fqkammona/oral_exam1/Homework3/src/" + fileName);
+        File keyFile = new File("C:\\Users\\fqkammona\\IdeaProjects\\fqkammona_swd\\oral_exam1\\Homework3\\src\\" + fileName);
+        File holdkey = new File(fileName);
+        System.out.println(holdkey.getAbsolutePath());
 
         try{
             if(!keyFile.createNewFile()){ // If the file has already been created
