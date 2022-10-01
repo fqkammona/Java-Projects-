@@ -31,7 +31,7 @@ public class EncryptorDriver {
         {
             /* This section creates the encrypted file */
             String nameOfFile ="Encrypted." + path.getFileName();
-            File encryptorFile = new File("/iahome/f/fq/fqkammona/IdeaProjects/fqkammona_swd/oral_exam1/Homework3/src/" + nameOfFile);
+            File encryptorFile = new File("/iahome/f/fq/fqkammona/IdeaProjects/fqkammona_swd/oral_exam1/B10_OneTimePad/src/" + nameOfFile);
 
             System.out.print("File has been found.\nPlease enter the message: ");
             Scanner inputMessage = new Scanner(System.in);
