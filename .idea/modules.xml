@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/A02_QuizGUI/A02_QuizGUI.iml" filepath="$PROJECT_DIR$/oral_exam2/A02_QuizGUI/A02_QuizGUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/A05_MultithreadingRootFinder/A05_MultithreadingRootFinder.iml" filepath="$PROJECT_DIR$/oral_exam2/A05_MultithreadingRootFinder/A05_MultithreadingRootFinder.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch29/AddressBook/AddressBook.iml" filepath="$PROJECT_DIR$/textbook_examples/ch29/AddressBook/AddressBook.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch22/BallAnimationTimer/BallAnimationTimer.iml" filepath="$PROJECT_DIR$/textbook_examples/ch22/BallAnimationTimer/BallAnimationTimer.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch22/BasicShapes/BasicShapes.iml" filepath="$PROJECT_DIR$/textbook_examples/ch22/BasicShapes/BasicShapes.iml" />
