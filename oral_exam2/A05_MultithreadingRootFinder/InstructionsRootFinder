@@ -1,0 +1,34 @@
+Master-slave multi-threading problem. Finding the roots of a quadratic equation.
+
+Note: This problem does NOT require a GUI. You may use command line input/output.
+
+A very common use of parallel/concurrent computing is the dividing up of a large number of similar
+computations and spreading them across multiple processors (or in this case threads) to decrease run time.
+You will write 2 classes for this program. The first class which will contain the main method (the so-called Master)
+will create 10 threads (the Slaves) which will be specified in a second class, and be capable of calculating the roots
+of quadratic polynomials given sets of coefficients as a 3-tuple (a, b, c).
+Consider the following standard form of a quadratic polynomial:
+
+y = ax2 + bx + c
+
+Every such polynomial has 2 root such that y=0. Note that is possible to have real roots or imaginary roots, and double roots.
+You know... algebra!! Ha ha
+
+After creating the 10 threads, the Master will start generating random sets of coefficients (3-tuples of integer values
+between [-1000, 1000]), and then insert them one 3-tuple at a time into a circular buffer which is shared with all the Slaves.
+The Master will keep a counter of the polynomials generated and include it as part of the circular buffer to make sure all polynomials
+are solved. Using a separate shared circular buffer, the Slaves will store the roots of each polynomial (real and imaginary) so that
+the Master can read them out, and print the results in the order they arrive.
+
+The input circular buffer has a capacity of 10 elements, but the output circular buffer can be as big as the number of
+input polynomials.
+
+Your test program should clearly demonstrate the concurrent behavior of your program with 2 options (chosen by the user):
+1) generate and solve 30 sets of randomly generated coefficients, and
+2) generate and solve 3000 sets of coefficients. The format of the output for these 2 cases should be completely different.
+The first should list all pairs of roots. The second one should summarize statistics about how many sets of coefficients were
+processed by each of the 10 threads (among other interesting things you may want to add to the output).
+
+Important 'hints': You should study the paradigm for designing/creating threads and data structures as shown in the
+Dietel Textbook for producer/consumer with synchronized buffer; 10ed Section 23.6. You do not need to use
+polymorphism in your solution.
