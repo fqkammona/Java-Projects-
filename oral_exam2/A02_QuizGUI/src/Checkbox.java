@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class Checkbox {
-    static JPanel checkBoxPanel = new JPanel();
+    public JPanel checkBoxPanel = new JPanel();
 //    Checkbox cc1 = new Checkbox("4");
 //    Checkbox cc2 = new Checkbox("6");
     static int x = 100;
