@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/oral_exam2/A02_QuizGUI/A02_QuizGUI.iml" filepath="$PROJECT_DIR$/oral_exam2/A02_QuizGUI/A02_QuizGUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam2/A05_MultithreadingRootFinder/A05_MultithreadingRootFinder.iml" filepath="$PROJECT_DIR$/oral_exam2/A05_MultithreadingRootFinder/A05_MultithreadingRootFinder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/A15_Barcodes/A15_Barcodes.iml" filepath="$PROJECT_DIR$/oral_exam2/A15_Barcodes/A15_Barcodes.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch29/AddressBook/AddressBook.iml" filepath="$PROJECT_DIR$/textbook_examples/ch29/AddressBook/AddressBook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/B06_LinkedListNet/B06_LinkedListNet.iml" filepath="$PROJECT_DIR$/oral_exam2/B06_LinkedListNet/B06_LinkedListNet.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch22/BallAnimationTimer/BallAnimationTimer.iml" filepath="$PROJECT_DIR$/textbook_examples/ch22/BallAnimationTimer/BallAnimationTimer.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch22/BasicShapes/BasicShapes.iml" filepath="$PROJECT_DIR$/textbook_examples/ch22/BasicShapes/BasicShapes.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch29/BooksDatabaseExamples/BooksDatabaseExamples.iml" filepath="$PROJECT_DIR$/textbook_examples/ch29/BooksDatabaseExamples/BooksDatabaseExamples.iml" />
