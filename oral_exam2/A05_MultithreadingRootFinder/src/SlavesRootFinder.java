@@ -1,15 +1,17 @@
 import java.security.SecureRandom;
 
 public class SlavesRootFinder implements Runnable {
+    private final Buffer sharedLocation; // reference to shared object
+    private static int number;
 
-    private int number;
-
-    public SlavesRootFinder(int number){
-        this.number = number;
+    public SlavesRootFinder(Buffer sharedLocation)
+    {
+         this.sharedLocation = sharedLocation;
     }
 
     @Override
     public void run() {
+        number++;
         System.out.println(number);
 
         try { // puts the thread to sleep for 1 second
