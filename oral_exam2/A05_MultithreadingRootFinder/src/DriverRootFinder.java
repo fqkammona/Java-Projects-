@@ -1,5 +1,7 @@
 public class DriverRootFinder {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+       MasterRootFinder rootFinder = new MasterRootFinder();
+
+       rootFinder.createThreads();
     }
 }
