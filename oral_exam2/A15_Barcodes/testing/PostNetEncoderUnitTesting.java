@@ -42,6 +42,13 @@ class PostNetEncoderUnitTesting {
     @CsvSource({"21,9", "30,0", "19,1"})
     void testnextDivisableNum(double input, int output){
         PostNetEncoder b = new PostNetEncoder();
-        assertEquals(b.nextDivisableNum(input,0), output);
+        assertEquals(b.nextDividableNum(input,0), output);
+    }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"52242,522425"})
+    void checkingSum(String input, String output){
+        PostNetEncoder b = new PostNetEncoder();
+        assertEquals(b.checkSum(input), output);
     }
 }
