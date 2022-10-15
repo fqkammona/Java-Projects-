@@ -6,12 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PostNetEncoderUnitTesting {
      @Test
-     void getTestNum(){
-      PostNetEncoder b = new PostNetEncoder();
-      assertEquals(b.getNum(), 1);
-     }
-
-     @Test
      void testBinaryConverter(){
          PostNetEncoder b = new PostNetEncoder();
          assertEquals(b.convertToBinary(5), "01010");
