@@ -5,18 +5,35 @@ public class PostNetEncoder {
             "01001", "01010", "01100", "10001", "10010", "10100"};
 
     /** Returns the POSTNET code for a given number.*/
-    public String convertToBinary(int num){
-        return postNetCode[num];
+    public String convertNumToBinary(int num){
+       return postNetCode[num];
     }
+
+    /** Returns the whole string for a whole number
+     * That takes a string of input numbers and class
+     * convertNumToBinary to return a whole string of binary inputs. */
+    public String convertToBinary(String num){
+        StringBuilder binaryNum = new StringBuilder();
+
+        int i =0;
+        while(i < num.length()){
+            int hold = Integer.parseInt(String.valueOf(num.charAt(i))); // string 1234 - char 1 - string 1 - int 1
+            binaryNum.append(convertNumToBinary(hold)).append(" ");
+            i++;
+        }
+
+        return binaryNum.toString();
+    }
+
 
     /** Method that prints out the Binary Representation for the digits 0-9.*/
     public String listOfPostNetCode(){
-        String list = "";
+        StringBuilder list = new StringBuilder();
 
         for(int i = 0; i < postNetCode.length; i++){
-            list += "Digit: "+ i + "\tBinary Representation: " + postNetCode[i] + "\n";
+            list.append("Digit: ").append(i).append("\tBinary Representation: ").append(postNetCode[i]).append("\n");
         }
 
-        return list;
+        return list.toString();
     }
 }

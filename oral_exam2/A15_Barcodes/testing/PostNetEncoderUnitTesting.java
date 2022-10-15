@@ -1,15 +1,27 @@
 /** This is the unit testing class for the POSTNET class.*/
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PostNetEncoderUnitTesting {
-     @Test
-     void testBinaryConverter(){
+
+    /** This method test the binary converter */
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"5,01010", "0,11000 ", "9,10100 " })
+     void testBinaryConverter(int input, String output){
          PostNetEncoder b = new PostNetEncoder();
-         assertEquals(b.convertToBinary(5), "01010");
+         assertEquals(b.convertNumToBinary(input), output);
      }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"52242,01010 00101 00101 01001 00101", "01245,11000 00011 00101 01001 01010"})
+    void testBinaryConverterToLargeNum(String input, String output){
+        PostNetEncoder b = new PostNetEncoder();
+        assertEquals(b.convertToBinary(input), output + " ");
+    }
 
     @Test
     void printListOfCodes(){
