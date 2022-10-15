@@ -38,4 +38,10 @@ class PostNetEncoderUnitTesting {
                 "Digit: 9\tBinary Representation: 10100\n");
     }
 
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"21,9", "30,0", "19,1"})
+    void testnextDivisableNum(double input, int output){
+        PostNetEncoder b = new PostNetEncoder();
+        assertEquals(b.nextDivisableNum(input,0), output);
+    }
 }
