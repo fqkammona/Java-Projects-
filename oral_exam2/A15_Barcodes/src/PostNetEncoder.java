@@ -18,7 +18,7 @@ public class PostNetEncoder {
         int i =0;
         while(i < num.length()){
             int hold = Integer.parseInt(String.valueOf(num.charAt(i))); // string 1234 - char 1 - string 1 - int 1
-            binaryNum.append(convertNumToBinary(hold)).append(" ");
+            binaryNum.append(convertNumToBinary(hold));
             i++;
         }
         return binaryNum.toString();
@@ -52,6 +52,22 @@ public class PostNetEncoder {
         }
 
         return num + nextDividableNum(sum,0);
+    }
+
+    public String createBarCode(String binary){
+        StringBuilder barCode = new StringBuilder("|");
+
+        int i = 0;
+        while(i < binary.length()){
+            if(binary.charAt(i)=='1'){
+                barCode.append("|");
+            } else {
+                barCode.append(".");
+            }
+            i++;
+        }
+
+        return barCode + "|";
     }
 
     /** Method that prints out the Binary Representation for the digits 0-9.*/

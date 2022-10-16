@@ -17,10 +17,10 @@ class PostNetEncoderUnitTesting {
      }
 
     @ParameterizedTest // A method that allows the ability to run a test multiple times
-    @CsvSource({"52242,01010 00101 00101 01001 00101", "01245,11000 00011 00101 01001 01010"})
+    @CsvSource({"52242,0101000101001010100100101", "01245,1100000011001010100101010"})
     void testBinaryConverterToLargeNum(String input, String output){
         PostNetEncoder b = new PostNetEncoder();
-        assertEquals(b.convertToBinary(input), output + " ");
+        assertEquals(b.convertToBinary(input), output);
     }
 
     @Test
@@ -50,5 +50,12 @@ class PostNetEncoderUnitTesting {
     void checkingSum(String input, String output){
         PostNetEncoder b = new PostNetEncoder();
         assertEquals(b.checkSum(input), output);
+    }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"010100010100101010010010101010 ,|.|.|...|.|..|.|.|..|..|.|.|.|.|"})
+    void barCodeTesting(String input, String output){
+        PostNetEncoder b = new PostNetEncoder();
+        assertEquals(b.createBarCode(input), output);
     }
 }
