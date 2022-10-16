@@ -58,4 +58,11 @@ class PostNetEncoderUnitTesting {
         PostNetEncoder b = new PostNetEncoder();
         assertEquals(b.createBarCode(input), output);
     }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"52242 ,|.|.|...|.|..|.|.|..|..|.|.|.|.|"})
+    void zipToBarcode(String input, String output){
+        PostNetEncoder b = new PostNetEncoder();
+        assertEquals(b.convertZip(input), output);
+    }
 }

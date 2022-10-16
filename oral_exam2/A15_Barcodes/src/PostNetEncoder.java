@@ -3,7 +3,12 @@ public class PostNetEncoder {
     public static final String[] postNetCode = {"11000", "00011", "00101", "00110",
             "01001", "01010", "01100", "10001", "10010", "10100"};
 
-
+    /** This method takes a zip and uses the checksum,
+     * convertToBinary, and createBarCode to return the
+     * final barcode.*/
+    public String convertZip(String zip){
+        return createBarCode(convertToBinary(checkSum(zip)));
+    }
 
     /** Returns the POSTNET code for a given number.*/
     public String convertNumToBinary(int num){
@@ -23,10 +28,6 @@ public class PostNetEncoder {
         }
         return binaryNum.toString();
     }
-
-//    public void convertStringToNum(String num){
-//
-//    }
 
     /** A recursive algorithm that finds the next number dividable by 10
      * and returns it.*/
@@ -54,6 +55,8 @@ public class PostNetEncoder {
         return num + nextDividableNum(sum,0);
     }
 
+    /** Takes a string of binary codes and converts
+     * it into a barCode and returns the barCode */
     public String createBarCode(String binary){
         StringBuilder barCode = new StringBuilder("|");
 
