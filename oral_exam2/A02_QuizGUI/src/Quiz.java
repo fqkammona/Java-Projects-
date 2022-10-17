@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 public class Quiz implements ActionListener{
     public static JFrame quizFrame = new JFrame("Quiz");
 
-    public  Checkbox checkbox;
-    public JCheckBox checkQuestion1, checkQuestion2, checkQuestion3,checkQuestion4;
-    public JRadioButton radioQuestion1, radioQuestion2, radioQuestion3, radioQuestion4;
+    public JButton reset;
+    public Checkbox checkbox;
+    public Radiobutton radiobutton;
     public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
     public Quiz() {
 
@@ -16,10 +16,9 @@ public class Quiz implements ActionListener{
         quizFrame.setSize(500, 900);
 
         createCheckBox();
+        createRadiobutton();
 
 
-
-        quizFrame.add(createRadiobutton());
         quizFrame.add(createDropdownBox());
         quizFrame.add(createButton());
 
@@ -47,38 +46,12 @@ public class Quiz implements ActionListener{
     }
     /** Creates the Radiobuttons and puts them in a group so that they toggle and
      * adds them in a Jpanel and returns the panel.*/
-    private JPanel createRadiobutton(){
-        JPanel radioButtonPanel = new JPanel();
-       // radioButtonPanel.setFont(new Font("Serif", Font.PLAIN, 26));
+    private void createRadiobutton(){
+        String[] answers = {"21","1", "73","39", "15"};
+        String correctAnswers = "73";
 
-        JLabel radioButtonTile = new JLabel("Which number is prime?");
-        radioButtonTile.setFont(new Font("Serif", Font.PLAIN, 22));
-        radioButtonPanel.add(radioButtonTile);
-
-        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.PAGE_AXIS));
-        radioButtonPanel.setBounds(10, 170, 300, 200);
-
-        radioQuestion1 = new JRadioButton("21");
-        radioQuestion2 = new JRadioButton("1");
-        radioQuestion3 = new JRadioButton("73");
-        radioQuestion4 = new JRadioButton("39");
-
-        ButtonGroup group = new ButtonGroup(); // Allows the toggling
-        group.add(radioQuestion1);
-        group.add(radioQuestion2);
-        group.add(radioQuestion3);
-        group.add(radioQuestion4);
-
-        radioQuestion1.setFont(new Font("Serif", Font.PLAIN, 18));
-
-        radioButtonPanel.add(radioQuestion1);
-        radioButtonPanel.add(radioQuestion2);
-        radioButtonPanel.add(radioQuestion3);
-        radioButtonPanel.add(radioQuestion4);
-
-        radioButtonPanel.setEnabled(false);
-        //radioQuestion3.setEnabled(false);
-        return radioButtonPanel;
+        radiobutton = new Radiobutton("Which number is prime?",answers, correctAnswers);
+        quizFrame.add(radiobutton.getRadioButtonPanel());
     }
     private void createCheckBox() {
         /* Adding in checkbox section*/
@@ -96,8 +69,10 @@ public class Quiz implements ActionListener{
         buttonPanel.setLayout(null);
         buttonPanel.setBounds(60, 500, 200, 70);
 
+     //   reset = new JButton("Reset");
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(350, 450, 80, 30);
+       // reset.setBounds(250, 450, 80, 30);
 
         submitButton.addActionListener(this);
         buttonPanel.add(submitButton);
@@ -107,8 +82,11 @@ public class Quiz implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         checkbox.addActionListener(this);
+        radiobutton.addActionListener(this);
 
-        int correct = checkbox.getCorrect();
+        int correct = checkbox.getNumOfCorrect();
+        int radioCorrect = radiobutton.getNumOfCorrect();
+        correct += radioCorrect;
 
         JOptionPane.showMessageDialog(quizFrame,
                 "Correct: " + correct,

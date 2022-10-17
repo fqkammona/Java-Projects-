@@ -2,14 +2,17 @@
  * */
 
 import javax.swing.*;
+import java.awt.*;
+
 public class Checkbox {
     public JPanel checkBoxPanel = new JPanel();
     public JCheckBox[] answer;
     public String[] correctAnswers;
-    public int correct = 0;
+    public int numOfCorrect = 0;
     public Checkbox(String title, String[] answersString, String[] correctAnswers) {
         JLabel checkBoxTitle = new JLabel(title);
 
+        checkBoxTitle.setFont(new Font("Serif", Font.PLAIN, 22));
         checkBoxPanel.add(checkBoxTitle);
 
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.PAGE_AXIS));
@@ -41,7 +44,7 @@ public class Checkbox {
             if(answer[i].isSelected()){
                 for (String s : correctAnswers) {
                     if (answer[i].getText().compareTo(s) == 0) {
-                        correct++;
+                        numOfCorrect++;
                     }
                 }
             }
@@ -49,10 +52,10 @@ public class Checkbox {
         }
     }
 
-    public int getCorrect(){
-        return correct;
+    public int getNumOfCorrect(){
+        return numOfCorrect;
     }
-    public void setCorrect(int correct){
-         this.correct = correct;
+    public void setNumOfCorrect(int numOfCorrect){
+         this.numOfCorrect = numOfCorrect;
     }
 }
