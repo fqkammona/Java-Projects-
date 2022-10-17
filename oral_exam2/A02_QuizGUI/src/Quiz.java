@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Quiz implements ActionListener{
     public static JFrame quizFrame = new JFrame("Quiz");
+
+    public  Checkbox checkbox;
     public JCheckBox checkQuestion1, checkQuestion2, checkQuestion3,checkQuestion4;
     public JRadioButton radioQuestion1, radioQuestion2, radioQuestion3, radioQuestion4;
     public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
@@ -13,7 +15,10 @@ public class Quiz implements ActionListener{
         /* Frame Settings */
         quizFrame.setSize(500, 900);
 
-        quizFrame.add(createCheckBox());
+        createCheckBox();
+
+
+
         quizFrame.add(createRadiobutton());
         quizFrame.add(createDropdownBox());
         quizFrame.add(createButton());
@@ -75,26 +80,14 @@ public class Quiz implements ActionListener{
         //radioQuestion3.setEnabled(false);
         return radioButtonPanel;
     }
-    private JPanel createCheckBox() {
+    private void createCheckBox() {
         /* Adding in checkbox section*/
-        JPanel checkBoxPanel = new JPanel();
-        JLabel checkBoxTitle = new JLabel("Chose all that applies: ");
-        checkBoxPanel.add(checkBoxTitle);
 
-        checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.PAGE_AXIS));
-        checkBoxPanel.setBounds(10, 10, 300, 150);
+        String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6"};
+        String[] correctAnswers = {"2 + 2 = 4","3 *  3 = 9", };
 
-        checkQuestion1 = new JCheckBox("2 + 2 = 4");
-        checkQuestion2 = new JCheckBox("3 *  3 = 9");
-        checkQuestion3 = new JCheckBox("7 + 3 = 11");
-        checkQuestion4 = new JCheckBox("33 / 5 = 6");
-
-        checkBoxPanel.add(checkQuestion1);
-        checkBoxPanel.add(checkQuestion2);
-        checkBoxPanel.add(checkQuestion3);
-        checkBoxPanel.add(checkQuestion4);
-
-        return checkBoxPanel;
+        checkbox = new Checkbox("Chose all that applies: ",answers, correctAnswers);
+        quizFrame.add(checkbox.getCheckBoxPanel());
     }
 
     private JPanel createButton() {
@@ -113,16 +106,13 @@ public class Quiz implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        int numCorrect = 0;
-        if (checkQuestion1.isSelected()) {
-            numCorrect++;
-            checkQuestion1.setBorderPainted(true);
-        }
-        if (checkQuestion2.isSelected()) {
-            numCorrect++;
-        }
+        checkbox.addActionListener(this);
 
-        checkQuestion1.setForeground(Color.darkGray);
+        int correct = checkbox.getCorrect();
 
+        JOptionPane.showMessageDialog(quizFrame,
+                "Correct: " + correct,
+                "Output",
+                JOptionPane.PLAIN_MESSAGE);
     }
 }

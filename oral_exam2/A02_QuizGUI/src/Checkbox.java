@@ -1,40 +1,58 @@
+/** This is creates the checkbox
+ * */
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 public class Checkbox {
     public JPanel checkBoxPanel = new JPanel();
-//    Checkbox cc1 = new Checkbox("4");
-//    Checkbox cc2 = new Checkbox("6");
-    static int x = 100;
-    static int y = 200;
-//    public Checkbox(JFrame quizFrame){
-//        JCheckBox checkBox1 = new JCheckBox("2 + 2  = 4");
-//        checkBox1.setBounds(100,200, 50,50);
-//        quizFrame.add(checkBox1);
-//    }
+    public JCheckBox[] answer;
+    public String[] correctAnswers;
+    public int correct = 0;
+    public Checkbox(String title, String[] answersString, String[] correctAnswers) {
+        JLabel checkBoxTitle = new JLabel(title);
 
-//    public Checkbox(){
-//        JCheckBox checkBox1 = new JCheckBox("2 + 2 = 4");
-//        checkBox1.setBounds(100,200, 50,50);
-//        checkBoxPanel.add(checkBox1);
-//    }
+        checkBoxPanel.add(checkBoxTitle);
 
-    public Checkbox(String text) {
-        JCheckBox newCheckBox = new JCheckBox(text);
-        newCheckBox.setBounds(x, y, 50, 50);
-        y += 70;
-        checkBoxPanel.add(newCheckBox);
-    }
-    public JPanel getCheckBoxPanel(){ return checkBoxPanel; }
+        checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.PAGE_AXIS));
+        checkBoxPanel.setBounds(10, 10, 300, 150);
 
-    public void actionPerformed(ActionEvent e) {
-        float amount = 0;
-        String msg = "";
-//        if(cb1.isSelected()){
-//            amount+=100;
-//            msg="Pizza: 100\n";
-//        }
+        this.correctAnswers = correctAnswers;
+        answer = new JCheckBox[answersString.length];
 
+        fillPanel(answersString);
     }
 
+    private void fillPanel(String[] answersString){
+        int i = 0;
+
+        while (i < answersString.length){
+            answer[i] = new JCheckBox(answersString[i]);
+            checkBoxPanel.add(answer[i]);
+            i++;
+        }
+    }
+
+    public JPanel getCheckBoxPanel(){
+        return checkBoxPanel;
+    }
+
+    public void addActionListener(Quiz quiz) {
+        int i = 0;
+        while( i < answer.length){
+            if(answer[i].isSelected()){
+                for (String s : correctAnswers) {
+                    if (answer[i].getText().compareTo(s) == 0) {
+                        correct++;
+                    }
+                }
+            }
+            i++;
+        }
+    }
+
+    public int getCorrect(){
+        return correct;
+    }
+    public void setCorrect(int correct){
+         this.correct = correct;
+    }
 }
