@@ -36,10 +36,16 @@ public class Radiobutton {
 
     public void addActionListener(Quiz quiz) {
         int i = 0;
-        while( i < answer.length){
-            if(answer[i].isSelected() && answer[i].getText().compareTo(correctAnswers) == 0){
+
+        while(i < answer.length){
+           // answer[i].setEnabled(false);
+            if(answer[i].getText().compareTo(correctAnswers) == 0){
+                answer[i].setForeground(Color.green);
                 numOfCorrect++;
+            } else if(answer[i].isSelected() && answer[i].getText().compareTo(correctAnswers) != 0){
+                answer[i].setForeground(Color.red);
             }
+         //   answer[i].setEnabled(false);
             i++;
         }
     }

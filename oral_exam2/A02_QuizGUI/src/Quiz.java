@@ -7,6 +7,8 @@ public class Quiz implements ActionListener{
     public static JFrame quizFrame = new JFrame("Quiz");
 
     public JButton reset;
+
+    public DropdownBox dropdownBox;
     public Checkbox checkbox;
     public Radiobutton radiobutton;
     public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
@@ -18,8 +20,14 @@ public class Quiz implements ActionListener{
         createCheckBox();
         createRadiobutton();
 
+        String[] answers = {"1","3", "1.5","9", "6"};
+        String correctAnswer = "9";
+        dropdownBox = new DropdownBox("Select the answer to the question \n\n9-3*(1/3)+1"
+                ,answers, correctAnswer);
 
-        quizFrame.add(createDropdownBox());
+       quizFrame.add(dropdownBox.getDropdownPanel());
+
+       // quizFrame.add(createDropdownBox());
         quizFrame.add(createButton());
 
         quizFrame.setVisible(true);
@@ -88,9 +96,16 @@ public class Quiz implements ActionListener{
         int radioCorrect = radiobutton.getNumOfCorrect();
         correct += radioCorrect;
 
-        JOptionPane.showMessageDialog(quizFrame,
-                "Correct: " + correct,
-                "Output",
-                JOptionPane.PLAIN_MESSAGE);
+        quizFrame.setVisible(false);
+        results();
+    }
+
+    public void results(){
+        JFrame resultsFrame = new JFrame("Results");
+        resultsFrame.setSize(500, 900);
+
+        resultsFrame.setVisible(true);
+        resultsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
+
     }
 }
