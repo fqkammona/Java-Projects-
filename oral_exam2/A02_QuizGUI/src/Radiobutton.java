@@ -2,24 +2,18 @@
  * adds them in a Jpanel and returns the panel.*/
 import javax.swing.*;
 import java.awt.*;
-public class Radiobutton {
-    public JPanel radioButtonPanel = new JPanel();
+public class Radiobutton extends Components{
     public JRadioButton[] answer;
-    public String correctAnswers;
-    public int numOfCorrect = 0;
-    public Radiobutton(String title, String[] answersString, String correctAnswers) {
-        JLabel radioButtonTitle = new JLabel(title);
 
-        radioButtonTitle.setFont(new Font("Serif", Font.PLAIN, 22));
-        radioButtonPanel.add(radioButtonTitle);
+    public Radiobutton(String title, String[] answersString, String[] correctAnswers) {
+        super.title = title;
+        super.correctAnswers = correctAnswers;
 
-        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.PAGE_AXIS));
-        radioButtonPanel.setBounds(10, 170, 300, 200);
-
-        this.correctAnswers = correctAnswers;
         answer = new JRadioButton[answersString.length];
 
+        fillNewPanel();
         fillPanel(answersString);
+
     }
 
     private void fillPanel(String[] answersString){
@@ -29,31 +23,36 @@ public class Radiobutton {
         while (i < answersString.length){
             answer[i] = new JRadioButton(answersString[i]);
             group.add(answer[i]);
-            radioButtonPanel.add(answer[i]);
+            componentPanel.add(answer[i]);
             i++;
         }
     }
 
     public void addActionListener(Quiz quiz) {
-        int i = 0;
+        //int i = 0;
 
-        while(i < answer.length){
-           // answer[i].setEnabled(false);
-            if(answer[i].getText().compareTo(correctAnswers) == 0){
-                answer[i].setForeground(Color.green);
-                numOfCorrect++;
-            } else if(answer[i].isSelected() && answer[i].getText().compareTo(correctAnswers) != 0){
-                answer[i].setForeground(Color.red);
+//        while(i < answer.length){
+//           // answer[i].setEnabled(false);
+//            if(answer[i].getText().compareTo(correctAnswers) == 0){
+//                answer[i].setForeground(Color.green);
+//                numOfCorrect++;
+//            } else if(answer[i].isSelected() && answer[i].getText().compareTo(correctAnswers) != 0){
+//                answer[i].setForeground(Color.red);
+//            }
+//         //   answer[i].setEnabled(false);
+//            i++;
+//        }
+
+        int i = 0;
+        while( i < answer.length){
+            if(answer[i].isSelected()){
+                for (String s : correctAnswers) {
+                    if (answer[i].getText().compareTo(s) == 0) {
+                        numOfCorrect++;
+                    }
+                }
             }
-         //   answer[i].setEnabled(false);
             i++;
         }
-    }
-
-    public int getNumOfCorrect(){
-        return numOfCorrect;
-    }
-    public JPanel getRadioButtonPanel(){
-        return radioButtonPanel;
     }
 }
