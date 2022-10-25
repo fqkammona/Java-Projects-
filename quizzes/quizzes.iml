@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/20220913/Resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/20220913/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/20221025_quiz/fig28_07_10/src" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="14-ea" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
