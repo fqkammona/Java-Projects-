@@ -1,6 +1,6 @@
-/* DriverPostNetEncoder by Fatima Kammona */
+/* DriverUPCAencoder by Fatima Kammona */
 
-/** This is the driver class for the UPCA program.*/
+/** This is the driver class for the UPCA encoder program.*/
 
 import java.util.Scanner; // So that I write to the screen
 

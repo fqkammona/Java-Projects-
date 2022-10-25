@@ -1,4 +1,4 @@
-/** This is the unit testing class for the POSTNETDECODER class.*/
+/** This is the unit testing class for the UPCAencoder class.*/
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
