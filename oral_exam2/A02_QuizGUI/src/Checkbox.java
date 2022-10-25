@@ -26,11 +26,16 @@ public class Checkbox extends Components {
     }
 
     public void addActionListener(Quiz quiz) {
+        fillResultJPane();
         int i = 0;
         while( i < answer.length){
             if(answer[i].isSelected()){
+                answer[i].setForeground(Color.red);
+                resultPanel.add(answer[i]);
                 for (String s : correctAnswers) {
                     if (answer[i].getText().compareTo(s) == 0) {
+                        answer[i].setForeground(Color.green);
+                        resultPanel.add(answer[i]);
                         numOfCorrect++;
                     }
                 }
@@ -38,4 +43,16 @@ public class Checkbox extends Components {
             i++;
         }
     }
+
+//    public JPanel getResults() {
+//        JPanel results = new JPanel();
+//        results = componentPanel;
+//        int i = 0;
+//        while (i < answer.length) {
+//            answer[i].setEnabled(false);
+//            i++;
+//        }
+//
+//        return results;
+//    }
 }

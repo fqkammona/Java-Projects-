@@ -12,7 +12,7 @@ public class Quiz implements ActionListener{
     //public Checkbox checkbox;
 
     public Components component;
-   // public Radiobutton radiobutton;
+
     public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
     public Quiz() {
 
@@ -20,14 +20,14 @@ public class Quiz implements ActionListener{
         quizFrame.setSize(500, 900);
 
         createCheckBox();
-        createRadiobutton();
+        //createRadiobutton();
 
-        String[] answers = {"1","3", "1.5","9", "6"};
-        String correctAnswer = "9";
-        dropdownBox = new DropdownBox("Select the answer to the question \n\n9-3*(1/3)+1"
-                ,answers, correctAnswer);
-
-       quizFrame.add(dropdownBox.getDropdownPanel());
+//        String[] answers = {"1","3", "1.5","9", "6"};
+//        String correctAnswer = "9";
+//        dropdownBox = new DropdownBox("Select the answer to the question \n\n9-3*(1/3)+1"
+//                ,answers, correctAnswer);
+//
+//       quizFrame.add(dropdownBox.getDropdownPanel());
 
        // quizFrame.add(createDropdownBox());
         quizFrame.add(createButton());
@@ -107,6 +107,7 @@ public class Quiz implements ActionListener{
         resultsFrame.setSize(500, 900);
 
         resultsFrame.setVisible(true);
+        resultsFrame.add(component.getResultPanel());
         resultsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
 
     }
