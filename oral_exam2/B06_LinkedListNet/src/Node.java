@@ -8,10 +8,25 @@ public class Node<T> {
     private T data;
     private Node<T> nextNode; // reference to next linked node
 
-    /** A constructor that creates a new node given the data*/
-    public Node(T data) {
-        this.data = data;
-        nextNode = null;
+    /** Different constructors. */
+
+    /* A constructor that creates a new node with
+    * null reference to both instance variables.*/
+    public Node(){
+        this(null,null);
+    }
+
+    /* A constructor that creates a new node given the data
+     * and sets the nextNode to null.*/
+    public Node(T object) {
+        this(object, null);
+    }
+
+    /* A constructor that creates a new node given information
+    * for both instance variables. */
+    public Node(T object, Node<T> node) {
+        data = object;
+        nextNode = node;
     }
 
     /** Accessor methods */
