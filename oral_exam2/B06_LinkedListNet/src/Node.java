@@ -5,8 +5,8 @@
 
 public class Node<T> {
     /** Instance Variables */
-    private T data;
-    private Node<T> nextNode; // reference to next linked node
+    public T data;
+    public Node<T> nextNode; // reference to next linked node
 
     /** Different constructors. */
 
