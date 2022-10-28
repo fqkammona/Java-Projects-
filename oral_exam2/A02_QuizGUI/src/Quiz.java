@@ -92,13 +92,13 @@ public class Quiz implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         component.addActionListener(this);
-        component.addActionListener(this);
+       // component.addActionListener(this);
 
         int correct = component.getNumOfCorrect();
         int radioCorrect = component.getNumOfCorrect();
         correct += radioCorrect;
 
-        //quizFrame.setVisible(false);
+        quizFrame.setVisible(false);
         results();
     }
 

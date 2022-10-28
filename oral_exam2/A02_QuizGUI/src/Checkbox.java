@@ -25,34 +25,42 @@ public class Checkbox extends Components {
         }
     }
 
-    public void addActionListener(Quiz quiz) {
-        fillResultJPane();
+    public void fillYourAnswer(){
+        int j = 0;
+
+        while (j < answer.length){
+            answer[j].setEnabled(false);
+            if(answer[j].isSelected()){
+                resultPanel.add(answer[j]);
+            }
+            j++;
+        }
+    }
+
+    public void fillCorrectAnswers(){
         int i = 0;
         while( i < answer.length){
-            if(answer[i].isSelected()){
-                answer[i].setForeground(Color.red);
-                resultPanel.add(answer[i]);
-                for (String s : correctAnswers) {
-                    if (answer[i].getText().compareTo(s) == 0) {
-                        answer[i].setForeground(Color.green);
-                        resultPanel.add(answer[i]);
-                        numOfCorrect++;
-                    }
+            for (String s : correctAnswers){
+                if (answer[i].getText().compareTo(s) == 0) {
+                    resultPanel.add(answer[i]);
                 }
             }
             i++;
         }
     }
+    public void addActionListener(Quiz quiz) {
+        fillResultJPane();
 
-//    public JPanel getResults() {
-//        JPanel results = new JPanel();
-//        results = componentPanel;
-//        int i = 0;
-//        while (i < answer.length) {
-//            answer[i].setEnabled(false);
-//            i++;
-//        }
-//
-//        return results;
-//    }
+        JLabel label = new JLabel("Your Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
+
+        fillYourAnswer();
+
+        label = new JLabel("Correct Answer(s)");
+        resultPanel.add(label);
+
+        fillCorrectAnswers();
+    }
+
 }

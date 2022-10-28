@@ -5,6 +5,7 @@ public abstract class Components {
     public JPanel componentPanel = new JPanel();
     public String[] correctAnswers;
     public static int y = 10;
+    public static int yy= 10;
     public String title;
     public static int numOfCorrect = 0;
     public JPanel resultPanel = new JPanel();
@@ -35,15 +36,18 @@ public abstract class Components {
     }
 
     public void fillResultJPane(){
-        JLabel label = new JLabel("Answer");
+        JLabel label = new JLabel("Prompt- " + title +"\n");
 
         label.setFont(new Font("Serif", Font.PLAIN, 22));
-        componentPanel.add(label);
+        resultPanel.add(label);
 
-        componentPanel.setLayout(new BoxLayout(componentPanel, BoxLayout.PAGE_AXIS));
-        componentPanel.setBounds(10, y, 300, 170);
+
+        resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
+        resultPanel.setBounds(10, yy, 300, 170);
         y += 170;
     }
+
+
 
 
 }
