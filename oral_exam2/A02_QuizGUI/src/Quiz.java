@@ -13,6 +13,7 @@ public class Quiz implements ActionListener{
 
     public Components component;
 
+
     public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
     public Quiz() {
 
@@ -20,7 +21,7 @@ public class Quiz implements ActionListener{
         quizFrame.setSize(500, 900);
 
         createCheckBox();
-        //createRadiobutton();
+      //  createRadiobutton();
 
 //        String[] answers = {"1","3", "1.5","9", "6"};
 //        String correctAnswer = "9";
@@ -92,7 +93,7 @@ public class Quiz implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         component.addActionListener(this);
-       // component.addActionListener(this);
+      //  component.addActionListener(this);
 
         int correct = component.getNumOfCorrect();
         int radioCorrect = component.getNumOfCorrect();

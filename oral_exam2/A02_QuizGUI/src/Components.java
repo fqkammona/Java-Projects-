@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Components {
+public abstract class Components{
     public JPanel componentPanel = new JPanel();
     public String[] correctAnswers;
     public static int y = 10;
@@ -34,6 +34,7 @@ public abstract class Components {
 
     public void  addActionListener(Quiz quiz) {
     }
+
 
     public void fillResultJPane(){
         JLabel label = new JLabel("Prompt- " + title +"\n");

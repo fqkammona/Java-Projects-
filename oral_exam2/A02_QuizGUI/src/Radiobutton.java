@@ -5,6 +5,8 @@ import java.awt.*;
 public class Radiobutton extends Components{
     public JRadioButton[] answer;
 
+    public JPanel RadioResultPanel = new JPanel();
+
     public Radiobutton(String title, String[] answersString, String[] correctAnswers) {
         super.title = title;
         super.correctAnswers = correctAnswers;
@@ -28,31 +30,43 @@ public class Radiobutton extends Components{
         }
     }
 
-    public void addActionListener(Quiz quiz) {
-        //int i = 0;
+    public void fillYourAnswer(){
+        int j = 0;
 
-//        while(i < answer.length){
-//           // answer[i].setEnabled(false);
-//            if(answer[i].getText().compareTo(correctAnswers) == 0){
-//                answer[i].setForeground(Color.green);
-//                numOfCorrect++;
-//            } else if(answer[i].isSelected() && answer[i].getText().compareTo(correctAnswers) != 0){
-//                answer[i].setForeground(Color.red);
-//            }
-//         //   answer[i].setEnabled(false);
-//            i++;
-//        }
+        while (j < answer.length){
+            answer[j].setEnabled(false);
+            if(answer[j].isSelected()){
+                resultPanel.add(answer[j]);
+            }
+            j++;
+        }
+    }
 
+    public void fillCorrectAnswers(){
         int i = 0;
         while( i < answer.length){
-            if(answer[i].isSelected()){
-                for (String s : correctAnswers) {
-                    if (answer[i].getText().compareTo(s) == 0) {
-                        numOfCorrect++;
-                    }
+            for (String s : correctAnswers){
+                if (answer[i].getText().compareTo(s) == 0) {
+                    resultPanel.add(answer[i]);
                 }
             }
             i++;
         }
     }
+    public void addActionListener(Quiz quiz) {
+        fillResultJPane();
+
+        JLabel label = new JLabel("Your Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
+
+        fillYourAnswer();
+
+        label = new JLabel("Correct Answer(s)");
+        resultPanel.add(label);
+
+        fillCorrectAnswers();
+    }
+
+
 }
