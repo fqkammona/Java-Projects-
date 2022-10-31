@@ -38,7 +38,7 @@ public class LinkedList<T> {
 
         Node<T> current = headNode; // to track the current node
         while(current != null){
-            listOfFruits.append(current.getData());
+            listOfFruits.append(current.getData()).append("\n");
             current = current.nextNode;
         }
 

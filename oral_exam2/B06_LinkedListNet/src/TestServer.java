@@ -8,6 +8,6 @@ public class TestServer {
     {
         Server application = new Server(); // create server
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.waitForResponse(); // run server application
+        application.waitForPackets(); // run server application
     }
 }
