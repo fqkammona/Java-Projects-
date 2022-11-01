@@ -46,9 +46,28 @@ public class LinkedList<T> {
     }
     // method insert anywhere in the list
 
-    // method delete anywhere in the list
+    /** This method deletes the given node anywhere in the
+     * linked list.  */
+    public void deleteNode(T node){
+        Node<T> deleteThisNode = new Node<>(node,null); // creates a new node
 
-    // method fill linked list
-
-    // method print linked list
+        Node<T> current = headNode; // to track the current node
+        Node<T> past = headNode; // To track the past node
+        int i = 0;
+        while(i <= size){
+            if(current.getData().equals(deleteThisNode.getData())){
+                if(i == 0){ // Beginning
+                    headNode = headNode.nextNode;
+                } else if(i == size){ // End
+                    tailNode = past;
+                }else{ // In the middle
+                    past.nextNode = current.nextNode;
+                }
+            }
+            past = current;
+            current = current.nextNode;
+            i++;
+        }
+        size--;
+    }
 }
