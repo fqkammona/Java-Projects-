@@ -111,20 +111,76 @@ public class Server extends JFrame {
             case 2: // Add Item
                 sendMenuOptions(receivePacket);
                 break;
-//            case 3: // Remove Item
-//                sendOptions(receivePacket);
-//                break;
+            case 3: // Remove Item
+                removeItem(receivePacket);
+                sendPrintOfList(receivePacket);
+                break;
 //            case 4: // End program
 //                sendOptions(receivePacket);
 //                break;
 
         }
+
+
     }
+
+    /** A method that sends the printed out linked list to the client. */
+    private void removeItem(DatagramPacket receivePacket)
+            throws IOException
+    {
+        displayMessage("\nWhich Item to remove: ");
+
+        byte[] data = "Please enter the name of \nitem you would like to be removed.".getBytes(); // converts the string to bytes
+
+        /* Creates a packet to send back with the string of menu options */
+        DatagramPacket sendPacket = new DatagramPacket(
+                data, data.length,
+                receivePacket.getAddress(), receivePacket.getPort());
+
+
+        socket.send(sendPacket); // Sends the packet
+        displayMessage("Packet sent\n");
+
+        boolean deleteDone = false;
+
+        while (!deleteDone)
+        {
+            try // receive packet, display contents, return copy to client
+            {
+
+                byte[] dataResponse = new byte[100]; // set up packet
+                DatagramPacket responsePacket =
+                        new DatagramPacket(dataResponse, dataResponse.length);
+
+                socket.receive(responsePacket); // wait to receive packet
+
+                // display information from received packet
+                displayMessage("\nPacket received:" +
+                        "\nFrom host: " + responsePacket.getAddress() +
+                        "\nHost port: " + responsePacket.getPort() +
+                        "\nLength: " + responsePacket.getLength() +
+                        "\nContaining:\n\t" + new String(responsePacket.getData(),
+                        0, responsePacket.getLength()));
+
+
+                String choice = new String(responsePacket.getData());
+
+                fruitList.deleteNode(choice);
+                deleteDone = true;
+            }
+            catch (IOException ioException)
+            {
+                displayMessage(ioException + "\n");
+                ioException.printStackTrace();
+            }
+        }
+    }
+
     /** A method that sends the printed out linked list to the client. */
     private void sendPrintOfList(DatagramPacket receivePacket)
             throws IOException
     {
-        displayMessage("\nList Sent");
+        displayMessage("\nPrinted out linked list sent");
 
         byte[] data = fruitList.printList().getBytes(); // converts the string to bytes
 

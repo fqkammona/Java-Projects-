@@ -9,5 +9,16 @@ public class TestServer {
         Server application = new Server(); // create server
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.waitForPackets(); // run server application
+
+//        LinkedList<String> fruitList = new LinkedList<>();
+//        String[] fruits = { "apple", "grape", "banana", "strawberry", "pineapple"};
+//
+//        for (String i: fruits)
+//            fruitList.insetLast(i);
+//
+//        System.out.println(fruitList.printList());
+//        fruitList.deleteNode("strawberry");
+//
+//        System.out.println(fruitList.printList());
     }
 }
