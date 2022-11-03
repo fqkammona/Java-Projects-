@@ -19,7 +19,6 @@ public class TestServer {
         System.out.println(fruitList.printList());
         fruitList.deleteNode("pineapple");
 
-
         System.out.println(fruitList.printList());
     }
 }

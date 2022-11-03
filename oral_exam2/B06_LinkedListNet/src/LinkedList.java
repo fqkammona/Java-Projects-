@@ -53,23 +53,24 @@ public class LinkedList<T> {
 
         Node<T> current = headNode; // to track the current node
         Node<T> past = headNode; // To track the past node
-        int i = 0;
-        while(i < size){
-            if(current.getData().toString().compareTo(deleteThisNode.getData().toString()) == 0){
-                if(i == 0){ // Beginning
-                    headNode = headNode.nextNode;
-                }
-                else if(i == size){ // End
-                    tailNode = past;
-                }else{ // In the middle
-                    past.nextNode = current.nextNode;
-                }
-            }
+        int i = 1;
+
+        while(current.getData().toString().compareTo(deleteThisNode.getData().toString()) != 0 && i < size){
             past = current;
             current = current.nextNode;
             i++;
         }
-        size--;
+
+        if(current.getData().toString().compareTo(deleteThisNode.getData().toString()) == 0){
+            if(i == 1){ // Beginning
+                headNode = headNode.nextNode;
+            } else if(i == size){ // End
+                tailNode =  past.nextNode = null;
+            } else { // In the middle
+                past.nextNode = current.nextNode;
+            }
+            size--;
+        }
     }
 
     /** This method adds the given node anywhere in the
