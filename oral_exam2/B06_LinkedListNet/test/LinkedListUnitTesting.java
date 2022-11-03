@@ -54,4 +54,14 @@ public class LinkedListUnitTesting {
         assertEquals(fruitList.printList(), "strawberry\n");
     }
 
+//    @Test // When the node doesn't exist what happens?
+//    void deleteNodeDoesNotExist(){
+//        fruitList.deleteNode("banana");
+//        fruitList.deleteNode("apple");
+//        fruitList.deleteNode("pineapple");
+//        fruitList.deleteNode("grape");
+//        assertEquals(fruitList.printList(), "strawberry\n");
+//    }
+
+
 }
