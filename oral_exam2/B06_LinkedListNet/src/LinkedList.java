@@ -55,7 +55,7 @@ public class LinkedList<T> {
         Node<T> past = headNode; // To track the past node
         int i = 0;
         while(i < size){
-            if(current.getData().toString().compareTo(deleteThisNode.toString()) == 0){
+            if(current.getData().toString().compareTo(deleteThisNode.getData().toString()) == 0){
                 if(i == 0){ // Beginning
                     headNode = headNode.nextNode;
                 }

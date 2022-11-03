@@ -17,7 +17,8 @@ public class TestServer {
             fruitList.insetLast(i);
 
         System.out.println(fruitList.printList());
-        fruitList.deleteNode("apple");
+        fruitList.deleteNode("pineapple");
+
 
         System.out.println(fruitList.printList());
     }
