@@ -80,34 +80,47 @@ public class LinkedList<T> {
         Node<T> current = headNode; // to track the current node
         Node<T> future = headNode; // To track the past node
         int i = 0;
-        while(i < size){
-            if(current.getData().toString().compareTo(addThisNode.toString()) == 0){
-                if(i == 0){ // Beginning
-                    headNode = headNode.nextNode;
-                }
-                else if(i == size){ // End
-                    tailNode = past;
-                }else{ // In the middle
-                    past.nextNode = current.nextNode;
-                }
-            }
-            past = current;
-            current = current.nextNode;
+
+        while(i < size && current.getData().toString().compareTo(addThisNode.toString()) != 0){
+
             i++;
         }
-    // Intert before or after.
 
-        if(current.getData().toString().compareTo(addThisNode.toString()) == 0){
-            if(i == 0){ // Add new head
-                headNode = addThisNode;
-                headNode.nextNode = future;
-            }
-            else if(i == size){ // End
-                tailNode = past;
-            }else{ // In the middle
-                past.nextNode = current.nextNode;
-            }
+        if(i == 0){
+            headNode = addThisNode;
+            headNode.nextNode = future;
         }
+//        while(i < size ){
+//            if(current.getData().toString().compareTo(addThisNode.toString()) == 0){
+//                if(i == 0){ // Beginning
+//                    headNode = headNode.nextNode;
+//                }
+//                else if(i == size){ // End
+//                    tailNode = past;
+//                }else{ // In the middle
+//                    past.nextNode = current.nextNode;
+//                }
+//            }
+//            past = current;
+//            current = current.nextNode;
+//            i++;
+//        }
+//    // Intert before or after.
+//        // insert before.
+//
+//        if(current.getData().toString().compareTo(addThisNode.toString()) == 0){
+//            if(i == 0){ // Add new head
+//                headNode = addThisNode;
+//                headNode.nextNode = future;
+//            }
+//            else if(i == size){ // End
+//                tailNode = past;
+//            }else{ // In the middle
+//                past.nextNode = current.nextNode;
+//            }
+//        }
+
+
     }
 
 

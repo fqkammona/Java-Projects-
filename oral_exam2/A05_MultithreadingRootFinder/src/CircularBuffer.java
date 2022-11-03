@@ -12,7 +12,7 @@ public class CircularBuffer implements Buffer {
 
     @Override
     public synchronized int[] blockingGetArray() throws InterruptedException {
-
         return buffer;
     }
+
 }
