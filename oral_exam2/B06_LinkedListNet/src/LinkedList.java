@@ -44,7 +44,6 @@ public class LinkedList<T> {
 
         return listOfFruits.toString();
     }
-    // method insert anywhere in the list
 
     /** This method deletes the given node anywhere in the
      * linked list.  */
