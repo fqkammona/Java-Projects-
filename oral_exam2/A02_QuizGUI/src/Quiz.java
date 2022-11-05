@@ -55,6 +55,7 @@ public class Quiz implements ActionListener{
 
         return dropdownBoxPanel;
     }
+
     /** Creates the Radiobuttons and puts them in a group so that they toggle and
      * adds them in a Jpanel and returns the panel.*/
     private void createRadiobutton(){
@@ -64,10 +65,11 @@ public class Quiz implements ActionListener{
         component = new Radiobutton("Which number is prime?",answers, correctAnswers);
         quizFrame.add(component.getComponentPanel());
     }
+
     private void createCheckBox() {
         /* Adding in checkbox section*/
 
-        String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6"};
+        String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6 + 7 = 12"};
         String[] correctAnswers = {"2 + 2 = 4","3 *  3 = 9", };
 
         component = new Checkbox("Chose all that applies: ",answers, correctAnswers);
@@ -93,7 +95,6 @@ public class Quiz implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         component.addActionListener(this);
-      //  component.addActionListener(this);
 
         int correct = component.getNumOfCorrect();
         int radioCorrect = component.getNumOfCorrect();
@@ -110,6 +111,5 @@ public class Quiz implements ActionListener{
         resultsFrame.setVisible(true);
         resultsFrame.add(component.getResultPanel());
         resultsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
-
     }
 }
