@@ -5,10 +5,8 @@ public abstract class Components{
     public JPanel componentPanel = new JPanel();
     public JPanel resultPanel = new JPanel();
     public String[] correctAnswers;
-    public static int y = 10;
-    public static int yy= 10;
+    public static int y = 10, yy= 150, numOfCorrect = 0;
     public String title;
-    public static int numOfCorrect = 0;
 
     public JPanel getResultPanel(){ return resultPanel; }
     public JPanel getComponentPanel(){
@@ -30,6 +28,7 @@ public abstract class Components{
 
         componentPanel.setLayout(new BoxLayout(componentPanel, BoxLayout.PAGE_AXIS));
         componentPanel.setBounds(10, y, 300, 170);
+
         y += 170;
     }
 
@@ -47,11 +46,10 @@ public abstract class Components{
         resultPanel.add(label);
 
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
-        resultPanel.setBounds(100, yy, 300, 170);
+        resultPanel.setBounds(10, yy, 400, 170);
 
         y += 170;
     }
 
-    public void addActionListener(Quiz quiz) {
-    }
+    public void addActionListener(Quiz quiz) { }
 }

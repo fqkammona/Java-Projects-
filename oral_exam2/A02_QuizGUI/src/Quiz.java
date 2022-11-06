@@ -6,13 +6,9 @@ import java.awt.event.ActionListener;
 public class Quiz implements ActionListener{
     public static JFrame quizFrame = new JFrame("Quiz");
 
-    public JButton reset;
-
     public DropdownBox dropdownBox;
-    //public Checkbox checkbox;
-
-    public Components component;
-
+    public Components checkBoxComponent;
+    public Components radioBoxComponent;
 
     public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
     public Quiz() {
@@ -21,7 +17,7 @@ public class Quiz implements ActionListener{
         quizFrame.setSize(500, 900);
 
         createCheckBox();
-      //  createRadiobutton();
+        createRadiobutton();
 
 //        String[] answers = {"1","3", "1.5","9", "6"};
 //        String correctAnswer = "9";
@@ -62,18 +58,19 @@ public class Quiz implements ActionListener{
         String[] answers = {"21","1", "73","39", "15"};
         String[] correctAnswers = {"73"};
 
-        component = new Radiobutton("Which number is prime?",answers, correctAnswers);
-        quizFrame.add(component.getComponentPanel());
+        radioBoxComponent = new Radiobutton("Which number is prime?",answers, correctAnswers);
+        quizFrame.add(radioBoxComponent.getComponentPanel());
     }
 
+    /** Creates */
     private void createCheckBox() {
         /* Adding in checkbox section*/
 
         String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6 + 7 = 12"};
         String[] correctAnswers = {"2 + 2 = 4","3 *  3 = 9", };
 
-        component = new Checkbox("Chose all that applies: ",answers, correctAnswers);
-        quizFrame.add(component.getComponentPanel());
+        checkBoxComponent= new Checkbox("Chose all that applies: ",answers, correctAnswers);
+        quizFrame.add(checkBoxComponent.getComponentPanel());
     }
 
     private JPanel createButton() {
@@ -94,11 +91,8 @@ public class Quiz implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        component.addActionListener(this);
-
-        int correct = component.getNumOfCorrect();
-        int radioCorrect = component.getNumOfCorrect();
-        correct += radioCorrect;
+        checkBoxComponent.addActionListener(this);
+        radioBoxComponent.addActionListener(this);
 
         quizFrame.setVisible(false);
         results();
@@ -109,7 +103,8 @@ public class Quiz implements ActionListener{
         resultsFrame.setSize(500, 900);
 
         resultsFrame.setVisible(true);
-        resultsFrame.add(component.getResultPanel());
+        resultsFrame.add(radioBoxComponent.getResultPanel());
+        resultsFrame.add(checkBoxComponent.getResultPanel());
         resultsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
     }
 }
