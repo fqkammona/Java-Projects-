@@ -14,15 +14,14 @@ public class Quiz implements ActionListener{
         /* Frame Settings */
         quizFrame.setSize(500, 900);
 
-        createCheckBox();
-       // createDropDownButton();
-        createRadiobutton();
         createDropDownButton();
+        createCheckBox();
+        createRadiobutton();
+
 
         quizFrame.add(createButton());
 
         quizFrame.setVisible(true);
-        //quizFrame.setFont(new Font("Serif", Font.PLAIN, 26));
         quizFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
     }
 
@@ -31,7 +30,7 @@ public class Quiz implements ActionListener{
         String[] answers = {"1","3", "1.5","9", "6", "2.75"};
         String[] correctAnswer = {"9"};
 
-        dropDownComponent = new DropdownBox("Select the answer to the question 9-3*(1/3)+1"
+        dropDownComponent = new DropdownBox("Select the correct output: 9-3*(1/3)+1"
                 ,answers, correctAnswer);
         quizFrame.add(dropDownComponent.getComponentPanel());
     }
@@ -61,11 +60,11 @@ public class Quiz implements ActionListener{
         /*Button section */
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(null);
-        buttonPanel.setBounds(60, 500, 200, 70);
+        buttonPanel.setBounds(60, 800, 200, 70);
 
      //   reset = new JButton("Reset");
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(350, 450, 80, 30);
+        submitButton.setBounds(350, 750, 80, 30);
        // reset.setBounds(250, 450, 80, 30);
 
         submitButton.addActionListener(this);
