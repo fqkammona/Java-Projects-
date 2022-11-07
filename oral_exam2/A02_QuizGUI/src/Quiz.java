@@ -5,28 +5,20 @@ import java.awt.event.ActionListener;
 
 public class Quiz implements ActionListener{
     public static JFrame quizFrame = new JFrame("Quiz");
-
-    public DropdownBox dropdownBox;
     public Components checkBoxComponent;
     public Components radioBoxComponent;
+    public Components dropDownComponent;
 
-    public String[] dropdownOptions = {"1","3", "1.5","9", "6"};
     public Quiz() {
 
         /* Frame Settings */
         quizFrame.setSize(500, 900);
 
         createCheckBox();
+       // createDropDownButton();
         createRadiobutton();
+        createDropDownButton();
 
-//        String[] answers = {"1","3", "1.5","9", "6"};
-//        String correctAnswer = "9";
-//        dropdownBox = new DropdownBox("Select the answer to the question \n\n9-3*(1/3)+1"
-//                ,answers, correctAnswer);
-//
-//       quizFrame.add(dropdownBox.getDropdownPanel());
-
-       // quizFrame.add(createDropdownBox());
         quizFrame.add(createButton());
 
         quizFrame.setVisible(true);
@@ -34,22 +26,14 @@ public class Quiz implements ActionListener{
         quizFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
     }
 
-    private JPanel createDropdownBox(){
-        JPanel dropdownBoxPanel = new JPanel();
-        dropdownBoxPanel.setBounds(10, 390, 300, 200);
+    /** Creates */
+    private void createDropDownButton(){
+        String[] answers = {"1","3", "1.5","9", "6", "2.75"};
+        String[] correctAnswer = {"9"};
 
-        JLabel dropdownQuestion = new JLabel("Select the answer to the question " +
-                "\n\n9-3*(1/3)+1");
-
-       // dropdownBoxPanel.setFont(new Font("Serif", Font.PLAIN, 14));
-        dropdownBoxPanel.add(dropdownQuestion);
-
-        JComboBox<String> dropDownBox = new JComboBox<>(dropdownOptions);
-        dropDownBox.setBounds(80, 50, 140, 20);
-
-        dropdownBoxPanel.add(dropDownBox);
-
-        return dropdownBoxPanel;
+        dropDownComponent = new DropdownBox("Select the answer to the question 9-3*(1/3)+1"
+                ,answers, correctAnswer);
+        quizFrame.add(dropDownComponent.getComponentPanel());
     }
 
     /** Creates the Radiobuttons and puts them in a group so that they toggle and
