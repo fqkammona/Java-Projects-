@@ -63,5 +63,48 @@ public class LinkedListUnitTesting {
 //        assertEquals(fruitList.printList(), "strawberry\n");
 //    }
 
+    @Test
+    void addNodeBeforeHead(){
+        fruitList.addNode("lemon", "before", "apple");
+        assertEquals(fruitList.printList(), "lemon\n" +
+                "apple\n" +
+                "grape\n" +
+                "banana\n" +
+                "strawberry\n" +
+                "pineapple\n");
+    }
+
+    @Test
+    void addNodeAfterHead(){
+        fruitList.addNode("pear", "after", "apple");
+        assertEquals(fruitList.printList(), "apple\n" +
+                "pear\n" +
+                "grape\n" +
+                "banana\n" +
+                "strawberry\n" +
+                "pineapple\n");
+    }
+
+    @Test
+    void addNodeBeforeTail(){
+        fruitList.addNode("pear", "before", "pineapple");
+        assertEquals(fruitList.printList(), "apple\n" +
+                "grape\n" +
+                "banana\n" +
+                "strawberry\n" +
+                "pear\n" +
+                "pineapple\n");
+    }
+
+    @Test
+    void addNodeAfterTail(){
+        fruitList.addNode("lemon", "after", "pineapple");
+        assertEquals(fruitList.printList(),
+                "apple\n" +
+                        "grape\n" +
+                        "banana\n" +
+                        "strawberry\n" +
+                        "pineapple\n" + "lemon\n" );
+    }
 
 }
