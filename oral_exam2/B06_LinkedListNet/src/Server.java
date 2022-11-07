@@ -97,9 +97,6 @@ public class Server extends JFrame {
     private void optionChoice(DatagramPacket receivePacket)
         throws IOException
     {
-        String choice = new String(receivePacket.getData(),
-                receivePacket.getOffset(),receivePacket.getLength());
-
         /* Converts they byte data to a string and then converts the string into an int */
         int choiceNumber = Integer.parseInt(new String(receivePacket.getData(),
                 receivePacket.getOffset(),receivePacket.getLength())); // String to Int
@@ -113,15 +110,13 @@ public class Server extends JFrame {
                 break;
             case 3: // Remove Item
                 removeItem(receivePacket);
-                sendPrintOfList(receivePacket);
+            //    sendPrintOfList(receivePacket);
                 break;
 //            case 4: // End program
 //                sendOptions(receivePacket);
 //                break;
 
         }
-
-
     }
 
     /** A method that sends the printed out linked list to the client. */
@@ -163,9 +158,11 @@ public class Server extends JFrame {
                         0, responsePacket.getLength()));
 
 
-                String choice = new String(responsePacket.getData());
+                /* You need to get the buffer length  */
+                String choice = new String(responsePacket.getData(), 0 ,responsePacket.getLength());
 
                 fruitList.deleteNode(choice);
+
                 deleteDone = true;
             }
             catch (IOException ioException)
@@ -180,28 +177,24 @@ public class Server extends JFrame {
     private void sendPrintOfList(DatagramPacket receivePacket)
             throws IOException
     {
-        displayMessage("\nPrinted out linked list sent");
-
         byte[] data = fruitList.printList().getBytes(); // converts the string to bytes
-
-        /* Creates a packet to send back with the string of menu options */
-        DatagramPacket sendPacket = new DatagramPacket(
-                data, data.length,
-                receivePacket.getAddress(), receivePacket.getPort());
-
-
-        socket.send(sendPacket); // Sends the packet
-        displayMessage("Packet sent\n");
-
+        sendMessage(receivePacket, data, "\nPrinted out linked list sent");
     }
 
     /** A method that sends the menu options to the client. */
     private void sendMenuOptions(DatagramPacket receivePacket)
             throws IOException
     {
-        displayMessage("\nList of menu options sent");
-
         byte[] data = stringOfMenuOptions().getBytes(); // converts the string to bytes
+        sendMessage(receivePacket, data, "\nList of menu options sent");
+    }
+
+    /** This is the only method that actually sends the data to the client. Rather than writing this
+     * very time all methods sends call this method when they want to send data to the client.   */
+    private void sendMessage(DatagramPacket receivePacket, byte[] data, String message)
+            throws IOException
+    {
+        displayMessage(message);
 
         /* Creates a packet to send back with the string of menu options */
         DatagramPacket sendPacket = new DatagramPacket(
@@ -211,9 +204,7 @@ public class Server extends JFrame {
 
         socket.send(sendPacket); // Sends the packet
         displayMessage("Packet sent\n");
-
     }
-
 
     // manipulates displayArea in the event-dispatch thread
     private void displayMessage(final String messageToDisplay)
