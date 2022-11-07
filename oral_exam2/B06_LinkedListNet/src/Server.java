@@ -23,6 +23,7 @@ public class Server extends JFrame {
     private DatagramSocket socket; // socket to connect to client
     public LinkedList<String> fruitList = new LinkedList<>();
 
+    boolean displayMenu = true;
     public String[] menuOptions = {"1. Print List", "2. Add Item", "3. Delete Item", "4. End program"};
 
     public String stringOfMenuOptions(){
@@ -106,39 +107,32 @@ public class Server extends JFrame {
                 sendPrintOfList(receivePacket);
                 break;
             case 2: // Add Item
-                sendMenuOptions(receivePacket);
+                displayMenu = false;
+                addItem(receivePacket);
                 break;
             case 3: // Remove Item
+                displayMenu = false;
                 removeItem(receivePacket);
-            //    sendPrintOfList(receivePacket);
+                sendPrintOfList(receivePacket);
                 break;
-//            case 4: // End program
-//                sendOptions(receivePacket);
-//                break;
-
+            case 4: // End program
+                break;
+            default: displayMenu = true;
+                break;
         }
+
+        /* Sends menu options to the client  */
+        if(displayMenu)
+            sendMessage(receivePacket, stringOfMenuOptions().getBytes(), "\nList of menu options sent");
     }
 
-    /** A method that sends the printed out linked list to the client. */
-    private void removeItem(DatagramPacket receivePacket)
+    private void addItem(DatagramPacket receivePacket)
             throws IOException
     {
-        displayMessage("\nWhich Item to remove: ");
+        sendMessage(receivePacket, "Please enter the name of \nitem you would like to be add.".getBytes(),
+                "\nWhich Item to remove: ");
 
-        byte[] data = "Please enter the name of \nitem you would like to be removed.".getBytes(); // converts the string to bytes
-
-        /* Creates a packet to send back with the string of menu options */
-        DatagramPacket sendPacket = new DatagramPacket(
-                data, data.length,
-                receivePacket.getAddress(), receivePacket.getPort());
-
-
-        socket.send(sendPacket); // Sends the packet
-        displayMessage("Packet sent\n");
-
-        boolean deleteDone = false;
-
-        while (!deleteDone)
+        while (!displayMenu)
         {
             try // receive packet, display contents, return copy to client
             {
@@ -163,7 +157,50 @@ public class Server extends JFrame {
 
                 fruitList.deleteNode(choice);
 
-                deleteDone = true;
+                displayMenu = true;
+            }
+            catch (IOException ioException)
+            {
+                displayMessage(ioException + "\n");
+                ioException.printStackTrace();
+            }
+        }
+    }
+
+
+    /** A method that sends the printed out linked list to the client. */
+    private void removeItem(DatagramPacket receivePacket)
+            throws IOException
+    {
+        sendMessage(receivePacket, "Please enter the name of \nitem you would like to be removed.".getBytes(),
+                "\nWhich Item to remove: ");
+
+        while (!displayMenu)
+        {
+            try // receive packet, display contents, return copy to client
+            {
+
+                byte[] dataResponse = new byte[100]; // set up packet
+                DatagramPacket responsePacket =
+                        new DatagramPacket(dataResponse, dataResponse.length);
+
+                socket.receive(responsePacket); // wait to receive packet
+
+                // display information from received packet
+                displayMessage("\nPacket received:" +
+                        "\nFrom host: " + responsePacket.getAddress() +
+                        "\nHost port: " + responsePacket.getPort() +
+                        "\nLength: " + responsePacket.getLength() +
+                        "\nContaining:\n\t" + new String(responsePacket.getData(),
+                        0, responsePacket.getLength()));
+
+
+                /* You need to get the buffer length  */
+                String choice = new String(responsePacket.getData(), 0 ,responsePacket.getLength());
+
+                fruitList.deleteNode(choice);
+
+                displayMenu = true;
             }
             catch (IOException ioException)
             {
@@ -177,16 +214,7 @@ public class Server extends JFrame {
     private void sendPrintOfList(DatagramPacket receivePacket)
             throws IOException
     {
-        byte[] data = fruitList.printList().getBytes(); // converts the string to bytes
-        sendMessage(receivePacket, data, "\nPrinted out linked list sent");
-    }
-
-    /** A method that sends the menu options to the client. */
-    private void sendMenuOptions(DatagramPacket receivePacket)
-            throws IOException
-    {
-        byte[] data = stringOfMenuOptions().getBytes(); // converts the string to bytes
-        sendMessage(receivePacket, data, "\nList of menu options sent");
+        sendMessage(receivePacket, fruitList.printList().getBytes(), "\nPrinted out linked list sent");
     }
 
     /** This is the only method that actually sends the data to the client. Rather than writing this
