@@ -109,6 +109,7 @@ public class Server extends JFrame {
             case 2: // Add Item
                 displayMenu = false;
                 addItem(receivePacket);
+                sendPrintOfList(receivePacket);
                 break;
             case 3: // Remove Item
                 displayMenu = false;
@@ -126,10 +127,13 @@ public class Server extends JFrame {
             sendMessage(receivePacket, stringOfMenuOptions().getBytes(), "\nList of menu options sent");
     }
 
+    /** The add method */
     private void addItem(DatagramPacket receivePacket)
             throws IOException
     {
-        sendMessage(receivePacket, "Please enter the name of \nitem you would like to be add.".getBytes(),
+        sendMessage(receivePacket, ("Please enter the name of \nitem you would like to be add \nfollowed by a comma with the " +
+                        "word before/after and comma with the reference node" +
+                        "\n new node, before/after, reference node ").getBytes(),
                 "\nWhich Item to remove: ");
 
         while (!displayMenu)
@@ -154,8 +158,10 @@ public class Server extends JFrame {
 
                 /* You need to get the buffer length  */
                 String choice = new String(responsePacket.getData(), 0 ,responsePacket.getLength());
+                String[] choices = choice.split(",",0);
 
-                fruitList.deleteNode(choice);
+                fruitList.addNode(choices[0], choices[1], choices[2]);
+
 
                 displayMenu = true;
             }
@@ -197,6 +203,7 @@ public class Server extends JFrame {
 
                 /* You need to get the buffer length  */
                 String choice = new String(responsePacket.getData(), 0 ,responsePacket.getLength());
+
 
                 fruitList.deleteNode(choice);
 
