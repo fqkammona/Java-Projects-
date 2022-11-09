@@ -12,58 +12,94 @@ import java.net.SocketException;
  * which then implements it. */
 
 public class Client extends JFrame {
-    private JTextField enterField; // for entering messages
-    private JTextArea displayArea; // for displaying messages
+//    private JTextField enterField; // for entering messages
+//    private JTextArea displayArea; // for displaying messages
     private DatagramSocket socket; // socket to connect to server
 
-    private JTextArea instructionArea; // for displaying instructions
-    private JTextArea replayArea; // for displaying replay
+    private JTextArea instructionArea = new JTextArea("Instructions"); // for displaying instructions
+    private JTextArea replayArea = new JTextArea("History"); // for displaying replay
 
     private JPanel displayPanel; // The panel that holds the TextAreas
     private JPanel mainPanel = new JPanel(); // holds all the panels in it
 
-    private Container buttonContainer = new Container(); // Container that holds the buttons
-
-    private JButton printListButton = new JButton("Print List");
+    private final JButton printListButton = new JButton("Print List");
     private JButton addButton = new JButton("Add Item");
     private JButton deleteButton = new JButton("Delete Item");
     private JButton endButton = new JButton("End Program");
     private GridBagConstraints con = new GridBagConstraints();
 
     private void fillContainerButtons() {
-        buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.Y_AXIS));
+        //con.anchor = GridBagConstraints.FIRST_LINE_START;
 
-        printListButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttonContainer.add(printListButton);
+        makeButton(printListButton, 0);
+        makeButton(addButton, 1);
+        makeButton(deleteButton, 2);
+        makeButton(endButton, 3);
+    }
 
-        addButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttonContainer.add(addButton);
-
-        deleteButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttonContainer.add(deleteButton);
-
-        endButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttonContainer.add(endButton);
-
+    private void makeButton(JButton buttonName, int y){
+        buttonName.setAlignmentX(Component.LEFT_ALIGNMENT);
+        con.weightx = 0.5;
+        con.weighty = 0.5;
         con.gridx = 0; // first row
-        con.gridy = 0; // first col
-        con.fill = GridBagConstraints.HORIZONTAL;
+        con.gridy = y; // first col
+        //con.fill = GridBagConstraints.FIRST_LINE_START;
 
-        mainPanel.add(buttonContainer, con);
+        mainPanel.add(buttonName, con);
+        add(mainPanel); // add to JFrame
+    }
+    private void fillJPanelDisplayPanel() {
+     //   con.anchor = GridBagConstraints.FIRST_LINE_END;
+        makeTextArea(instructionArea, 0);
+        makeTextArea(replayArea, 1);
+    }
+
+    private void makeTextArea(JTextArea textAreaName, int y){
+        textAreaName.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        con.gridx = 1; // first row
+        con.gridy = y; // first col
+        con.ipady = 10;
+     //   con.fill = GridBagConstraints.FIRST_LINE_START;
+
+        mainPanel.add(textAreaName, con);
         add(mainPanel); // add to JFrame
     }
 
-    private void fillJPanelDisplayPanel() {
+
+    private void addComponent(JButton buttonName, int gridx, int gridy, int gridwidth, int gridheight,
+                              int anchor, int fill){
+        Insets insets = new Insets(0,0,0,0);
+        con = new GridBagConstraints(gridx, gridy, gridwidth, gridheight, 1.0, 1.0, anchor, fill,
+                insets, 0,0);
+        mainPanel.add(buttonName, con);
 
     }
-
     //  set up GUI and DatagramSocket
     public Client(String host) {
         super("Client");
         mainPanel.setLayout(new GridBagLayout());
+        addComponent(printListButton, 0,0,1,1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        addComponent(addButton, 0,0,1,1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        add(mainPanel);
 
-        fillContainerButtons();
 
+//        con.weightx = 0;
+//        con.weighty = 0;
+//        con.gridx = 0; // first row
+//        con.gridy = 0; // first col
+//        mainPanel.add(instructionArea, con);
+//        add(mainPanel);
+
+//        mainPanel.setBackground(Color.red);
+//        makeButton(printListButton, 0);
+//        makeButton(addButton, 1);
+//        makeButton(deleteButton, 2);
+//        makeButton(endButton, 3);
+
+       // fillContainerButtons();
+  //   fillJPanelDisplayPanel();
 //
 //        enterField = new JTextField("Type message here");
 //        enterField.addActionListener(
@@ -81,7 +117,6 @@ public class Client extends JFrame {
 //                            // create sendPacket
 //                            DatagramPacket sendPacket = new DatagramPacket(data,
 //                                    data.length, InetAddress.getByName(host), 23604);
-//
 //
 //                            socket.send(sendPacket); // send packet
 //                            displayArea.append("Packet sent\n");
@@ -153,7 +188,7 @@ public class Client extends JFrame {
                 {
                     public void run() // updates displayArea
                     {
-                        displayArea.append(messageToDisplay);
+                        //displayArea.append(messageToDisplay);
                     }
                 }
         );
