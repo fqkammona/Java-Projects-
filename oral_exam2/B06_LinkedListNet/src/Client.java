@@ -2,183 +2,185 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.*;
+import java.util.Formatter;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /** This is the client class, it sends
  * what to do with linked list to the server class
  * which then implements it. */
 
-public class Client extends JFrame {
-//    private JTextField enterField; // for entering messages
-//    private JTextArea displayArea; // for displaying messages
-    private DatagramSocket socket; // socket to connect to server
-
-    private JTextArea instructionArea = new JTextArea("Instructions"); // for displaying instructions
-    private JTextArea replayArea = new JTextArea("History"); // for displaying replay
-
-    private JPanel displayPanel; // The panel that holds the TextAreas
-    private JPanel mainPanel = new JPanel(); // holds all the panels in it
-
+public class Client extends JFrame implements Runnable, ActionListener
+ {
+   private JTextField enterField; // for entering messages
+    private JTextArea displayArea; // for displaying messages
+    private Socket socket; // connection to server
+    private Scanner input; // input from server
+    private Formatter output; // output to server
+    private static final Insets insets = new Insets(0,0,0,0);
+    private final JTextArea instructionArea = new JTextArea("Output"); // for displaying instructions
+    private final JTextArea replayArea = new JTextArea("History"); // for displaying replay
+    private final JPanel mainPanel = new JPanel(); // holds all the panels in it
     private final JButton printListButton = new JButton("Print List");
-    private JButton addButton = new JButton("Add Item");
-    private JButton deleteButton = new JButton("Delete Item");
-    private JButton endButton = new JButton("End Program");
+    private final JButton addButton = new JButton("Add Item");
+    private final JButton deleteButton = new JButton("Delete Item");
+    private final JButton endButton = new JButton("End Program");
     private GridBagConstraints con = new GridBagConstraints();
+    private String host;
 
     private void fillContainerButtons() {
-        //con.anchor = GridBagConstraints.FIRST_LINE_START;
-
-        makeButton(printListButton, 0);
-        makeButton(addButton, 1);
-        makeButton(deleteButton, 2);
-        makeButton(endButton, 3);
+        addButtonComponent(printListButton, 0,1,1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        addButtonComponent(addButton, 1,1,1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        addButtonComponent(deleteButton, 2,1,1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        addButtonComponent(endButton, 3,1,1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        addTextAreaComponent(instructionArea, 0,1,2, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        addTextAreaComponent(replayArea, 2,1,2, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH);
+        add(mainPanel);
     }
 
-    private void makeButton(JButton buttonName, int y){
-        buttonName.setAlignmentX(Component.LEFT_ALIGNMENT);
-        con.weightx = 0.5;
-        con.weighty = 0.5;
-        con.gridx = 0; // first row
-        con.gridy = y; // first col
-        //con.fill = GridBagConstraints.FIRST_LINE_START;
-
-        mainPanel.add(buttonName, con);
-        add(mainPanel); // add to JFrame
-    }
-    private void fillJPanelDisplayPanel() {
-     //   con.anchor = GridBagConstraints.FIRST_LINE_END;
-        makeTextArea(instructionArea, 0);
-        makeTextArea(replayArea, 1);
-    }
-
-    private void makeTextArea(JTextArea textAreaName, int y){
-        textAreaName.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        con.gridx = 1; // first row
-        con.gridy = y; // first col
-        con.ipady = 10;
-     //   con.fill = GridBagConstraints.FIRST_LINE_START;
-
-        mainPanel.add(textAreaName, con);
-        add(mainPanel); // add to JFrame
-    }
-
-
-    private void addComponent(JButton buttonName, int gridx, int gridy, int gridwidth, int gridheight,
-                              int anchor, int fill){
-        Insets insets = new Insets(0,0,0,0);
-        con = new GridBagConstraints(gridx, gridy, gridwidth, gridheight, 1.0, 1.0, anchor, fill,
+    private void addButtonComponent(JButton buttonName,  int gridy, int gridwidth, int gridheight,
+                                    int anchor, int fill){
+        con = new GridBagConstraints(0, gridy, gridwidth, gridheight, 1.0, 1.0, anchor, fill,
                 insets, 0,0);
         mainPanel.add(buttonName, con);
-
     }
+
+    private void addTextAreaComponent(JTextArea textAreaName,  int gridy, int gridwidth, int gridheight,
+                                    int anchor, int fill){
+        con = new GridBagConstraints(1, gridy, gridwidth, gridheight, 1.0, 1.0, anchor, fill,
+                insets, 0,0);
+        textAreaName.setEditable(false); // Can't change it
+       // mainPanel.add(new JScrollPane(textAreaName), BorderLayout.CENTER);
+        mainPanel.add(textAreaName, con);
+    }
+
     //  set up GUI and DatagramSocket
     public Client(String host) {
         super("Client");
+        this.host = host;
+
         mainPanel.setLayout(new GridBagLayout());
-        addComponent(printListButton, 0,0,1,1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        addComponent(addButton, 0,0,1,1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        add(mainPanel);
+        printListButton.addActionListener((ActionListener) this);
+        addButton.addActionListener((ActionListener) this);
+        deleteButton.addActionListener((ActionListener) this);
+        endButton.addActionListener((ActionListener) this);
 
+       fillContainerButtons();
 
-//        con.weightx = 0;
-//        con.weighty = 0;
-//        con.gridx = 0; // first row
-//        con.gridy = 0; // first col
-//        mainPanel.add(instructionArea, con);
-//        add(mainPanel);
+        enterField = new JTextField("Type message here");
+        con = new GridBagConstraints(0, 4, 2, 1, 1.0, 1.0, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, insets, 0,0);
 
-//        mainPanel.setBackground(Color.red);
-//        makeButton(printListButton, 0);
-//        makeButton(addButton, 1);
-//        makeButton(deleteButton, 2);
-//        makeButton(endButton, 3);
-
-       // fillContainerButtons();
-  //   fillJPanelDisplayPanel();
-//
-//        enterField = new JTextField("Type message here");
-//        enterField.addActionListener(
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent event) {
-//                        try // create and send packet
-//                        {
-//                            // get message from textfield
-//                            String message = event.getActionCommand();
-//                            displayArea.append("\nSending packet containing: " +
-//                                    message + "\n");
-//
-//                            byte[] data = message.getBytes(); // convert to bytes
-//
-//                            // create sendPacket
-//                            DatagramPacket sendPacket = new DatagramPacket(data,
-//                                    data.length, InetAddress.getByName(host), 23604);
-//
-//                            socket.send(sendPacket); // send packet
-//                            displayArea.append("Packet sent\n");
-//                            displayArea.setCaretPosition(
-//                                    displayArea.getText().length());
-//                        } catch (IOException ioException) {
-//                            displayMessage(ioException + "\n");
-//                            ioException.printStackTrace();
-//                        }
-//                    }
-//                }
-//        );
-//
-//        mainPanel.add(enterField, BorderLayout.NORTH);
-//
-//        displayArea = new JTextArea();
-//        mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
-
+       mainPanel.add(enterField, con);
+       add(mainPanel);
 
         setSize(400, 300); // set window size
         setVisible(true); // show window
 
-        try // create DatagramSocket for sending and receiving packets
-        {
-            socket = new DatagramSocket();
-        } catch (SocketException socketException) {
-            socketException.printStackTrace();
-            System.exit(1);
-        }
-
-        waitForPackets();
+        startClient();
     }
 
-
-    // wait for packets to arrive from Server, display packet contents
-    public void waitForPackets()
+    // start the client thread
+    public void startClient()
     {
-        while (true)
+        try // connect to server and get streams
         {
-            try // receive packet and display contents
-            {
-                byte[] data = new byte[100]; // set up packet
-                DatagramPacket receivePacket = new DatagramPacket(
-                        data, data.length);
+            // make connection to server
+            socket = new Socket(
+                    InetAddress.getByName(host), 12345);
 
-                socket.receive(receivePacket); // wait for packet
+            // get streams for input and output
+            input = new Scanner(socket.getInputStream());
+            output = new Formatter(socket.getOutputStream());
+        }
+        catch (IOException ioException)
+        {
+            ioException.printStackTrace();
+        }
 
-                // display packet contents
-                displayMessage("\nPacket received:" +
-                        "\nFrom host: " + receivePacket.getAddress() +
-                        "\nHost port: " + receivePacket.getPort() +
-                        "\nLength: " + receivePacket.getLength() +
-                        "\nContaining:\n\t" + new String(receivePacket.getData(),
-                        0, receivePacket.getLength()));
-            }
-            catch (IOException exception)
-            {
-                displayMessage(exception + "\n");
-                exception.printStackTrace();
-            }
+        // create and start worker thread for this client
+        ExecutorService worker = Executors.newFixedThreadPool(1);
+        worker.execute(this); // execute client
+    }
+
+     public void run()
+     {
+
+     }
+
+    public void actionPerformed(ActionEvent e){
+        Object buttonPressed = e.getSource();
+
+        if(buttonPressed == printListButton) {
+            replayArea.append("\nSending packet containing: " +
+                    "print list" + "\n");
+            printListButton.setText("clicked");
+        } else if (buttonPressed == addButton){
+            replayArea.append("\nSending packet containing: " +
+                    "add button" + "\n");
+        } else if(buttonPressed == deleteButton){
+            replayArea.append("\nSending packet containing: " +
+                    "delete button" + "\n");
+        }
+        if (buttonPressed == endButton){
+            replayArea.append("\nSending packet containing: " +
+                    "end program" + "\n");
         }
     }
+//
+//    // wait for packets to arrive from Server, display packet contents
+//    public void waitForPackets()
+//    {
+//        while (true)
+//        {
+//            try // receive packet and display contents
+//            {
+//                byte[] data = new byte[100]; // set up packet
+//                DatagramPacket receivePacket = new DatagramPacket(
+//                        data, data.length);
+//
+//                socket.receive(receivePacket); // wait for packet
+//
+//                // display packet contents
+//                displayMessage("\nPacket received:" +
+//                        "\nFrom host: " + receivePacket.getAddress() +
+//                        "\nHost port: " + receivePacket.getPort() +
+//                        "\nLength: " + receivePacket.getLength() +
+//                        "\nContaining:\n\t" + new String(receivePacket.getData(),
+//                        0, receivePacket.getLength()));
+//            }
+//            catch (IOException exception)
+//            {
+//                displayMessage(exception + "\n");
+//                exception.printStackTrace();
+//            }
+//        }
+//    }
+//    private void sendMessage(DatagramPacket receivePacket, byte[] data, String message)
+//        throws IOException
+//    {
+//        displayMessage(message);
+//
+//        /* Creates a packet to send back with the string of menu options */
+//        DatagramPacket sendPacket = new DatagramPacket(
+//            data, data.length,
+//            receivePacket.getAddress(), receivePacket.getPort());
+//
+//
+//        socket.send(sendPacket); // Sends the packet
+//        displayMessage("Packet sent\n");
+//    }
 
     // manipulates displayArea in the event-dispatch thread
     private void displayMessage(final String messageToDisplay)
@@ -188,7 +190,7 @@ public class Client extends JFrame {
                 {
                     public void run() // updates displayArea
                     {
-                        //displayArea.append(messageToDisplay);
+                        displayArea.append(messageToDisplay);
                     }
                 }
         );
