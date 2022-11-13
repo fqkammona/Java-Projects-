@@ -23,17 +23,33 @@ public class Client extends JFrame implements Runnable, ActionListener
     private Scanner input; // input from server
     private Formatter output; // output to server
     private static final Insets insets = new Insets(0,0,0,0);
-    private final JTextArea instructionArea = new JTextArea("Output"); // for displaying instructions
-    private final JTextArea replayArea = new JTextArea("History"); // for displaying replay
+  //  private final JTextArea instructionArea = new JTextArea("Output"); // for displaying instructions
+     private JTextArea instructionArea;
+ //   private final JTextArea replayArea = new JTextArea("History"); // for displaying replay
+
+     private JTextArea replayArea;
     private final JPanel mainPanel = new JPanel(); // holds all the panels in it
+
+    private GridBagLayout bagLayout;
     private final JButton printListButton = new JButton("Print List");
     private final JButton addButton = new JButton("Add Item");
     private final JButton deleteButton = new JButton("Delete Item");
     private final JButton endButton = new JButton("End Program");
     private GridBagConstraints con = new GridBagConstraints();
+
+    private Container container;
     private String host;
 
     private void fillContainerButtons() {
+        instructionArea = new JTextArea("Instructions", 3,25);
+        con.fill = GridBagConstraints.BOTH;
+        addTestTa(instructionArea, 1,0, 2, 1);
+
+        replayArea = new JTextArea("Replay", 9,25);
+        con.fill = GridBagConstraints.BOTH;
+        addTestTa(replayArea, 1,1, 2, 4);
+
+
         addButtonComponent(printListButton, 0,1,1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH);
         addButtonComponent(addButton, 1,1,1, GridBagConstraints.CENTER,
@@ -42,50 +58,54 @@ public class Client extends JFrame implements Runnable, ActionListener
                 GridBagConstraints.BOTH);
         addButtonComponent(endButton, 3,1,1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH);
-        addTextAreaComponent(instructionArea, 0,1,2, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        addTextAreaComponent(replayArea, 2,1,2, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        add(mainPanel);
+
+        enterField = new JTextField("Type message here");
+        con.fill = GridBagConstraints.BOTH;
+        addTestTa(enterField, 0,5,3,1);
     }
 
-    private void addButtonComponent(JButton buttonName,  int gridy, int gridwidth, int gridheight,
+    private void addTestTa(Component c, int row, int col, int width, int height){
+        con.gridx = row;
+        con.gridy = col;
+
+        con.weighty = 1.0;
+        con.weightx = 1.0;
+
+        con.gridwidth = width;
+        con.gridheight = height;
+
+        instructionArea.setEditable(false);
+
+        bagLayout.setConstraints(c, con);
+        container.add(new JScrollPane(c), con);
+    }
+    private void addButtonComponent(Component cName,  int gridy, int gridwidth, int gridheight,
                                     int anchor, int fill){
-        con = new GridBagConstraints(0, gridy, gridwidth, gridheight, 1.0, 1.0, anchor, fill,
+        con = new GridBagConstraints(0, gridy, gridwidth, gridheight, 0, 1.0, anchor, fill,
                 insets, 0,0);
-        mainPanel.add(buttonName, con);
+        bagLayout.setConstraints(cName, con);
+        container.add(cName);
     }
 
-    private void addTextAreaComponent(JTextArea textAreaName,  int gridy, int gridwidth, int gridheight,
-                                    int anchor, int fill){
-        con = new GridBagConstraints(1, gridy, gridwidth, gridheight, 1.0, 1.0, anchor, fill,
-                insets, 0,0);
-        textAreaName.setEditable(false); // Can't change it
-       // mainPanel.add(new JScrollPane(textAreaName), BorderLayout.CENTER);
-        mainPanel.add(textAreaName, con);
-    }
 
     //  set up GUI and DatagramSocket
     public Client(String host) {
         super("Client");
         this.host = host;
 
-        mainPanel.setLayout(new GridBagLayout());
-        printListButton.addActionListener((ActionListener) this);
-        addButton.addActionListener((ActionListener) this);
-        deleteButton.addActionListener((ActionListener) this);
-        endButton.addActionListener((ActionListener) this);
+  //mainPanel.setLayout(new GridBagLayout());
+        container = getContentPane();
+        bagLayout = new GridBagLayout();
+        container.setLayout(bagLayout);
+
+        printListButton.addActionListener(this);
+        addButton.addActionListener(this);
+        deleteButton.addActionListener(this);
+        endButton.addActionListener(this);
 
        fillContainerButtons();
 
-        enterField = new JTextField("Type message here");
-        con = new GridBagConstraints(0, 4, 2, 1, 1.0, 1.0, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH, insets, 0,0);
-
-       mainPanel.add(enterField, con);
-       add(mainPanel);
-
-        setSize(400, 300); // set window size
+        setSize(450, 500); // set window size
         setVisible(true); // show window
 
         startClient();
@@ -123,9 +143,8 @@ public class Client extends JFrame implements Runnable, ActionListener
         Object buttonPressed = e.getSource();
 
         if(buttonPressed == printListButton) {
-            replayArea.append("\nSending packet containing: " +
+            instructionArea.append("\nSending packet containing: " +
                     "print list" + "\n");
-            printListButton.setText("clicked");
         } else if (buttonPressed == addButton){
             replayArea.append("\nSending packet containing: " +
                     "add button" + "\n");
