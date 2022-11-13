@@ -42,7 +42,7 @@ public class Client extends JFrame
          
                   // create sendPacket
                   DatagramPacket sendPacket = new DatagramPacket(data, 
-                     data.length, InetAddress.getByName("128.255.17.169"), 23935);
+                     data.length, InetAddress.getByName("128.255.17.113"), 23604);
 
 
                   socket.send(sendPacket); // send packet
