@@ -1,12 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -122,44 +119,17 @@ public class ServerWithGUIS extends JFrame
             sendData(fruitList.printList());
         } if(message.compareTo("Add Button") == 0){
             addItem();
+        } if (message.compareTo("Delete Button") == 0){
+            deleteItem();
         }
-
-
-//        int choiceNumber = Integer.parseInt(message); // String to Int
-//        sendData(fruitList.printList());
-//        displayMessage("\n" + "Print List"); // display message
-//
-//        switch (choiceNumber){
-//            case 1: // print list
-//                sendData(fruitList.printList());
-//                displayMessage("\n" + "Print List"); // display message
-//                break;
-//            case 2: // Add Item
-//                sendData("Please enter the name of \nitem you would like to be add \nfollowed by a comma with the " +
-//                        "word before/after and comma with the reference node" +
-//                        "\n new node, before/after, reference node ");
-//                displayMessage("\n" + "Instructions Sent"); // display message
-
-
-//            case 3: // Remove Item
-//                displayMenu = false;
-//                removeItem(receivePacket);
-//                sendPrintOfList(receivePacket);
-//                break;
-//            case 4: // End program
-//                break;
-//            default: displayMenu = true;
-//                break;
-
-
     }
 
     /** The add method */
     private void addItem() throws IOException
     {
-        sendData("Please enter the name of \nitem you would like to be add \nfollowed by a comma with the " +
+        sendData("Please enter the name of item you would like to be add followed by a comma with the " +
                 "word before/after and comma with the reference node" +
-                        "\n new node, before/after, reference node ");
+                        "new node, before/after, reference node ");
         displayMessage("\n" + "Instructions Sent"); // display message
         String message = "";
         boolean doneAdding = true;
@@ -178,33 +148,30 @@ public class ServerWithGUIS extends JFrame
                 displayMessage("\nUnknown object type received");
                 doneAdding = false;
             }
-         //   doneAdding = false;
         }
-
-
-
-//        boolean newItem = true;
-//
-//        while(newItem) {
-//            try {
-//                getStreams();
-//                try // read message and display it
-//                {
-//                    String message = (String) input.readObject(); // read new message
-//                    String[] choices = message.split(",",0);
-//                    fruitList.addNode(choices[0], choices[1], choices[2]);
-//                }
-//                catch (ClassNotFoundException classNotFoundException)
-//                {
-//                    displayMessage("\nUnknown object type received");
-//                }
-//                newItem = false;
-//            }  catch (IOException ioException) {
-//                ioException.printStackTrace();
-//            }
-//        }
-
     }
+
+    private void deleteItem() throws IOException{
+        sendData("\n\nPlease enter the name of item you would like to be removed.\n");
+        String message = "";
+        boolean doneAdding = true;
+
+        while(doneAdding){
+            try // read message and display it
+            {
+                message = (String) input.readObject(); // read new message
+                fruitList.deleteNode(message);
+                sendData("End Delete");
+                doneAdding = false;
+            }
+            catch (ClassNotFoundException classNotFoundException)
+            {
+                displayMessage("\nUnknown object type received");
+                doneAdding = false;
+            }
+        }
+    }
+
     // close streams and socket
     private void closeConnection()
     {
@@ -245,10 +212,10 @@ public class ServerWithGUIS extends JFrame
                 {
                     public void run() // updates displayArea
                     {
+                        displayArea.setLineWrap(true);
                         displayArea.append(messageToDisplay); // append message
                     }
                 }
         );
     }
-
 }

@@ -86,7 +86,7 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         con.gridheight = height;
 
         instructionArea.setEditable(false);
-        // replayArea.setEditable(false);
+        //replayArea.setEditable(false);
 
         bagLayout.setConstraints(c, con);
         container.add(new JScrollPane(c), con);
@@ -106,36 +106,24 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
          if(buttonPressed == printListButton){
              replayArea.append("\nPrinted List\n");
              sendData("Print List");
-         }
-         if(buttonPressed == addButton){
-             try {
-                 addButtonPressed();
-             } catch (IOException ex) {
-                 throw new RuntimeException(ex);
-             }
-//             replayArea.append("\nadd Button\n");
-//             instructionArea.append("\nPlease enter the name of \nitem you would like to be add \nfollowed by a comma with the " +
-//                     "word before/after and comma with the reference node" +
-//                     "\n new node, before/after, reference node ");
-//
-//             enterField.addActionListener(
-//                     new ActionListener()
-//                     {
-//                         // send message to server
-//                         public void actionPerformed(ActionEvent event)
-//                         {
-//                             sendData(event.getActionCommand());
-//                             enterField.setText("");
-//                             setTextFieldEditable(false);
-//                         }
-//                     }
-//             );
-
-         }
-         if(buttonPressed == deleteButton){
+         } else if (buttonPressed == endButton){
+             closeConnection();
+         } else {
              setTextFieldEditable(true);
-             replayArea.append("\ndelete Button\n");
-             instructionArea.append("\nPlease enter the name of \nitem you would like to be removed.\n");
+             if(buttonPressed == addButton){
+                 try {
+                     addButtonPressed();
+                 } catch (IOException ex) {
+                     throw new RuntimeException(ex);
+                 }
+             }
+             if(buttonPressed == deleteButton){
+                 try {
+                     deleteButtonPressed();
+                 } catch (IOException ex) {
+                     throw new RuntimeException(ex);
+                 }
+             }
 
              enterField.addActionListener(
                      new ActionListener()
@@ -144,81 +132,38 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
                          public void actionPerformed(ActionEvent event)
                          {
                              sendData(event.getActionCommand());
-                             enterField.setText("");
                              setTextFieldEditable(false);
                          }
                      }
              );
 
          }
-
-        if (buttonPressed == endButton){
-            closeConnection();
-        }
-
      }
 
-     public void addButtonPressed()  throws IOException  {
-         setTextFieldEditable(true);
+     /** When the add button is selected, the client will send a message to the server
+      * informing it that the add button was pressed and the server will send back the instructions. The instructions
+      * will be displayed and the text-field will be editable for the client to send back the required data to add
+      * a new item. */
+     public void addButtonPressed() throws IOException {
          sendData("Add Button");
 
-         enterField.addActionListener(
-                 new ActionListener()
-                 {
-                     // send message to server
-                     public void actionPerformed(ActionEvent event)
-                     {
-                         sendData(event.getActionCommand());
-                         enterField.setText("");
-                         setTextFieldEditable(false);
-                     }
-                 }
-         );
-
-//         do // process messages sent from server
-//         {
-//             try // read message and display it
-//             {
-//                 message = (String) input.readObject(); // read new message
-//                 instructionArea.append("\n" + message); // display instructions
-//             } catch (ClassNotFoundException classNotFoundException) {
-//                 displayMessage("\nUnknown object type received");
-//             }
-//
-//         } while (!message.equals("End Add"));
-//
-//         sendData("End Add");
-//
-//        while(newItem) {
-//            try {
-//               // getStreams();
-//                try // read message and display it
-//                {
-//                    message = (String) input.readObject(); // read new message
-//                    instructionArea.append("\n" + message + "\n");
-//                    displayMessage("\n" + message); // display message
-//                } catch (ClassNotFoundException classNotFoundException) {
-//                    displayMessage("\nUnknown object type received");
-//                }
-//                enterField.addActionListener(
-//                        new ActionListener()
-//                        {
-//                            // send message to server
-//                            public void actionPerformed(ActionEvent event)
-//                            {
-//                                sendData(event.getActionCommand());
-//                                enterField.setText("");
-//                                setTextFieldEditable(false);
-////                                newItem = false;
-//                            }
-//                        }
-//                );
-//                newItem = false;
-//            }  catch (IOException ioException) {
-//                ioException.printStackTrace();
-//            }
-//        }
+         /* this is just until I figure out how to get the instructions to print here  */
+         instructionArea.setLineWrap(true);
+         instructionArea.append("\n\nPlease enter the name of item you would like to be add followed by a comma with the " +
+                 "word before/after and comma with the reference node" +
+                 " new node, before/after, reference node \n");
      }
+
+     public void deleteButtonPressed()throws IOException{
+         sendData("Delete Button");
+
+         /* this is just until I figure out how to get the instructions to print here  */
+         instructionArea.setLineWrap(true);
+         instructionArea.append("\n\nPlease enter the name of item you would like to be removed.\n");
+     }
+
+
+
     // connect to server and process messages from server
     public void runClient() {
         try // connect to server, get streams, process connection
@@ -306,6 +251,7 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
                 new Runnable() {
                     public void run() // updates displayArea
                     {
+                        replayArea.setLineWrap(true);
                         replayArea.append(messageToDisplay);
                     }
                 }
@@ -318,6 +264,7 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
                 new Runnable() {
                     public void run() // sets enterField's editability
                     {
+                        enterField.setText(""); // making it empty
                         enterField.setEditable(editable);
                     }
                 }
