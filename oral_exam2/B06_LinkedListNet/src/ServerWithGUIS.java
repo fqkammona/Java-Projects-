@@ -13,14 +13,14 @@ import java.net.Socket;
 public class ServerWithGUIS extends JFrame
 {
     public LinkedList<String> fruitList = new LinkedList<>();
-    private JTextField enterField; // inputs message from user
     private JTextArea displayArea; // display information to user
     private ObjectOutputStream output; // output stream to client
     private ObjectInputStream input; // input stream from client
     private ServerSocket server; // server socket
     private Socket connection; // connection to client
-    private int counter = 1; // counter of number of connections
 
+    /** This method initializes the fruitList
+     * at runtime. */
     public void fillList(){
         String[] fruits = { "apple", "grape", "banana", "strawberry", "pineapple"};
 
@@ -28,7 +28,7 @@ public class ServerWithGUIS extends JFrame
             fruitList.insetLast(i);
     }
 
-    // set up GUI
+    /** The default constructor that sets up the GUI*/
     public ServerWithGUIS()
     {
         super("Server For LinkedList");
@@ -40,7 +40,7 @@ public class ServerWithGUIS extends JFrame
         fillList(); // fill the linked list
     }
 
-    // set up and run server
+    /** This method sets up and runs the server */
     public void runServer()
     {
         try // set up server to receive connections; process connections
@@ -62,7 +62,6 @@ public class ServerWithGUIS extends JFrame
                 finally
                 {
                     closeConnection(); //  close connection
-                    ++counter;
                 }
             }
         }
@@ -72,16 +71,17 @@ public class ServerWithGUIS extends JFrame
         }
     }
 
-    // wait for connection to arrive, then display connection info
+    /** This method waits for connection to arrive and then
+     * displays the connection information */
     private void waitForConnection() throws IOException
     {
         displayMessage("Waiting for connection\n");
         connection = server.accept(); // allow server to accept connection
-        displayMessage("Connection " + counter + " received from: " +
-                connection.getInetAddress().getHostName());
+        displayMessage("Connection received from: " +
+                connection.getInetAddress().getHostName()); // Displays information
     }
 
-    // get streams to send and receive data
+    /** This method gets streams to send and receive data */
     private void getStreams() throws IOException
     {
         // set up output stream for objects
@@ -94,12 +94,11 @@ public class ServerWithGUIS extends JFrame
         displayMessage("\nGot I/O streams\n");
     }
 
-    // process connection with client
+    /** This method process the connection with the client */
     private void processConnection() throws IOException
     {
         String message = "Connection successful";
         sendData(message); // send connection successful message
-
 
         do // process messages sent from client
         {
@@ -116,12 +115,13 @@ public class ServerWithGUIS extends JFrame
         } while (!message.equals("CLIENT>>> TERMINATE"));
     }
 
-    private void optionChoice(String message)
-    {
+    private void optionChoice(String message) throws IOException {
         /* Converts they byte data to a string and then converts the string into an int */
 
         if(message.compareTo("Print List") == 0){
             sendData(fruitList.printList());
+        } if(message.compareTo("Add Button") == 0){
+            addItem();
         }
 
 
@@ -155,12 +155,54 @@ public class ServerWithGUIS extends JFrame
     }
 
     /** The add method */
-    private void addItem()
+    private void addItem() throws IOException
     {
         sendData("Please enter the name of \nitem you would like to be add \nfollowed by a comma with the " +
                 "word before/after and comma with the reference node" +
                         "\n new node, before/after, reference node ");
         displayMessage("\n" + "Instructions Sent"); // display message
+        String message = "";
+        boolean doneAdding = true;
+
+        while(doneAdding){
+            try // read message and display it
+            {
+                message = (String) input.readObject(); // read new message
+                String[] choices = message.split(",",0);
+                fruitList.addNode(choices[0], choices[1], choices[2]);
+                sendData("End Add");
+                doneAdding = false;
+            }
+            catch (ClassNotFoundException classNotFoundException)
+            {
+                displayMessage("\nUnknown object type received");
+                doneAdding = false;
+            }
+         //   doneAdding = false;
+        }
+
+
+
+//        boolean newItem = true;
+//
+//        while(newItem) {
+//            try {
+//                getStreams();
+//                try // read message and display it
+//                {
+//                    String message = (String) input.readObject(); // read new message
+//                    String[] choices = message.split(",",0);
+//                    fruitList.addNode(choices[0], choices[1], choices[2]);
+//                }
+//                catch (ClassNotFoundException classNotFoundException)
+//                {
+//                    displayMessage("\nUnknown object type received");
+//                }
+//                newItem = false;
+//            }  catch (IOException ioException) {
+//                ioException.printStackTrace();
+//            }
+//        }
 
     }
     // close streams and socket
