@@ -29,9 +29,15 @@ public class Quiz extends JFrame implements ActionListener{
         createRadiobutton();
       createDropDownButton();
 
+        JButton submitButton = new JButton("Submit");
+        createButton(submitButton);
+
+
         containerOfGrid.add(checkBoxComponent.getComponentPanel());
          containerOfGrid.add(radioBoxComponent.getComponentPanel());
         containerOfGrid.add(dropDownComponent.getComponentPanel());
+        containerOfGrid.add(submitButton);
+        // containerOfGrid.add(createButton);
     }
 
     /** Creates */
@@ -59,7 +65,15 @@ public class Quiz extends JFrame implements ActionListener{
         dropDownComponent = new DropdownBox("Select the correct output: 9-3*(1/3)+1"
                 ,answers, correctAnswer);
     }
+    private void createButton(JButton buttonName) {
+       // JPanel buttonPanel = new JPanel(BoxLayout)
+        buttonName.setBounds(350, 750, 80, 30);
+        // reset.setBounds(250, 450, 80, 30);
 
+        buttonName.addActionListener(this);
+
+
+    }
 
 //    public Quiz() {
 //
@@ -107,22 +121,22 @@ public class Quiz extends JFrame implements ActionListener{
 //       // quizFrame.add(checkBoxComponent.getComponentPanel());
 //    }
 
-    private JPanel createButton() {
-        /*Button section */
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(null);
-        buttonPanel.setBounds(60, 800, 200, 70);
-
-     //   reset = new JButton("Reset");
-        JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(350, 750, 80, 30);
-       // reset.setBounds(250, 450, 80, 30);
-
-        submitButton.addActionListener(this);
-        buttonPanel.add(submitButton);
-
-        return buttonPanel;
-    }
+//    private JPanel createButton() {
+//        /*Button section */
+//        JPanel buttonPanel = new JPanel();
+//        buttonPanel.setLayout(null);
+//        buttonPanel.setBounds(60, 800, 200, 70);
+//
+//     //   reset = new JButton("Reset");
+//        JButton submitButton = new JButton("Submit");
+//        submitButton.setBounds(350, 750, 80, 30);
+//       // reset.setBounds(250, 450, 80, 30);
+//
+//        submitButton.addActionListener(this);
+//        buttonPanel.add(submitButton);
+//
+//        return buttonPanel;
+//    }
 
     public void actionPerformed(ActionEvent e) {
        // dropDownComponent.addActionListener(this);
