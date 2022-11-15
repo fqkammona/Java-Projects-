@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public abstract class Components{
@@ -22,9 +23,10 @@ public abstract class Components{
     /** Creates a new JPanel for the prompt and options to select. */
     public void fillNewPanel(){
         JLabel label = new JLabel(title);
+        Border question = BorderFactory.createTitledBorder(title);
 
         label.setFont(new Font("Serif", Font.PLAIN, 22));
-        componentPanel.add(label);
+        componentPanel.setBorder(question);
 
         componentPanel.setLayout(new BoxLayout(componentPanel, BoxLayout.PAGE_AXIS));
         componentPanel.setBounds(10, y, 300, 170);

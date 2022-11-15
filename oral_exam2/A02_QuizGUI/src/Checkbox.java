@@ -16,7 +16,7 @@ public class Checkbox extends Components {
 
         answer = new JCheckBox[answersString.length];
 
-        fillNewPanel(); // Creating a new JPanel with the title
+       fillNewPanel(); // Creating a new JPanel with the title
         fillPanel(answersString); // Makes the checkboxes
     }
 
@@ -62,7 +62,7 @@ public class Checkbox extends Components {
         label.setFont(new Font("Serif", Font.PLAIN, 18));
         resultPanel.add(label);
 
-        fillYourAnswer();
+       // fillYourAnswer();
 
         label = new JLabel("Correct Answer(s)");
         label.setFont(new Font("Serif", Font.PLAIN, 18));

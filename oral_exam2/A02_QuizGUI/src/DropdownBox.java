@@ -16,8 +16,6 @@ public class DropdownBox extends Components{
         componentPanel.add(dropdownBoxTitle);
         dropdownBoxTitle.setFont(new Font("Serif", Font.PLAIN, 22));
 
-
-        //componentPanel.setLayout(new BoxLayout(componentPanel, BoxLayout.PAGE_AXIS));
         componentPanel.setBounds(10, Components.y, 500, 70);
 
         Components.y += 100;
@@ -33,9 +31,33 @@ public class DropdownBox extends Components{
         JComboBox<String> dropDownBox = new JComboBox<>(answersString);
 
         dropDownBox.setBounds(0, 510, 40, 50);
-        //dropdownPanel.add(dropDownBox);
 
         componentPanel.add(dropDownBox);
+    }
+
+    /** This method finds all the selected checkboxes and adds the text into
+     * a new Jlabel and then goes through a while to see if the option selected is
+     * a correct answer.*/
+    public void fillYourAnswer(){
+        resultPanel.add(new JLabel(answer[0]));
+    }
+
+    /** When the button is pressed, this method creates the results panel
+     * and adds the options selected and adds the correct options */
+    public void addActionListener(Quiz quiz) {
+        fillResultJPane();
+
+        JLabel label = new JLabel("Your Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
+
+     //   fillYourAnswer();
+
+        label = new JLabel("Correct Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
+
+        fillCorrectAnswers();
     }
 
 }
