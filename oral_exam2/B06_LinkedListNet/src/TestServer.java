@@ -2,15 +2,8 @@
 
 import javax.swing.*;
 
-/** This class runs the server class application */
+/** This class runs the ServerWithGUIS class application */
 public class TestServer {
-//    public static void main(String[] args)
-//    {
-//        Server application = new Server(); // create server
-//        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        application.waitForPackets(); // run server application
-//    }
-
     public static void main(String[] args)
     {
         ServerWithGUIS application = new ServerWithGUIS(); // create server
@@ -18,3 +11,7 @@ public class TestServer {
         application.runServer(); // run server application
     }
 }
+
+// Spacing in the server
+//  Spacing in the arrows
+// Why do i have to press close connection twice ?

@@ -1,3 +1,5 @@
+// ServerWithGUIS by Fatima Kammona
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.EOFException;
@@ -7,10 +9,14 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/** This is the server that has access to the
+ * linked list and will take the response from the
+ * client and implement them in the linked list */
+
 public class ServerWithGUIS extends JFrame
 {
     public LinkedList<String> fruitList = new LinkedList<>();
-    private JTextArea displayArea; // display information to user
+    private final JTextArea displayArea; // display information to user
     private ObjectOutputStream output; // output stream to client
     private ObjectInputStream input; // input stream from client
     private ServerSocket server; // server socket
@@ -49,12 +55,12 @@ public class ServerWithGUIS extends JFrame
                 try
                 {
                     waitForConnection(); // wait for a connection
-                    getStreams(); // get input & output streams
+                    getStreams(); // get the input and output streams
                     processConnection(); // process connection
                 }
                 catch (EOFException eofException)
                 {
-                    displayMessage("\nServer terminated connection");
+                    displayMessage("\nServerWithGUIS terminated connection");
                 }
                 finally
                 {
@@ -81,14 +87,9 @@ public class ServerWithGUIS extends JFrame
     /** This method gets streams to send and receive data */
     private void getStreams() throws IOException
     {
-        // set up output stream for objects
-        output = new ObjectOutputStream(connection.getOutputStream());
-        output.flush(); // flush output buffer to send header information
-
-        // set up input stream for objects
-        input = new ObjectInputStream(connection.getInputStream());
-
-        displayMessage("\nGot I/O streams\n");
+        output = new ObjectOutputStream(connection.getOutputStream()); // sets up the output stream for the objects
+     //   output.flush(); // flush output buffer to send header information
+        input = new ObjectInputStream(connection.getInputStream()); // sets up the input stream for the objects
     }
 
     /** This method process the connection with the client */
@@ -130,8 +131,8 @@ public class ServerWithGUIS extends JFrame
         sendData("Please enter the name of item you would like to be add followed by a comma with the " +
                 "word before/after and comma with the reference node" +
                         "new node, before/after, reference node ");
-        displayMessage("\n" + "Instructions Sent"); // display message
-        String message = "";
+        displayMessage("\n" + " Instructions Sent"); // display message
+        String message;
         boolean doneAdding = true;
 
         while(doneAdding){
@@ -152,8 +153,8 @@ public class ServerWithGUIS extends JFrame
     }
 
     private void deleteItem() throws IOException{
-        sendData("\n\nPlease enter the name of item you would like to be removed.\n");
-        String message = "";
+        sendData("\nPlease enter the name of item you would like to be removed.\n");
+        String message;
         boolean doneAdding = true;
 
         while(doneAdding){
@@ -196,7 +197,7 @@ public class ServerWithGUIS extends JFrame
         {
             output.writeObject("SERVER>>> " + message);
             output.flush(); // flush output to client
-            displayMessage("\nSERVER>>> " + message);
+            displayMessage("\nSERVER>>> \n" + message);
         }
         catch (IOException ioException)
         {
@@ -208,13 +209,11 @@ public class ServerWithGUIS extends JFrame
     private void displayMessage(final String messageToDisplay)
     {
         SwingUtilities.invokeLater(
-                new Runnable()
-                {
-                    public void run() // updates displayArea
-                    {
-                        displayArea.setLineWrap(true);
-                        displayArea.append(messageToDisplay); // append message
-                    }
+                 /* instead of having an anonymous Runnable() public void run()... we can use () -> ...
+                 This public void run updates displayArea  */
+                () -> {
+                    displayArea.setLineWrap(true);
+                    displayArea.append("\n" + messageToDisplay); // append message
                 }
         );
     }

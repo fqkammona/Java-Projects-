@@ -1,3 +1,4 @@
+// ClientWithGUIS by Fatima Kammona
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,14 +24,14 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
     private static final Insets insets = new Insets(0, 0, 0, 0);
     private JTextArea instructionArea; // For displaying instructions
     private JTextArea replayArea; // For displaying history
-    private GridBagLayout bagLayout;
+    private final GridBagLayout bagLayout;
     private final JButton printListButton = new JButton("Print List");
     private final JButton addButton = new JButton("Add Item");
     private final JButton deleteButton = new JButton("Delete Item");
     private final JButton endButton = new JButton("End Program");
-    private GridBagConstraints con = new GridBagConstraints();
-    private String host;
-    private Container container;
+    private GridBagConstraints constraints = new GridBagConstraints();
+    private final String hostAddress; // Stores the IP address
+    private final Container container; // The main container for the JFrame that holds the bagLayout
     public ClientWithGUIS(String host) {
         super("Client");
 
@@ -38,7 +39,7 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         bagLayout = new GridBagLayout();
         container.setLayout(bagLayout);
         fillContainerButtons();
-        this.host = host;
+        this.hostAddress = host;
 
         printListButton.addActionListener(this);
         addButton.addActionListener(this);
@@ -53,62 +54,61 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         runClient();
     }
     private void fillContainerButtons() {
+
+        /*The textArea initializing secction */
         instructionArea = new JTextArea("Instructions", 3, 25);
-        con.fill = GridBagConstraints.BOTH;
+        constraints.fill = GridBagConstraints.BOTH;
         addComponentText(instructionArea, 1, 0, 2, 1);
 
         replayArea = new JTextArea("Replay", 9, 25);
-        con.fill = GridBagConstraints.BOTH;
+        constraints.fill = GridBagConstraints.BOTH;
         addComponentText(replayArea, 1, 1, 2, 4);
 
-        addButtonComponent(printListButton, 0, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        addButtonComponent(addButton, 1, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        addButtonComponent(deleteButton, 2, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-        addButtonComponent(endButton, 3, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH);
-
         enterField = new JTextField("Type message here");
-        con.fill = GridBagConstraints.BOTH;
+        constraints.fill = GridBagConstraints.BOTH;
         addComponentText(enterField, 0, 5, 3, 1);
+
+        /* The button initializing section */
+        addButtonComponent(printListButton, 0);
+        addButtonComponent(addButton, 1);
+        addButtonComponent(deleteButton, 2);
+        addButtonComponent(endButton, 3);
     }
 
     private void addComponentText(Component c, int row, int col, int width, int height) {
-        con.gridx = row;
-        con.gridy = col;
+        constraints.gridx = row;
+        constraints.gridy = col;
 
-        con.weighty = 1.0;
-        con.weightx = 1.0;
+        constraints.weighty = 1.0;
+        constraints.weightx = 1.0;
 
-        con.gridwidth = width;
-        con.gridheight = height;
+        constraints.gridwidth = width;
+        constraints.gridheight = height;
 
         instructionArea.setEditable(false);
-        //replayArea.setEditable(false);
 
-        bagLayout.setConstraints(c, con);
-        container.add(new JScrollPane(c), con);
+        bagLayout.setConstraints(c, constraints);
+        container.add(new JScrollPane(c), constraints);
     }
 
-    private void addButtonComponent(Component cName, int gridy, int gridwidth, int gridheight,
-                                    int anchor, int fill) {
-        con = new GridBagConstraints(0, gridy, gridwidth, gridheight, 0, 1.0, anchor, fill,
-                insets, 0, 0);
-        bagLayout.setConstraints(cName, con);
+    /** This method implements the construction of a button component given the component and the location on the y-axis,
+     * then adds the component with the constraint to the bagLayout which is then added to the mainContainer.*/
+    private void addButtonComponent(Component cName, int gridy) {
+        constraints = new GridBagConstraints(0, gridy, 1, 1, 0, 1.0,
+                GridBagConstraints.CENTER,  GridBagConstraints.BOTH, insets, 0, 0);
+        bagLayout.setConstraints(cName, constraints);
         container.add(cName);
     }
 
      public void actionPerformed(ActionEvent e) {
-         Object buttonPressed = e.getSource();
+         Object buttonPressed = e.getSource(); // Create an object of whatever button was pressed
 
          if(buttonPressed == printListButton){
              replayArea.append("\nPrinted List\n");
              sendData("Print List");
          } else if (buttonPressed == endButton){
              closeConnection();
-         } else {
+         } else { // For an buttons that use the enterField
              setTextFieldEditable(true);
              if(buttonPressed == addButton){
                  try {
@@ -124,19 +124,15 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
                      throw new RuntimeException(ex);
                  }
              }
-
+             // send message to server
              enterField.addActionListener(
-                     new ActionListener()
-                     {
-                         // send message to server
-                         public void actionPerformed(ActionEvent event)
-                         {
-                             sendData(event.getActionCommand());
-                             setTextFieldEditable(false);
-                         }
+                     /* Instead of having an annoymous ActionListener() public void ... we can use event ->
+                     * This is when the enter key is pressed, client sends the message from the textField to the server*/
+                     event -> {
+                         sendData(event.getActionCommand());
+                         setTextFieldEditable(false);
                      }
              );
-
          }
      }
 
@@ -154,6 +150,10 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
                  " new node, before/after, reference node \n");
      }
 
+    /** When the delete button is selected, the client will send a message to the server
+     * informing it that the delete button was pressed and the server will send back the instructions. The instructions
+     * will be displayed and the text-field will be editable for the client to send back the required data to delete
+     * an item. */
      public void deleteButtonPressed()throws IOException{
          sendData("Delete Button");
 
@@ -161,7 +161,6 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
          instructionArea.setLineWrap(true);
          instructionArea.append("\n\nPlease enter the name of item you would like to be removed.\n");
      }
-
 
 
     // connect to server and process messages from server
@@ -184,7 +183,7 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         displayMessage("Attempting connection\n");
 
         // create Socket to make connection to server
-        connection = new Socket(InetAddress.getByName(host), 23603);
+        connection = new Socket(InetAddress.getByName(hostAddress), 23603);
 
         // display connection information
         displayMessage("Connected to: " +
@@ -222,6 +221,7 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
     // close streams and socket
     private void closeConnection() {
         displayMessage("\nClosing connection");
+       // sendData("TERMINATE");
         setTextFieldEditable(false); // disable enterField
 
         try {
@@ -246,29 +246,28 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
     }
 
     // manipulates displayArea in the event-dispatch thread
+    /** This method allows ....*/
     private void displayMessage(final String messageToDisplay) {
         SwingUtilities.invokeLater(
-                new Runnable() {
-                    public void run() // updates displayArea
-                    {
-                        replayArea.setLineWrap(true);
-                        replayArea.append(messageToDisplay);
-                    }
+                /* instead of having an anonymous Runnable() public void run()... we can use () -> ...
+                 This public void run updates displayArea  */
+                () -> {
+                    replayArea.setLineWrap(true); // So the text is cut off nicely
+                    replayArea.append(messageToDisplay);
                 }
         );
     }
 
     // manipulates enterField in the event-dispatch thread
+    /** This method allows ....*/
     private void setTextFieldEditable(final boolean editable) {
         SwingUtilities.invokeLater(
-                new Runnable() {
-                    public void run() // sets enterField's editability
-                    {
-                        enterField.setText(""); // making it empty
-                        enterField.setEditable(editable);
-                    }
+             /* instead of having an anonymous Runnable() public void run()... we can use () -> ...
+                 This public void run updates displayArea  */
+                () -> {
+                    enterField.setText(""); // making it empty
+                    enterField.setEditable(editable); // Sets the enterField to editable
                 }
         );
     }
-
 }
