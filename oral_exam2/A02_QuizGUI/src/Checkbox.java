@@ -16,8 +16,15 @@ public class Checkbox extends Components {
 
         answer = new JCheckBox[answersString.length];
 
-       fillNewPanel(); // Creating a new JPanel with the title
+        fillNewPanel(); // Creating a new JPanel with the title
         fillPanel(answersString); // Makes the checkboxes
+    }
+
+    private JPanel getCheckboxPanel(int row, int col){
+        JPanel checkboxPanel = new JPanel(new GridLayout(row, col));
+
+
+        return checkboxPanel;
     }
 
     /** Creates the checkboxes of options to select and adds them into JCheckBox array and
@@ -56,7 +63,7 @@ public class Checkbox extends Components {
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {
-        fillResultJPane();
+        //fillResultJPane();
 
         JLabel label = new JLabel("Your Answer(s)");
         label.setFont(new Font("Serif", Font.PLAIN, 18));
@@ -68,7 +75,7 @@ public class Checkbox extends Components {
         label.setFont(new Font("Serif", Font.PLAIN, 18));
         resultPanel.add(label);
 
-        fillCorrectAnswers();
+       // fillCorrectAnswers();
     }
 
 }

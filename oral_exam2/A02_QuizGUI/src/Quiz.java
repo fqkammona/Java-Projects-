@@ -1,23 +1,37 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Quiz implements ActionListener{
-    public static JFrame quizFrame = new JFrame("Quiz");
+public class Quiz extends JFrame implements ActionListener{
+    private final Container containerOfGrid;
     public Components checkBoxComponent;
     public Components radioBoxComponent;
     public Components dropDownComponent;
 
     public Quiz(){
-        quizFrame.setSize(500, 900);
-        quizFrame.add(createButton());
+        super("Quiz");
 
-      //  createCheckBox();
-createRadiobutton();
+        containerOfGrid = getContentPane();
+        containerOfGrid.setLayout(new GridLayout(6,1));
 
-        quizFrame.setVisible(true);
-        quizFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
+        setSize(500, 500); // set window size
+        setVisible(true); // show window
+
+        createAllComponents();
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
+    }
+
+    private void createAllComponents(){
+        createCheckBox();
+        createRadiobutton();
+      createDropDownButton();
+
+        containerOfGrid.add(checkBoxComponent.getComponentPanel());
+         containerOfGrid.add(radioBoxComponent.getComponentPanel());
+        containerOfGrid.add(dropDownComponent.getComponentPanel());
     }
 
     /** Creates */
@@ -26,9 +40,7 @@ createRadiobutton();
 
         String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6 + 7 = 12"};
         String[] correctAnswers = {"2 + 2 = 4","3 *  3 = 9", };
-
         checkBoxComponent= new Checkbox("Chose all that applies: ",answers, correctAnswers);
-        quizFrame.add(checkBoxComponent.getComponentPanel());
     }
     /** Creates the Radiobuttons and puts them in a group so that they toggle and
      * adds them in a Jpanel and returns the panel.*/
@@ -37,7 +49,15 @@ createRadiobutton();
         String[] correctAnswers = {"73"};
 
         radioBoxComponent = new Radiobutton("Which number is prime?", answers, correctAnswers);
-        quizFrame.add(radioBoxComponent.getComponentPanel());
+    }
+
+    /** Creates */
+    private void createDropDownButton(){
+        String[] answers = {"1","3", "1.5","9", "6", "2.75"};
+        String[] correctAnswer = {"9"};
+
+        dropDownComponent = new DropdownBox("Select the correct output: 9-3*(1/3)+1"
+                ,answers, correctAnswer);
     }
 
 
@@ -56,15 +76,15 @@ createRadiobutton();
 //        quizFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
 //    }
 
-    /** Creates */
-    private void createDropDownButton(){
-        String[] answers = {"1","3", "1.5","9", "6", "2.75"};
-        String[] correctAnswer = {"9"};
-
-        dropDownComponent = new DropdownBox("Select the correct output: 9-3*(1/3)+1"
-                ,answers, correctAnswer);
-       // quizFrame.add(dropDownComponent.getComponentPanel());
-    }
+//    /** Creates */
+//    private void createDropDownButton(){
+//        String[] answers = {"1","3", "1.5","9", "6", "2.75"};
+//        String[] correctAnswer = {"9"};
+//
+//        dropDownComponent = new DropdownBox("Select the correct output: 9-3*(1/3)+1"
+//                ,answers, correctAnswer);
+//       // quizFrame.add(dropDownComponent.getComponentPanel());
+//    }
 
 //    /** Creates the Radiobuttons and puts them in a group so that they toggle and
 //     * adds them in a Jpanel and returns the panel.*/
@@ -109,7 +129,7 @@ createRadiobutton();
         checkBoxComponent.addActionListener(this);
       //  radioBoxComponent.addActionListener(this);
 
-        quizFrame.setVisible(false);
+       // quizFrame.setVisible(false);
         results();
     }
 

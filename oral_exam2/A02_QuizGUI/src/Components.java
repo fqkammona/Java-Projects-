@@ -3,7 +3,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public abstract class Components{
-    public JPanel componentPanel = new JPanel();
+    public JPanel componentPanel;
     public JPanel resultPanel = new JPanel();
     public String[] correctAnswers;
     public static int y = 10, yy= 150, numOfCorrect = 0;
@@ -22,16 +22,13 @@ public abstract class Components{
 
     /** Creates a new JPanel for the prompt and options to select. */
     public void fillNewPanel(){
+        componentPanel = new JPanel();
+
         JLabel label = new JLabel(title);
         Border question = BorderFactory.createTitledBorder(title);
 
         label.setFont(new Font("Serif", Font.PLAIN, 22));
         componentPanel.setBorder(question);
-
-        componentPanel.setLayout(new BoxLayout(componentPanel, BoxLayout.PAGE_AXIS));
-        componentPanel.setBounds(10, y, 300, 170);
-
-        y += 170;
     }
 
     /** Adds all the correct answers to the results JPanel. */
