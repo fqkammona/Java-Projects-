@@ -3,6 +3,7 @@ import java.util.concurrent.ExecutorService;
 import java.security.SecureRandom;
 public class MasterRootFinder {
 
+    //
     public void createThreads(){
 
         // create ExecutorService to manage threads
@@ -14,7 +15,6 @@ public class MasterRootFinder {
         for(int i = 0; i < 10; i++){ // Creates 10 threads of slaves
             executorService.execute(new SlavesRootFinder(sharedLocation));
         }
-
         // shut down ExecutorService--it decides when to shut down threads
         executorService.shutdown();
     }
@@ -29,6 +29,7 @@ public class MasterRootFinder {
             i++;
         }
 
+// put them in  master Buffer
         return setOfCoefficients;
     }
 }
