@@ -63,19 +63,19 @@ public class Checkbox extends Components {
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {
-        //fillResultJPane();
+        fillResultJPane();
 
         JLabel label = new JLabel("Your Answer(s)");
         label.setFont(new Font("Serif", Font.PLAIN, 18));
         resultPanel.add(label);
 
-       // fillYourAnswer();
+        fillYourAnswer();
 
-        label = new JLabel("Correct Answer(s)");
+        label = new JLabel("\nCorrect Answer(s)");
         label.setFont(new Font("Serif", Font.PLAIN, 18));
         resultPanel.add(label);
 
-       // fillCorrectAnswers();
+        fillCorrectAnswers();
     }
 
 }

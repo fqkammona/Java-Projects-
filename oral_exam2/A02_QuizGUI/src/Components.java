@@ -4,9 +4,9 @@ import java.awt.*;
 
 public abstract class Components{
     public JPanel componentPanel;
-    public JPanel resultPanel = new JPanel();
+    public JPanel resultPanel;
     public String[] correctAnswers;
-    public static int y = 10, yy= 150, numOfCorrect = 0;
+    public static int numOfCorrect = 0;
     public String title;
 
     public JPanel getResultPanel(){ return resultPanel; }
@@ -31,24 +31,33 @@ public abstract class Components{
         componentPanel.setBorder(question);
     }
 
+    /** Creates a new JPanel for the results of the prompt */
+    public void fillResultJPane(){
+        resultPanel = new JPanel();
+
+        JLabel label = new JLabel("Question: " + title);
+        Border question = BorderFactory.createTitledBorder(title);
+
+        label.setFont(new Font("Serif", Font.PLAIN, 22));
+        resultPanel.setBorder(question);
+
+//        JLabel label = new JLabel("Prompt- " + title +"\n");
+//
+//        label.setFont(new Font("Serif", Font.PLAIN, 22));
+//        resultPanel.add(label);
+//
+//        resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
+//        resultPanel.setBounds(10, yy, 400, 170);
+//
+//        y += 170;
+    }
+
     /** Adds all the correct answers to the results JPanel. */
     public void fillCorrectAnswers(){
         for(String cAnswers: correctAnswers)
             resultPanel.add(new JLabel(cAnswers));
     }
 
-    /** Creates a new JPanel for the results of the prompt */
-    public void fillResultJPane(){
-        JLabel label = new JLabel("Prompt- " + title +"\n");
-
-        label.setFont(new Font("Serif", Font.PLAIN, 22));
-        resultPanel.add(label);
-
-        resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
-        resultPanel.setBounds(10, yy, 400, 170);
-
-        y += 170;
-    }
 
     public void addActionListener(Quiz quiz) { }
 }

@@ -1,11 +1,12 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Quiz extends JFrame implements ActionListener{
     private final Container containerOfGrid;
+    private JPanel buttonPanel;
+    private Container resultContainer; // Container for results frame
     public Components checkBoxComponent;
     public Components radioBoxComponent;
     public JCheckBox agreementBox = new JCheckBox("I agree that I didn't cheat");
@@ -27,7 +28,7 @@ public class Quiz extends JFrame implements ActionListener{
     private void createAllComponents(){
         createCheckBox();
         createRadiobutton();
-      createDropDownButton();
+        createDropDownButton();
 
         JButton submitButton = new JButton("Submit");
 
@@ -64,7 +65,7 @@ public class Quiz extends JFrame implements ActionListener{
                 ,answers, correctAnswer);
     }
     private JPanel createButton(JButton buttonName) {
-        JPanel buttonPanel = new JPanel(new GridLayout(2,1));
+        buttonPanel = new JPanel(new GridLayout(2,1));
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Details"));
         buttonPanel.add(agreementBox);
         buttonName.setBounds(25,25, 25,25);
@@ -80,7 +81,7 @@ public class Quiz extends JFrame implements ActionListener{
         if(agreementBox.isSelected()){
             checkBoxComponent.addActionListener(this);
             // dropDownComponent.addActionListener(this);
-            //  radioBoxComponent.addActionListener(this);
+              radioBoxComponent.addActionListener(this);
             results();
         }else{
             JOptionPane.showMessageDialog(this, "Read the agreement and accept it before submitting",
@@ -88,14 +89,27 @@ public class Quiz extends JFrame implements ActionListener{
         }
     }
 
+    public void createResultContainer(){
+        resultContainer.remove(checkBoxComponent.componentPanel);
+        resultContainer.remove(radioBoxComponent.componentPanel);
+        resultContainer.remove(dropDownComponent.getComponentPanel());
+        resultContainer.remove(buttonPanel);
+        resultContainer.add(checkBoxComponent.getResultPanel());
+        resultContainer.add(radioBoxComponent.getResultPanel());
+       // resultContainer.add(dropDownComponent.getResultPanel());
+    }
+
     public void results(){
         JFrame resultsFrame = new JFrame("Results");
         resultsFrame.setSize(500, 900);
 
+        resultContainer = getContentPane();
+        resultContainer.setLayout(new GridLayout(5,2));
+
+        createResultContainer();
         resultsFrame.setVisible(true);
-     //   resultsFrame.add(dropDownComponent.getResultPanel());
-     //   resultsFrame.add(radioBoxComponent.getResultPanel());
-        resultsFrame.add(checkBoxComponent.getResultPanel());
+
+        resultsFrame.add(resultContainer);
         resultsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
     }
 }

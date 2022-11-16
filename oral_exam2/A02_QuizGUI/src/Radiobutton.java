@@ -53,18 +53,18 @@ public class Radiobutton extends Components{
     }
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */
-//    public void addActionListener(Quiz quiz) {
-//        fillResultJPane();
-//
-//        JLabel label = new JLabel("Your Answer(s)");
-//        label.setFont(new Font("Serif", Font.PLAIN, 18));
-//        resultPanel.add(label);
-//
-//        fillYourAnswer();
-//
-//        label = new JLabel("Correct Answer(s)");
-//        resultPanel.add(label);
-//
-//        fillCorrectAnswers();
-//    }
+    public void addActionListener(Quiz quiz) {
+        fillResultJPane();
+
+        JLabel label = new JLabel("Your Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
+
+        fillYourAnswer();
+
+        label = new JLabel("Correct Answer(s)");
+        resultPanel.add(label);
+
+        fillCorrectAnswers();
+    }
 }
