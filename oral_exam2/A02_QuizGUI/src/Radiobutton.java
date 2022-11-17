@@ -15,7 +15,6 @@ public class Radiobutton extends Components{
         super.correctAnswers = correctAnswers;
 
         answer = new JRadioButton[answersString.length];
-
         fillNewPanel();
         fillPanel(answersString);
     }
@@ -41,15 +40,13 @@ public class Radiobutton extends Components{
     public void fillYourAnswer(){
         int j = 0;
 
-        JLabel label = new JLabel("Your Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-
         JPanel yourAnswerPanel = new JPanel(new GridLayout(answer.length, 1));
-        yourAnswerPanel.add(label);
+        boolean isThereAnswer = false;
 
         while (j < answer.length){
             String answerText = answer[j].getText();
             if(answer[j].isSelected()){
+                isThereAnswer = true;
                 yourAnswerPanel.add(new JLabel(answerText));
                 if(answerText.compareTo(correctAnswers[0]) == 0)
                         numOfCorrect++;
@@ -57,7 +54,12 @@ public class Radiobutton extends Components{
             j++;
         }
 
-        resultPanel.add(yourAnswerPanel);
+        if(isThereAnswer == true){
+            resultPanel.add(yourAnswerPanel);
+        } else {
+            JLabel label = new JLabel("Unanswered");
+            resultPanel.add(label);
+        }
     }
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */

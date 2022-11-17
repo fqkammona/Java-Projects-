@@ -111,14 +111,17 @@ public class Quiz extends JFrame implements ActionListener{
     public JPanel fillSummaryPanel(){
         JPanel summaryPanel = new JPanel();
         int nums = Components.numOfCorrect;
-        JLabel labelCorrect = new JLabel(String.valueOf(nums));
+        int totalCorrect = Components.totalNumCorrect;
 
+        String out = nums + "/" + totalCorrect;
+        JLabel labelCorrect = new JLabel(String.valueOf(nums));
+        JLabel labelTotalCorrect = new JLabel(out);
         JLabel label = new JLabel("Summary");
         Border question = BorderFactory.createTitledBorder("Summary");
 
         label.setFont(new Font("Serif", Font.PLAIN, 22));
         summaryPanel.setBorder(question);
-        summaryPanel.add(labelCorrect);
+        summaryPanel.add(new JLabel(out));
 
         return summaryPanel;
     }

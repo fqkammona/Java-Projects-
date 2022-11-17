@@ -39,10 +39,12 @@ public class Checkbox extends Components {
         int j = 0;
 
         JPanel yourAnswerPanel = new JPanel(new GridLayout(answer.length, 1));
+        boolean isThereAnswer = false;
 
         while (j < answer.length){
             String answerText = answer[j].getText();
             if(answer[j].isSelected()){
+                isThereAnswer = true;
                 yourAnswerPanel.add(new JLabel(answerText));
                 int i = 0;
                 while(i < correctAnswers.length){ // Sees if the option selected is correct
@@ -53,7 +55,13 @@ public class Checkbox extends Components {
             }
             j++;
         }
-        resultPanel.add(yourAnswerPanel);
+
+        if(isThereAnswer == true){
+            resultPanel.add(yourAnswerPanel);
+        } else {
+            JLabel label = new JLabel("Unanswered");
+            resultPanel.add(label);
+        }
     }
 
     /** When the button is pressed, this method creates the results panel
@@ -63,5 +71,4 @@ public class Checkbox extends Components {
         fillYourAnswer();
         fillCorrectAnswers();
     }
-
 }

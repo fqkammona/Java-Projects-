@@ -30,13 +30,7 @@ public class DropdownBox extends Components{
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {
         fillResultJPane();
-
-        JLabel label = new JLabel("Your Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-        resultPanel.add(label);
-
         fillYourAnswer();
-
         fillCorrectAnswers();
     }
 }

@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class ListBox extends Components{
     public JList answer;
-
     public JList secondAnswer;
 
     /** The default constructor that takes the question, the options to answer
@@ -46,17 +45,7 @@ public class ListBox extends Components{
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {
         fillResultJPane();
-
-        JLabel label = new JLabel("Your Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-        resultPanel.add(label);
-
       //  fillYourAnswer();
-
-        label = new JLabel("\nCorrect Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-        resultPanel.add(label);
-
         fillCorrectAnswers();
     }
 }

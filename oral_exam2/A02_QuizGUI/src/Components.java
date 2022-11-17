@@ -7,6 +7,7 @@ public abstract class Components{
     public JPanel resultPanel;
     public String[] correctAnswers;
     public static int numOfCorrect = 0;
+    public static int totalNumCorrect = 0;
     public String title;
 
     public JPanel getResultPanel(){ return resultPanel; }
@@ -30,6 +31,7 @@ public abstract class Components{
         label.setFont(new Font("Serif", Font.PLAIN, 22));
         componentPanel.setBorder(question);
     }
+
 
     /** Creates a new JPanel for the results of the prompt */
     public void fillResultJPane(){
@@ -58,6 +60,7 @@ public abstract class Components{
         for(String cAnswers: correctAnswers)
             correctAnswerPanel.add(new JLabel(cAnswers));
 
+        totalNumCorrect += correctAnswers.length + 1;
         resultPanel.add(correctAnswerPanel);
     }
 
