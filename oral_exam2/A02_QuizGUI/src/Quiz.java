@@ -7,13 +7,9 @@ import java.awt.event.ActionListener;
 public class Quiz extends JFrame implements ActionListener{
     private final Container containerOfGrid;
     private JPanel buttonPanel;
-
-
-
-    private JList listComponent;
+    private Components listComponent;
     private Container resultContainer; // Container for results frame
     public Components checkBoxComponent;
-
     public Components checkBoxComponentBoxTwo;
     public Components radioBoxComponent;
     public JCheckBox agreementBox = new JCheckBox("I agree that I didn't cheat");
@@ -25,7 +21,7 @@ public class Quiz extends JFrame implements ActionListener{
         containerOfGrid = getContentPane();
         containerOfGrid.setLayout(new GridLayout(6,1));
 
-        setSize(500, 500); // set window size
+        setSize(500, 800); // set window size
         setVisible(true); // show window
 
         createAllComponents();
@@ -36,7 +32,7 @@ public class Quiz extends JFrame implements ActionListener{
         createCheckBox();
         createRadiobutton();
         createDropDownButton();
-       // createListComponent();
+        createListComponent();
 
         JButton submitButton = new JButton("Submit");
 
@@ -44,9 +40,9 @@ public class Quiz extends JFrame implements ActionListener{
         containerOfGrid.add(radioBoxComponent.getComponentPanel());
         containerOfGrid.add(dropDownComponent.getComponentPanel());
         containerOfGrid.add(checkBoxComponentBoxTwo.getComponentPanel());
+        containerOfGrid.add(listComponent.getComponentPanel());
         containerOfGrid.add(submitButton);
         containerOfGrid.add(createButton(submitButton));
-       // containerOfGrid.add(listComponent);
     }
 
     /** Creates */
@@ -82,8 +78,9 @@ public class Quiz extends JFrame implements ActionListener{
     private void createListComponent(){
         String week[]= { "Monday","Tuesday","Wednesday",
                 "Thursday","Friday","Saturday","Sunday"};
+        String[] correctAnswer = {"Thursday"};
 
-        listComponent = new JList(week);
+        listComponent = new ListBox("Select todays day", week, correctAnswer);
     }
     private JPanel createButton(JButton buttonName) {
         buttonPanel = new JPanel(new GridLayout(2,1));
@@ -100,9 +97,10 @@ public class Quiz extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(agreementBox.isSelected()){
             checkBoxComponent.addActionListener(this);
-            // dropDownComponent.addActionListener(this);
-              radioBoxComponent.addActionListener(this);
-              checkBoxComponentBoxTwo.addActionListener(this);
+            dropDownComponent.addActionListener(this);
+            radioBoxComponent.addActionListener(this);
+            checkBoxComponentBoxTwo.addActionListener(this);
+            listComponent.addActionListener(this);
             results();
         }else{
             JOptionPane.showMessageDialog(this, "Read the agreement and accept it before submitting",
@@ -130,13 +128,15 @@ public class Quiz extends JFrame implements ActionListener{
         resultContainer.remove(radioBoxComponent.componentPanel);
         resultContainer.remove(dropDownComponent.getComponentPanel());
         resultContainer.remove(checkBoxComponentBoxTwo.getComponentPanel());
+        resultContainer.remove(listComponent.getComponentPanel());
         resultContainer.remove(buttonPanel);
 
-        resultContainer.add(fillSummaryPanel());
         resultContainer.add(checkBoxComponent.getResultPanel());
         resultContainer.add(radioBoxComponent.getResultPanel());
-       // resultContainer.add(dropDownComponent.getResultPanel());
+        resultContainer.add(dropDownComponent.getResultPanel());
         resultContainer.add(checkBoxComponentBoxTwo.getResultPanel());
+        resultContainer.add(listComponent.getResultPanel());
+        resultContainer.add(fillSummaryPanel());
     }
 
     public void results(){

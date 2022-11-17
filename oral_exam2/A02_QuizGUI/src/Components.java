@@ -33,7 +33,7 @@ public abstract class Components{
 
     /** Creates a new JPanel for the results of the prompt */
     public void fillResultJPane(){
-        resultPanel = new JPanel();
+        resultPanel = new JPanel(new GridLayout(1,2));
 
         JLabel label = new JLabel("Question: " + title);
         Border question = BorderFactory.createTitledBorder(title);
@@ -45,8 +45,16 @@ public abstract class Components{
 
     /** Adds all the correct answers to the results JPanel. */
     public void fillCorrectAnswers(){
+        JPanel correctAnswerPanel = new JPanel(new GridLayout(correctAnswers.length + 1, 1));
+
+        JLabel label = new JLabel("\nCorrect Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        correctAnswerPanel.add(label);
+
         for(String cAnswers: correctAnswers)
-            resultPanel.add(new JLabel(cAnswers));
+            correctAnswerPanel.add(new JLabel(cAnswers));
+
+        resultPanel.add(correctAnswerPanel);
     }
 
     public void addActionListener(Quiz quiz) { }

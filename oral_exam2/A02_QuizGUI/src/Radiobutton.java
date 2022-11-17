@@ -41,30 +41,29 @@ public class Radiobutton extends Components{
     public void fillYourAnswer(){
         int j = 0;
 
+        JLabel label = new JLabel("Your Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+
+        JPanel yourAnswerPanel = new JPanel(new GridLayout(answer.length, 1));
+        yourAnswerPanel.add(label);
+
         while (j < answer.length){
             String answerText = answer[j].getText();
             if(answer[j].isSelected()){
-                resultPanel.add(new JLabel(answerText));
+                yourAnswerPanel.add(new JLabel(answerText));
                 if(answerText.compareTo(correctAnswers[0]) == 0)
                         numOfCorrect++;
             }
             j++;
         }
+
+        resultPanel.add(yourAnswerPanel);
     }
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {
         fillResultJPane();
-
-        JLabel label = new JLabel("Your Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-        resultPanel.add(label);
-
         fillYourAnswer();
-
-        label = new JLabel("Correct Answer(s)");
-        resultPanel.add(label);
-
         fillCorrectAnswers();
     }
 }
