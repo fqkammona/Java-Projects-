@@ -12,6 +12,14 @@ public class exchangeGUI extends Application {
         launch(args);
     } // launch function calls the start function
 
+
+    // 1. Create new account
+    //2. Log in to account
+    //3. Exchange
+    //4. Set SWD Exchange Rate
+    //5. Exit Program
+    //Enter Choice:
+
     @Override
     public void start(Stage stage) throws Exception {
         URL myfxml = getClass().getResource("exchangeGUIfxml.fxml");
