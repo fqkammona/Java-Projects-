@@ -38,11 +38,7 @@ public class Checkbox extends Components {
     public void fillYourAnswer(){
         int j = 0;
 
-        JLabel label = new JLabel("Your Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-
         JPanel yourAnswerPanel = new JPanel(new GridLayout(answer.length, 1));
-        yourAnswerPanel.add(label);
 
         while (j < answer.length){
             String answerText = answer[j].getText();
@@ -57,7 +53,6 @@ public class Checkbox extends Components {
             }
             j++;
         }
-
         resultPanel.add(yourAnswerPanel);
     }
 

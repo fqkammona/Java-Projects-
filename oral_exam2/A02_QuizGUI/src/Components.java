@@ -33,23 +33,27 @@ public abstract class Components{
 
     /** Creates a new JPanel for the results of the prompt */
     public void fillResultJPane(){
-        resultPanel = new JPanel(new GridLayout(1,2));
+        resultPanel = new JPanel(new GridLayout(2,2));
 
         JLabel label = new JLabel("Question: " + title);
         Border question = BorderFactory.createTitledBorder(title);
 
         label.setFont(new Font("Serif", Font.PLAIN, 22));
         resultPanel.setBorder(question);
+
+        label = new JLabel("Your Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
+
+        label = new JLabel("\nCorrect Answer(s)");
+        label.setFont(new Font("Serif", Font.PLAIN, 18));
+        resultPanel.add(label);
     }
 
 
     /** Adds all the correct answers to the results JPanel. */
     public void fillCorrectAnswers(){
         JPanel correctAnswerPanel = new JPanel(new GridLayout(correctAnswers.length + 1, 1));
-
-        JLabel label = new JLabel("\nCorrect Answer(s)");
-        label.setFont(new Font("Serif", Font.PLAIN, 18));
-        correctAnswerPanel.add(label);
 
         for(String cAnswers: correctAnswers)
             correctAnswerPanel.add(new JLabel(cAnswers));
