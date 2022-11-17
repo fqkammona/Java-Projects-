@@ -40,24 +40,14 @@ public abstract class Components{
 
         label.setFont(new Font("Serif", Font.PLAIN, 22));
         resultPanel.setBorder(question);
-
-//        JLabel label = new JLabel("Prompt- " + title +"\n");
-//
-//        label.setFont(new Font("Serif", Font.PLAIN, 22));
-//        resultPanel.add(label);
-//
-//        resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
-//        resultPanel.setBounds(10, yy, 400, 170);
-//
-//        y += 170;
     }
+
 
     /** Adds all the correct answers to the results JPanel. */
     public void fillCorrectAnswers(){
         for(String cAnswers: correctAnswers)
             resultPanel.add(new JLabel(cAnswers));
     }
-
 
     public void addActionListener(Quiz quiz) { }
 }

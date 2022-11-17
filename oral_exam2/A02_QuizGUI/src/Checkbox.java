@@ -20,13 +20,6 @@ public class Checkbox extends Components {
         fillPanel(answersString); // Makes the checkboxes
     }
 
-    private JPanel getCheckboxPanel(int row, int col){
-        JPanel checkboxPanel = new JPanel(new GridLayout(row, col));
-
-
-        return checkboxPanel;
-    }
-
     /** Creates the checkboxes of options to select and adds them into JCheckBox array and
      *  then adds them to the componentPanel in the super class. */
     private void fillPanel(String[] answersString){
