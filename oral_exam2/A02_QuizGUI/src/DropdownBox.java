@@ -19,11 +19,14 @@ public class DropdownBox extends Components{
 
     /** This method */
     public void fillYourAnswer(){
+        JPanel yourAnswerPanel = new JPanel(new GridLayout(1, 1));
+
         if(answer.getSelectedItem().toString() == correctAnswers[0]){
-            resultPanel.add(new JLabel(correctAnswers[0]));
+            yourAnswerPanel.add(new JLabel(correctAnswers[0]));
         } else {
-            resultPanel.add(new JLabel(answer.getSelectedItem().toString()));
+            yourAnswerPanel.add(new JLabel(answer.getSelectedItem().toString()));
         }
+        resultPanel.add(yourAnswerPanel);
     }
 
     /** When the button is pressed, this method creates the results panel

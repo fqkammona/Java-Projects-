@@ -4,10 +4,11 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class ListBox extends Components{
     public JList answer;
-    public JList secondAnswer;
+    public int size;
 
     /** The default constructor that takes the question, the options to answer
      * and the correct answers. It sends the question and correct answers to the
@@ -17,35 +18,34 @@ public class ListBox extends Components{
         super.correctAnswers = correctAnswers;
 
         fillNewPanel(); // Creating a new JPanel with the title
-        answer = new JList<>(answersString);
-        secondAnswer = new JList<>();
+        answer = new JList(answersString);
+        size = answersString.length;
 
-        answer.setSelectionInterval(0, answersString.length);
-         componentPanel.add(answer);
-        //componentPanel.add(secondAnswer);
+        answer.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        componentPanel.add(answer);
     }
 
-    /** This method finds all the selected checkboxes and adds the text into
-     * a new Jlabel and then goes through a while to see if the option selected is
-     * a correct answer.*/
-    public void fillYourAnswer(){
-        int i = 0;
+    /** This method .*/
+    public void fillYourAnswer() {
+        JPanel yourAnswerPanel = new JPanel(new GridLayout(6, 1));
 
-//        while(i < correctAnswers.length){
-//            if(answer.{
-//                resultPanel.add(new JLabel(correctAnswers[0]));
-//            } else {
-//                resultPanel.add(new JLabel(answer.getSelectedItem().toString()));
-//            }
-//        }
-
+        boolean selectedYes = !answer.isSelectionEmpty();
+        if (selectedYes) {
+            List hold = answer.getSelectedValuesList();
+            for (Object o : hold) {
+                yourAnswerPanel.add(new JLabel(o.toString()));
+            }
+        } else {
+            yourAnswerPanel.add(new JLabel("Unanswered"));
+        }
+        resultPanel.add(yourAnswerPanel);
     }
 
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {
         fillResultJPane();
-      //  fillYourAnswer();
+        fillYourAnswer();
         fillCorrectAnswers();
     }
 }

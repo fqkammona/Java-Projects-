@@ -114,8 +114,6 @@ public class Quiz extends JFrame implements ActionListener{
         int totalCorrect = Components.totalNumCorrect;
 
         String out = nums + "/" + totalCorrect;
-        JLabel labelCorrect = new JLabel(String.valueOf(nums));
-        JLabel labelTotalCorrect = new JLabel(out);
         JLabel label = new JLabel("Summary");
         Border question = BorderFactory.createTitledBorder("Summary");
 
