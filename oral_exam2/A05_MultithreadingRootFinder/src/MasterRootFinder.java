@@ -2,19 +2,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.security.SecureRandom;
 public class MasterRootFinder {
-
-    //
+   // private final Buffer masterBuffer;
     public void createThreads(){
-
-        // create ExecutorService to manage threads
+        /* create ExecutorService to manage threads */
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        // create CircularBuffer to store the setOfCoefficients
+        /* create CircularBuffer to store the setOfCoefficients */
         CircularBuffer sharedLocation = new CircularBuffer();
 
         for(int i = 0; i < 10; i++){ // Creates 10 threads of slaves
             executorService.execute(new SlavesRootFinder(sharedLocation));
         }
+
+      //  masterBuffer = new CircularBuffer();
         // shut down ExecutorService--it decides when to shut down threads
         executorService.shutdown();
     }
@@ -29,7 +29,6 @@ public class MasterRootFinder {
             i++;
         }
 
-// put them in  master Buffer
         return setOfCoefficients;
     }
 }

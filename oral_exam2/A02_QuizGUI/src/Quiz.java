@@ -1,3 +1,7 @@
+/* Quiz class by Fatima Kammona */
+
+/** This is creates the Quiz */
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -5,16 +9,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Quiz extends JFrame implements ActionListener{
-    private final Container containerOfGrid;
-    private JPanel buttonPanel;
-    private Components listComponent;
+    private final Container containerOfGrid; // Container for the main frame
+    private JPanel buttonPanel; // The panel that holds agreementBox and submit button
     private Container resultContainer; // Container for results frame
+    public JCheckBox agreementBox = new JCheckBox("I agree that I didn't cheat");
+
+    /* These are the instance variables for the different components in quiz */
     public Components checkBoxComponent;
+    private Components listComponent;
     public Components checkBoxComponentBoxTwo;
     public Components radioBoxComponent;
-    public JCheckBox agreementBox = new JCheckBox("I agree that I didn't cheat");
     public Components dropDownComponent;
 
+    /** The default construction that sets the frame size, title, and close on exit. It also
+     * initializes containerOfGrid and calls createAllComponents.*/
     public Quiz(){
         super("Quiz");
 
@@ -28,6 +36,8 @@ public class Quiz extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ends the program when
     }
 
+    /** Calls all the functions need to initialize instance components and then
+     * adds them into the containerOfGrid so that they are displayed on the main frame. */
     private void createAllComponents(){
         createCheckBox();
         createRadiobutton();
@@ -45,9 +55,8 @@ public class Quiz extends JFrame implements ActionListener{
         containerOfGrid.add(createButton(submitButton));
     }
 
-    /** Creates */
+    /** Initializes the checkBoxComponent and checkboxComponentBoxTwo by calling the Checkbox class. */
     private void createCheckBox() {
-        /* Adding in checkbox section*/
         String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6 + 7 = 12"};
         String[] answersForSecondBox = {"50 / 10 = 5","17 * 0 = 1", "5 > 4","6 * 36 = 36 * 6", "5 * 25 = 100"};
 
@@ -57,8 +66,7 @@ public class Quiz extends JFrame implements ActionListener{
         checkBoxComponent= new Checkbox("Chose all that apply",answers, correctAnswers);
         checkBoxComponentBoxTwo = new Checkbox("Chose all that apply", answersForSecondBox, correctAnswersForSecondBox);
     }
-    /** Creates the Radiobuttons and puts them in a group so that they toggle and
-     * adds them in a Jpanel and returns the panel.*/
+    /** Initializes the radioBoxComponent by calling the Radiobutton class. */
     private void createRadiobutton() {
         String[] answers = {"21", "1", "73", "39", "15"};
         String[] correctAnswers = {"73"};
@@ -66,7 +74,7 @@ public class Quiz extends JFrame implements ActionListener{
         radioBoxComponent = new Radiobutton("Which number is prime?", answers, correctAnswers);
     }
 
-    /** Creates */
+    /** Initializes the dropDownComponent by calling the DropdownBox class. */
     private void createDropDownButton(){
         String[] answers = {"1","3", "1.5","9", "6", "2.75"};
         String[] correctAnswer = {"9"};
@@ -74,7 +82,7 @@ public class Quiz extends JFrame implements ActionListener{
         dropDownComponent = new DropdownBox("Select the correct output: 9-3*(1/3)+1"
                 ,answers, correctAnswer);
     }
-
+    /** Initializes the listComponent by calling the ListBox class. */
     private void createListComponent(){
         String week[]= { "Monday","Tuesday","Wednesday",
                 "Thursday","Friday","Saturday","Sunday"};
@@ -82,6 +90,9 @@ public class Quiz extends JFrame implements ActionListener{
 
         listComponent = new ListBox("Select todays day", week, correctAnswer);
     }
+
+    /** Initializes the buttonPanel and adds the submit button and agreementBox to the
+     * panel and then returns the panel. */
     private JPanel createButton(JButton buttonName) {
         buttonPanel = new JPanel(new GridLayout(2,1));
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Details"));
@@ -94,6 +105,10 @@ public class Quiz extends JFrame implements ActionListener{
         return buttonPanel;
     }
 
+    /** When the button is clicked, the program will first check if the agreement checkbox
+     * has been selected if so then all the components actionListener will be added and the
+     * results function will be called. If the box has not been selected a warning will be
+     * displayed. */
     public void actionPerformed(ActionEvent e) {
         if(agreementBox.isSelected()){
             checkBoxComponent.addActionListener(this);
@@ -108,6 +123,7 @@ public class Quiz extends JFrame implements ActionListener{
         }
     }
 
+    /** This accessor method returns the JPanel that has the results of the quiz. */
     public JPanel fillSummaryPanel(){
         JPanel summaryPanel = new JPanel();
         int nums = Components.numOfCorrect;
@@ -124,9 +140,12 @@ public class Quiz extends JFrame implements ActionListener{
         return summaryPanel;
     }
 
+    /** This method removes all the main componentPanel of each of the quiz components
+     * and removes the buttonPanel and then adds the resultPanel for each of the components
+     * and adds the fillSummaryPanel.*/
     public void createResultContainer(){
-        resultContainer.remove(checkBoxComponent.componentPanel);
-        resultContainer.remove(radioBoxComponent.componentPanel);
+        resultContainer.remove(checkBoxComponent.getComponentPanel());
+        resultContainer.remove(radioBoxComponent.getComponentPanel());
         resultContainer.remove(dropDownComponent.getComponentPanel());
         resultContainer.remove(checkBoxComponentBoxTwo.getComponentPanel());
         resultContainer.remove(listComponent.getComponentPanel());
@@ -140,6 +159,8 @@ public class Quiz extends JFrame implements ActionListener{
         resultContainer.add(fillSummaryPanel());
     }
 
+    /** This methods sets the result frame size, title, and close on exit. It also
+     * initializes resultContainer and calls createResultContainer.*/
     public void results(){
         JFrame resultsFrame = new JFrame("Results");
         resultsFrame.setSize(500, 900);
