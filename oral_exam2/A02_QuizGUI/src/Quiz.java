@@ -84,11 +84,11 @@ public class Quiz extends JFrame implements ActionListener{
     }
     /** Initializes the listComponent by calling the ListBox class. */
     private void createListComponent(){
-        String week[]= { "Monday","Tuesday","Wednesday",
-                "Thursday","Friday","Saturday","Sunday"};
-        String[] correctAnswer = {"Thursday"};
+        String methods[]= { "Multiplication","Division","Subtraction",
+                "Addition","Integration"};
+        String[] correctAnswer = {"Multiplication", "Addition", "Division"};
 
-        listComponent = new ListBox("Select todays day", week, correctAnswer);
+        listComponent = new ListBox("Chose all that apply: 2 + 1 * 8 / 4 = 4", methods, correctAnswer);
     }
 
     /** Initializes the buttonPanel and adds the submit button and agreementBox to the
@@ -159,7 +159,7 @@ public class Quiz extends JFrame implements ActionListener{
         resultContainer.add(fillSummaryPanel());
     }
 
-    /** This methods sets the result frame size, title, and close on exit. It also
+    /** This method sets the result frame size, title, and close on exit. It also
      * initializes resultContainer and calls createResultContainer.*/
     public void results(){
         JFrame resultsFrame = new JFrame("Results");

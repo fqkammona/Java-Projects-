@@ -60,7 +60,7 @@ public abstract class Components{
         for(String cAnswers: correctAnswers)
             correctAnswerPanel.add(new JLabel(cAnswers));
 
-        totalNumCorrect += correctAnswers.length + 1;
+        totalNumCorrect += correctAnswers.length;
         resultPanel.add(correctAnswerPanel);
     }
 

@@ -34,6 +34,12 @@ public class ListBox extends Components{
             List hold = answer.getSelectedValuesList();
             for (Object o : hold) {
                 yourAnswerPanel.add(new JLabel(o.toString()));
+                int i = 0;
+                while(i < correctAnswers.length){ // Sees if the option selected is correct
+                    if(o.toString().compareTo(correctAnswers[i]) == 0)
+                        numOfCorrect++;
+                    i++;
+                }
             }
         } else {
             yourAnswerPanel.add(new JLabel("Unanswered"));
