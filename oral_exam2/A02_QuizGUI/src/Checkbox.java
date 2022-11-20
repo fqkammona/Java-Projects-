@@ -33,13 +33,13 @@ public class Checkbox extends Components {
     }
 
     /** This method finds all the selected checkboxes and adds the text into
-     * a new Jlabel and then goes through a while to see if the option selected is
-     * a correct answer.*/
+     * a new JPanel and then goes through a while to see if the option selected is
+     * a correct answer. */
     public void fillYourAnswer(){
         int j = 0;
 
         JPanel yourAnswerPanel = new JPanel(new GridLayout(answer.length, 1));
-        boolean isThereAnswer = false;
+        boolean isThereAnswer = false; // To check if the question has been answered
 
         while (j < answer.length){
             String answerText = answer[j].getText();
@@ -56,6 +56,8 @@ public class Checkbox extends Components {
             j++;
         }
 
+        /* If an answer has been selected then add yourAnswerPanel to the
+        * result panel else add label unanswered. */
         if(isThereAnswer == true){
             resultPanel.add(yourAnswerPanel);
         } else {
@@ -64,8 +66,8 @@ public class Checkbox extends Components {
         }
     }
 
-    /** When the button is pressed, this method creates the results panel
-     * and adds the options selected and adds the correct options */
+    /** When the button is pressed, this method calls fillResultJpanel,
+     * fillYourAnswer and fillCorrectAnswer.*/
     public void addActionListener(Quiz quiz) {
         fillResultJPane();
         fillYourAnswer();
