@@ -3,16 +3,17 @@ import java.security.SecureRandom;
 public class SlavesRootFinder implements Runnable {
     private final multithreadingBuffer masterBuffer; // reference to shared object
    // private final CircularBuffer slaveBuffer; // reference to shared object
-    private static int number;
+    private int numberOfSlave;
 
-    public SlavesRootFinder(multithreadingBuffer masterBuffer) {
+    public SlavesRootFinder(multithreadingBuffer masterBuffer, int numberOfSlave) {
         this.masterBuffer = masterBuffer;
+        this.numberOfSlave = numberOfSlave;
     }
 
     @Override
     public void run() {
-        number++;
-        System.out.println(number);
+//        number++;
+        System.out.println(numberOfSlave);
 
         try { // puts the thread to sleep for 1 second
             Thread.sleep(1000);
@@ -40,15 +41,14 @@ public class SlavesRootFinder implements Runnable {
 
             } else { // imaginary
                 determinantPart = Math.sqrt(-determinantPart) / (2 * a);
-                rootString1 = otherPart + " +i " + determinantPart;
-                rootString2 = otherPart + " -i " + determinantPart;
+                rootString1 = otherPart + " + " + determinantPart + "i";
+                rootString2 = otherPart + " - " + determinantPart + "i";
             }
 
             masterBuffer.blockingPut(rootString1, rootString2);
 
         }
         catch (InterruptedException exception) {
-           //exception.printStackTrace();
             Thread.currentThread().interrupt(); // re-interrupt the thread
         }
     }

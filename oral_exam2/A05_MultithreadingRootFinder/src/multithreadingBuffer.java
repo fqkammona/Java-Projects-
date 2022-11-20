@@ -1,4 +1,4 @@
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue; // Creates a synchronized buffer
 
 public class multithreadingBuffer {
     private final ArrayBlockingQueue<int[]> masterBuffer; // shared buffer

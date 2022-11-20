@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.security.SecureRandom;
@@ -14,13 +15,19 @@ public class MasterRootFinder {
 
         executorService.awaitTermination(1, TimeUnit.MILLISECONDS);
         for(int i = 0; i < 10; i++){ // Creates 10 threads of slaves
-            executorService.execute(new SlavesRootFinder(masterBuffer));
+            executorService.execute(new SlavesRootFinder(masterBuffer, i + 1));
         }
 
         for(int i = 0; i < option; i++){
             try{
                 Thread.sleep(100);
-                masterBuffer.blockingPut(randomSetCoefficients());
+                int[] hold = randomSetCoefficients();
+                masterBuffer.blockingPut(hold);
+
+                for(int temp: hold)
+                    System.out.print(" " + temp);
+
+                System.out.println("\n");
 
                 Thread.sleep(100);
                 String[] roots = masterBuffer.blockingGetRoot();
@@ -29,7 +36,9 @@ public class MasterRootFinder {
                 throw new RuntimeException(e);
             }
         }
+
         executorService.shutdown(); // shut down ExecutorService--it decides when to shut down threads
+        System.exit(0);
     }
 
     private int[] randomSetCoefficients(){
