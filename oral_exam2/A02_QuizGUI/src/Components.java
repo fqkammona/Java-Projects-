@@ -52,6 +52,15 @@ public abstract class Components{
         resultPanel.add(label);
     }
 
+    /** Checks if the selected option is correct */
+    public void isSelectedCorrect(String answerText){
+        int i = 0;
+        while(i < correctAnswers.length){
+            if(answerText.compareTo(correctAnswers[i]) == 0)
+                numOfCorrect++;
+            i++;
+        }
+    }
 
     /** Adds all the correct answers to the results JPanel. */
     public void fillCorrectAnswers(){

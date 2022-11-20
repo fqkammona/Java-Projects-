@@ -48,13 +48,12 @@ public class Radiobutton extends Components{
             if(answer[j].isSelected()){
                 isThereAnswer = true;
                 yourAnswerPanel.add(new JLabel(answerText));
-                if(answerText.compareTo(correctAnswers[0]) == 0)
-                        numOfCorrect++;
+                isSelectedCorrect(answerText);
             }
             j++;
         }
 
-        if(isThereAnswer == true){
+        if(isThereAnswer){
             resultPanel.add(yourAnswerPanel);
         } else {
             JLabel label = new JLabel("Unanswered");

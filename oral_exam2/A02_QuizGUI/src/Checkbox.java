@@ -46,19 +46,14 @@ public class Checkbox extends Components {
             if(answer[j].isSelected()){
                 isThereAnswer = true;
                 yourAnswerPanel.add(new JLabel(answerText));
-                int i = 0;
-                while(i < correctAnswers.length){ // Sees if the option selected is correct
-                    if(answerText.compareTo(correctAnswers[i]) == 0)
-                        numOfCorrect++;
-                    i++;
-                }
+                isSelectedCorrect(answerText);
             }
             j++;
         }
 
         /* If an answer has been selected then add yourAnswerPanel to the
         * result panel else add label unanswered. */
-        if(isThereAnswer == true){
+        if(isThereAnswer){
             resultPanel.add(yourAnswerPanel);
         } else {
             JLabel label = new JLabel("Unanswered");
@@ -66,7 +61,7 @@ public class Checkbox extends Components {
         }
     }
 
-    /** When the button is pressed, this method calls fillResultJpanel,
+    /** When the button is pressed, this method calls fillResultJPanel,
      * fillYourAnswer and fillCorrectAnswer.*/
     public void addActionListener(Quiz quiz) {
         fillResultJPane();
