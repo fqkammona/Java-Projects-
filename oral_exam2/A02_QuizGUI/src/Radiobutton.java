@@ -1,7 +1,6 @@
 // Radiobutton class by Fatima Kammona
 
-/** Creates the Radiobuttons and puts them in a group so that they toggle and
- * adds them in a Jpanel and returns the panel.*/
+/* This is a subclass of Components that creates radioButtons. */
 import javax.swing.*;
 import java.awt.*;
 public class Radiobutton extends Components{
@@ -24,7 +23,7 @@ public class Radiobutton extends Components{
      * to the componentPanel in the super class. */
     private void fillPanel(String[] answersString){
         int i = 0;
-        ButtonGroup group = new ButtonGroup(); // Allows the toggling
+        ButtonGroup group = new ButtonGroup(); // Allows for toggling
 
         while (i < answersString.length){
             answer[i] = new JRadioButton(answersString[i]);
@@ -34,9 +33,9 @@ public class Radiobutton extends Components{
         }
     }
 
-    /** This method finds all the selected checkboxes and adds the text into
-     * a new Jlabel and then goes through a while to see if the option selected is
-     * a correct answer.*/
+    /** This method finds the radioButton that is selected and adds the text into a new JPanel and then calls
+     *  the isSelectedCorrect method from the super class to see if the selected radioButton is correct.
+     *  If the no radioButton has been selected then 'Unanswered' is added to the frame.*/
     public void fillYourAnswer(){
         int j = 0;
 
@@ -60,6 +59,7 @@ public class Radiobutton extends Components{
             resultPanel.add(label);
         }
     }
+
     /** When the button is pressed, this method creates the results panel
      * and adds the options selected and adds the correct options */
     public void addActionListener(Quiz quiz) {

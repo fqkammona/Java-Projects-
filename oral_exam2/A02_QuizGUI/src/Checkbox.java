@@ -32,8 +32,9 @@ public class Checkbox extends Components {
         }
     }
 
-    /** This method finds all the selected checkboxes and adds the text into
-     * a new JPanel and then class the isSelectedCorrect method from the super class. */
+    /** This method finds all the selected checkboxes and adds the text into a new JPanel and then calls the
+     * isSelectedCorrect method from the super class in the super class to see if the selected checkBox is correct.
+     * If the no checkbox has been selected then 'Unanswered' is added to the frame.*/
     public void fillYourAnswer(){
         int i = 0;
 

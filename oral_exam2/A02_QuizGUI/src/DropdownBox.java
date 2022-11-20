@@ -1,3 +1,7 @@
+// DropdownBox class by Fatima Kammona
+
+/* This is a subclass of Components that creates a JComboBox. */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,7 +22,8 @@ public class DropdownBox extends Components{
         componentPanel.add(answer);
     }
 
-    /** This method */
+    /** This method checks to see if an item from the dropDown box has been selected. If it has then it checks
+     * to see if the item is correct or not. If the no item has been selected then 'Unanswered' is added to the frame.*/
     public void fillYourAnswer(){
         JPanel yourAnswerPanel = new JPanel(new GridLayout(0, 1));
 

@@ -1,6 +1,6 @@
 // ListBox class by Fatima Kammona
 
-/** This is creates the listBox */
+/* This is a subclass of Components that creates a JList. */
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ListBox extends Components{
     public JList answer;
-    public int size;
 
     /** The default constructor that takes the question, the options to answer
      * and the correct answers. It sends the question and correct answers to the
@@ -19,13 +18,13 @@ public class ListBox extends Components{
 
         fillNewPanel(); // Creating a new JPanel with the title
         answer = new JList(answersString);
-        size = answersString.length;
 
         answer.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         componentPanel.add(answer);
     }
 
-    /** This method .*/
+    /** This method checks to see if any items from the JList has been selected. If it has then it checks to see if
+     * the items are correct or not. If the no item has been selected then 'Unanswered' is added to the frame.*/
     public void fillYourAnswer() {
         JPanel yourAnswerPanel = new JPanel(new GridLayout(5, 1));
 
