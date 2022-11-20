@@ -29,7 +29,7 @@ public class Quiz extends JFrame implements ActionListener{
         containerOfGrid = getContentPane();
         containerOfGrid.setLayout(new GridLayout(6,1));
 
-        setSize(500, 800); // set window size
+        setSize(500, 900); // set window size
         setVisible(true); // show window
 
         createAllComponents();

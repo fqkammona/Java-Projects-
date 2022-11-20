@@ -14,12 +14,6 @@ public abstract class Components{
     public JPanel getComponentPanel(){
         return componentPanel;
     }
-    public int getNumOfCorrect(){
-        return numOfCorrect;
-    }
-    public void setNumOfCorrect(int numOfCorrect){
-        Components.numOfCorrect = numOfCorrect;
-    }
 
     /** Creates a new JPanel for the prompt and options to select. */
     public void fillNewPanel(){

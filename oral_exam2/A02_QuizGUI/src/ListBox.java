@@ -27,7 +27,7 @@ public class ListBox extends Components{
 
     /** This method .*/
     public void fillYourAnswer() {
-        JPanel yourAnswerPanel = new JPanel(new GridLayout(6, 1));
+        JPanel yourAnswerPanel = new JPanel(new GridLayout(5, 1));
 
         boolean selectedYes = !answer.isSelectionEmpty();
         if (selectedYes) {

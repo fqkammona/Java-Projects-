@@ -20,16 +20,12 @@ public class DropdownBox extends Components{
 
     /** This method */
     public void fillYourAnswer(){
-        JPanel yourAnswerPanel = new JPanel(new GridLayout(1, 1));
+        JPanel yourAnswerPanel = new JPanel(new GridLayout(0, 1));
 
         int isSelected = answer.getSelectedIndex();
         if (isSelected != -1) {
-            if(answer.getSelectedItem().toString() == correctAnswers[0]){
-                yourAnswerPanel.add(new JLabel(correctAnswers[0]));
-                numOfCorrect++;
-            } else {
-                yourAnswerPanel.add(new JLabel(answer.getSelectedItem().toString()));
-            }
+            yourAnswerPanel.add(new JLabel(answer.getSelectedItem().toString()));
+            isSelectedCorrect(answer.getSelectedItem().toString());
         } else {
             yourAnswerPanel.add(new JLabel("Unanswered"));
         }
