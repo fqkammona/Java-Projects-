@@ -1,6 +1,8 @@
-/* Quiz class by Fatima Kammona */
+// Quiz class by Fatima Kammona
 
-/** This is creates the Quiz */
+/* This class creates a quiz using different types of components using the abstract Components
+* class and then adds them into the frame. After the agreement checkbox is clicked and the button
+* is pressed a new frame with the results will appear.  */
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -84,11 +86,11 @@ public class Quiz extends JFrame implements ActionListener{
     }
     /** Initializes the listComponent by calling the ListBox class. */
     private void createListComponent(){
-        String methods[]= { "Multiplication","Division","Subtraction",
+        String[] typeOfMethod = { "Multiplication","Division","Subtraction",
                 "Addition","Integration"};
         String[] correctAnswer = {"Multiplication", "Addition", "Division"};
 
-        listComponent = new ListBox("Chose all that apply: 2 + 1 * 8 / 4 = 4", methods, correctAnswer);
+        listComponent = new ListBox("Chose all that apply: 2 + 1 * 8 / 4 = 4", typeOfMethod, correctAnswer);
     }
 
     /** Initializes the buttonPanel and adds the submit button and agreementBox to the

@@ -1,6 +1,6 @@
-// Checkbox class by Fatima Kammona
+//Checkbox class by Fatima Kammona
 
-/** This is creates the checkbox */
+/* This is a subclass of Components that creates checkBoxes. */
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,22 +33,21 @@ public class Checkbox extends Components {
     }
 
     /** This method finds all the selected checkboxes and adds the text into
-     * a new JPanel and then goes through a while to see if the option selected is
-     * a correct answer. */
+     * a new JPanel and then class the isSelectedCorrect method from the super class. */
     public void fillYourAnswer(){
-        int j = 0;
+        int i = 0;
 
         JPanel yourAnswerPanel = new JPanel(new GridLayout(answer.length, 1));
         boolean isThereAnswer = false; // To check if the question has been answered
 
-        while (j < answer.length){
-            String answerText = answer[j].getText();
-            if(answer[j].isSelected()){
+        while (i < answer.length){
+            String answerText = answer[i].getText();
+            if(answer[i].isSelected()){
                 isThereAnswer = true;
                 yourAnswerPanel.add(new JLabel(answerText));
                 isSelectedCorrect(answerText);
             }
-            j++;
+            i++;
         }
 
         /* If an answer has been selected then add yourAnswerPanel to the
