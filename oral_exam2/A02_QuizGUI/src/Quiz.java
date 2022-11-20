@@ -58,10 +58,10 @@ public class Quiz extends JFrame implements ActionListener{
     /** Initializes the checkBoxComponent and checkboxComponentBoxTwo by calling the Checkbox class. */
     private void createCheckBox() {
         String[] answers = {"2 + 2 = 4","3 *  3 = 9", "7 + 3 = 11","33 / 5 = 6", "6 + 7 = 12"};
-        String[] answersForSecondBox = {"50 / 10 = 5","17 * 0 = 1", "5 > 4","6 * 36 = 36 * 6", "5 * 25 = 100"};
+        String[] answersForSecondBox = {"50 / 10 = 5","17 * 0 = 1", "5 > 4","6 * 6 = 36", "5 * 25 = 100"};
 
         String[] correctAnswers = {"2 + 2 = 4","3 *  3 = 9", };
-        String[] correctAnswersForSecondBox = {"50 / 10 = 5","5 > 4", "6 * 36 = 6 *36" };
+        String[] correctAnswersForSecondBox = {"50 / 10 = 5","5 > 4", "6 * 6 = 36" };
 
         checkBoxComponent= new Checkbox("Chose all that apply",answers, correctAnswers);
         checkBoxComponentBoxTwo = new Checkbox("Chose all that apply", answersForSecondBox, correctAnswersForSecondBox);
