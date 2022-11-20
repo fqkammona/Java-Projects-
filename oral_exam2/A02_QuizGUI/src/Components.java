@@ -1,3 +1,8 @@
+// Components class by Fatima Kammona
+
+/* This is the super class that has subclasses that create different types of components.
+* This class also keeps track of the numbers correct and the total correct numbers.  */
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -25,7 +30,6 @@ public abstract class Components{
         label.setFont(new Font("Serif", Font.PLAIN, 22));
         componentPanel.setBorder(question);
     }
-
 
     /** Creates a new JPanel for the results of the prompt */
     public void fillResultJPane(){
