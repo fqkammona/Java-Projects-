@@ -164,4 +164,24 @@ public class exchangeGUIController {
     private void takeMeToMainPageButton(ActionEvent event) throws IOException{
         takeMeToMainAccountPage(event);
     }
+
+    @FXML  // Takes user to create account page
+    private void takeMeToswdExchangeRate(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("swdExchangeRatefxml.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private TextField swdRate;
+    @FXML
+    private TextArea displayOutput;
+    @FXML  // Takes user to create account page
+    private void submitSetswdRate(ActionEvent event) throws IOException {
+        BigDecimal swdRequest = BigDecimal.valueOf(Double.parseDouble(swdRate.getText()));
+        displayOutput.setText(bank.upDateCurrency(swdRequest,"SWD"));
+    }
+
 }

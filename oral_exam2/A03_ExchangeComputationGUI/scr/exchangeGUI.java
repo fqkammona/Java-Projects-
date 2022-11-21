@@ -12,7 +12,7 @@ public class exchangeGUI extends Application {
     //1. Create new account - Done
     //2. Log in to account - Done
     //3. Exchange - nah
-    //4. Set SWD Exchange Rate
+    //4. Set SWD Exchange Rate - Done
     //5. Exit Program
 
 
