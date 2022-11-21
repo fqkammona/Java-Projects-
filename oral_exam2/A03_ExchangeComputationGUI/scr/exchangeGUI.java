@@ -15,14 +15,12 @@ public class exchangeGUI extends Application {
     //3. Exchange
     //4. Set SWD Exchange Rate
     //5. Exit Program
-    //Enter Choice:
 
 
     // 1. Get account information
     //2. Withdraw
     //3. Delete Account
-    //4. Log out of Account
-    //Enter Choice:
+    //4. Log out of Account - Done
 
     @Override
     public void start(Stage stage) throws Exception {

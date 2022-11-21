@@ -17,9 +17,10 @@ public class exchangeGUIController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
     public static Bank bank = new Bank();
     private static int number = 1;
+
+    private int currentAccountNum;
 
     // When login button is pressed on the main page
    @FXML
@@ -39,8 +40,6 @@ public class exchangeGUIController {
 
     @FXML  // When login button is pressed on the login page
     private void loginAccountButtonPressed(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.NONE); // Message box
-
         /* This if statement checks
         * 1. If textField accountNumber is empty or null, if so then an alert will be displayed.
         * 2. If accountNumber has any letters in it, if so then an alert will be displayed.
@@ -48,25 +47,18 @@ public class exchangeGUIController {
         * 4. If account has been found then the account page will be displayed.*/
 
         if (accountNumber.getText() == null || accountNumber.getText().trim().isEmpty()) { // if
-            alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-            alert.setTitle("Please Enter Number: ");
-            alert.show(); // show the dialog
+            showAlert("Please Enter Number:");
         }
         else if(!accountNumber.getText().matches("\\d*")){ // if any letters are inserted
-            alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-            alert.setTitle("Please don't enter letters: ");
-            alert.show(); // show the dialog
+            showAlert("Please don't enter letters: ");
         }
         else { // if a number has actually been entered
             String foundAccount = bank.findAccount(Integer.parseInt(accountNumber.getText()));
             if(foundAccount.compareTo("Account has been found.") == 0){
-                alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-                alert.setTitle("You are now logged in");
-                alert.show(); // show the dialog
+                currentAccountNum = bank.getAccountNum();
+                takeMeToMainAccountPage(event);
             } else {
-                alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-                alert.setTitle(foundAccount);
-                alert.show(); // show the dialog
+                showAlert(foundAccount);
             }
         }
     }
@@ -80,31 +72,59 @@ public class exchangeGUIController {
         stage.show();
     }
 
-    @FXML  // When create account button is pressed on the login page
+    @FXML  // When create account button is pressed on the createAccount page
     private void createAccountPageButton(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.NONE); // Message box
-
         /* This if statement checks
          * 1. If balance is empty or null, if so then an alert will be displayed.
          * 2. If balance has any letters in it or negative, if so then an alert will be displayed.*/
 
         if (balanceAmount.getText() == null || balanceAmount.getText().trim().isEmpty()) { // if
-            alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-            alert.setTitle("Please Enter Number: ");
-            alert.show(); // show the dialog
+            showAlert("Please Enter A Number:");
         }
         else if(!balanceAmount.getText().matches("\\d*")){ // if any letters are inserted
-            alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-            alert.setTitle("Please don't enter letters or negative numbers: ");
-            alert.show(); // show the dialog
+            showAlert("Please don't enter letters or negative numbers: ");
         } else {
             bank.makeNewAccount(number, Double.parseDouble(balanceAmount.getText()));
+            currentAccountNum = number;
             number++;
-            root = FXMLLoader.load(getClass().getResource("exchangeGUIfxml.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            takeMeToMainAccountPage(event);
         }
     }
+
+    /** This method shows the exchangeGUIfxml scene. */
+    private void returnToExchangeGUIfxml(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("exchangeGUIfxml.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /** This method shows the mainAccountPagefxml scene. */
+    private void takeMeToMainAccountPage(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("mainAccountPagefxml.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /** Creates alerts and displays them.  */
+    private void showAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.NONE); // Message box
+        alert.setAlertType(Alert.AlertType.ERROR); // set alert type
+        alert.setTitle(message);
+        alert.show(); // show the dialog
+    }
+    @FXML  // Returns to the exchangeGUIfxml page
+    private void takeMeToExchangeGUIfxml(ActionEvent event) throws IOException {
+        returnToExchangeGUIfxml(event);
+    }
+
+    @FXML  // Returns to the exchangeGUIfxml page
+    private void deleteAccount(ActionEvent event) throws IOException {
+
+        returnToExchangeGUIfxml(event);
+    }
+
 }
