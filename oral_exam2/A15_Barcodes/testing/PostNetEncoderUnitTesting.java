@@ -65,4 +65,11 @@ class PostNetEncoderUnitTesting {
         PostNetEncoder b = new PostNetEncoder();
         assertEquals(b.convertZip(input), output);
     }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"52242,52242", "52242-1234,522421234", "52242-1234-12,52242123412","123456789, Error: Input not valid."})
+    void checkingDifferentZips(String input, String output){
+        PostNetEncoder b = new PostNetEncoder();
+        assertEquals(b.convertAnyZip(input), output);
+    }
 }
