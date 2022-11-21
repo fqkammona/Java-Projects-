@@ -7,9 +7,11 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class exchangeGUI extends Application {
+   // public Bank bank = new Bank();
 
     public static void main(String[] args) {
         launch(args);
+
     } // launch function calls the start function
 
 
@@ -28,9 +30,7 @@ public class exchangeGUI extends Application {
         }
         else {
             Parent root = FXMLLoader.load(myfxml);
-
             Scene scene = new Scene(root);
-
             stage.setScene(scene);
             stage.show();
         }
