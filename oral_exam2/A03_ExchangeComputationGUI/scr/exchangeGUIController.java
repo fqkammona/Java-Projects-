@@ -100,16 +100,27 @@ public class exchangeGUIController {
         stage.show();
     }
 
+    @FXML
+    private TextField balanceAmountDisplay;
+
+    @FXML
+    private TextField numberAccountDisplay = new TextField(String.valueOf(bank.getAccountNum()));
+
     /**
      * This method shows the mainAccountPagefxml scene.
      */
     private void takeMeToMainAccountPage(ActionEvent event) throws IOException {
+        balanceAmountDisplay.setText(bank.getBalance().toString());
+
         root = FXMLLoader.load(getClass().getResource("mainAccountPagefxml.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
+
+
 
     /**
      * Creates alerts and displays them.
