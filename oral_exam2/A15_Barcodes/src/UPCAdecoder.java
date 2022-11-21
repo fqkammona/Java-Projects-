@@ -5,9 +5,10 @@ public class UPCAdecoder {
     public static final String[] rightSide = {"1110010", "1100110", "1101100", "1000010",
             "1011100", "1001110", "1010000", "1000100", "1001000", "1110100"};
 
+    private String productCode;
 
-    public UPCAdecoder(){
-
+    public UPCAdecoder(String barcode){
+        convertToProductCode(barcode);
     }
 
     public String barcodeToProductCode(String barcode){

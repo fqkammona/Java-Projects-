@@ -11,7 +11,7 @@ class UPCAdecoderUnitTesting {
     @ParameterizedTest // A method that allows the ability to run a test multiple times
     @CsvSource({"01254667375,10100011010011001001001101100010100011010111101010101000010001001000010100010010011101011100101"})
     void testCreateBarcode(String input, String output){
-        UPCAdecoder b = new UPCAdecoder();
+        UPCAdecoder b = new UPCAdecoder(output);
         assertEquals(b.convertToProductCode(output), input + "4");
         assertEquals(b.barcodeToProductCode(output), input);
     }
