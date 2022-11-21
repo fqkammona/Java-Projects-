@@ -13,6 +13,6 @@
       <TextField fx:id="accountNumber" layoutX="229.0" layoutY="62.0" />
       <Button layoutX="154.0" layoutY="105.0" mnemonicParsing="false" onAction="#loginAccountButtonPressed" prefHeight="26.0" prefWidth="161.0" text="Log In" />
       <Label layoutX="64.0" layoutY="168.0" prefHeight="16.0" prefWidth="171.0" text="Don't have an account?" />
-      <Button layoutX="246.0" layoutY="163.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="26.0" prefWidth="161.0" text="Create Account" />
+      <Button layoutX="246.0" layoutY="163.0" mnemonicParsing="false" onAction="#takeMeToCreateAccountPage" prefHeight="26.0" prefWidth="161.0" text="Create Account" />
    </children>
 </AnchorPane>
