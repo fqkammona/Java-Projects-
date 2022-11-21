@@ -3,22 +3,32 @@
 public class PostNetDecoder {
     public static final String[] postNetCode = {"11000", "00011", "00101", "00110",
             "01001", "01010", "01100", "10001", "10010", "10100"};
+    private String checkSum;
+    private String zip;
 
-    public static String checkSum;
-    public static String zip;
-
-    /** This method takes a barcode and uses the convertBarcodeToBinary
-     * and convertFromBinary to do all the converting and setting for checkSum
-     * and zip and then returns the zip.*/
+    /** This method takes a barcode and does all the appropriate converting to return the original zip.
+     * First. Converts the barcode to binary code using the convertBarcodeToBinary method
+     * Second. Converts binary code into the zip using the convertFromBinary method
+     * Third. The convertFromBinary method calls the setInstanceVariables
+     * Fourth. When calling the getZip, the final method called convertToOriginalZip is called and sends back the
+     * correct format for the zip. */
     public String convertBarcode(String barCode){
-        String hold = convertFromBinary(convertBarcodeToBinary(barCode));
-        return zip;
+       convertFromBinary(convertBarcodeToBinary(barCode));
+        return getZip();
     }
 
-    /**
-     * Takes a string of a barcode and converts
-     * it into a string of binary and returns the barCode
-     */
+    /** This method uses Java Regex to return the zip to the original format */
+    public String convertToOriginalZip(String zip){
+       if(zip.matches("\\d{9}")){
+           return zip.replaceFirst("(\\d{5})(\\d{4})", "$1-$2");
+       } else if(zip.matches("\\d{11}")){
+           return zip.replaceFirst("(\\d{5})(\\d{4})(\\d+)", "$1-$2-$3");
+       } else {
+           return zip;
+       }
+    }
+
+    /** Takes a string of a barcode and converts it into a string of binary and returns the barCode */
     public String convertBarcodeToBinary(String barcode){
         StringBuilder binaryString = new StringBuilder();
 
@@ -34,10 +44,9 @@ public class PostNetDecoder {
         return binaryString.toString();
     }
 
-    /**  This method takes a string of binary numbers and converts
-     * it back to the zip. To convert
+    /**  This method takes a string of binary numbers and converts it back to the zip. To convert
      * the binary code the recursive algorithm convertNumber is called. */
-    public String convertFromBinary(String binary){
+    public void convertFromBinary(String binary){
         StringBuilder zipCode = new StringBuilder();
 
         int i = 0;
@@ -47,13 +56,12 @@ public class PostNetDecoder {
             i += 5;
         }
 
-        setStaticVariables(zipCode.toString());
-        return zipCode.toString();
+        setInstanceVariables(zipCode.toString());
     }
 
-    /** This method takes a string that has the orignal zip and checksum
+    /** This method takes a string that has the original zip and checksum
      * and uses substring to fill the static variables checkSum and zip. */
-    private void setStaticVariables(String zipCode){
+    private void setInstanceVariables(String zipCode){
          checkSum = zipCode.substring(zipCode.length()-1);
          zip = zipCode.substring(0,zipCode.length()-1);
     }
@@ -62,6 +70,7 @@ public class PostNetDecoder {
     }
 
     public String getZip(){
+        zip = convertToOriginalZip(zip);
         return zip;
     }
 

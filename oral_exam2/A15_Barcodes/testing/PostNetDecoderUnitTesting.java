@@ -1,4 +1,4 @@
-/** This is the unit testing class for the POSTNETDECODER class.*/
+// This is the unit testing class for the POSTNETDECODER class.
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,10 +16,11 @@ class PostNetDecoderUnitTesting {
     }
 
     @ParameterizedTest // A method that allows the ability to run a test multiple times
-    @CsvSource({"010100010100101010010010101010, 522425"})
+    @CsvSource({"010100010100101010010010101010, 52242"})
     void binaryToZipTesting(String input, String output){
         PostNetDecoder b = new PostNetDecoder();
-        assertEquals(b.convertFromBinary(input), output);
+        b.convertFromBinary(input);
+        assertEquals(b.getZip(), output);
     }
 
     @ParameterizedTest // A method that allows the ability to run a test multiple times
@@ -41,5 +42,12 @@ class PostNetDecoderUnitTesting {
     void barcodeToZipTesting(){
         PostNetDecoder b = new PostNetDecoder();
         assertEquals(b.convertBarcode("|.|.|...|.|..|.|.|..|..|.|.|.|.|"),"52242");
+    }
+
+    @ParameterizedTest // A method that allows the ability to run a test multiple times
+    @CsvSource({"52242,52242", "52242-1234,522421234", "52242-1234-12,52242123412"})
+    void checkingDifferentZips(String output, String input){
+        PostNetDecoder b = new PostNetDecoder();
+        assertEquals(b.convertToOriginalZip(input), output);
     }
 }
