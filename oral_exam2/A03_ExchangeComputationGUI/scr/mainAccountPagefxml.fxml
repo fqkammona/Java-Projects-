@@ -21,7 +21,7 @@
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="157.0" text="Withdraw">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#takeMeToWithdrawPage" prefHeight="26.0" prefWidth="157.0" text="Withdraw">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </VBox.margin>

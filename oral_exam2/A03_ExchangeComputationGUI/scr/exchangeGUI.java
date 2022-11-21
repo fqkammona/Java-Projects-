@@ -9,16 +9,15 @@ import java.net.URL;
 public class exchangeGUI extends Application {
     public static void main(String[] args) {launch(args);} // launch function calls the start function
 
-
-    // 1. Create new account - Done
+    //1. Create new account - Done
     //2. Log in to account - Done
-    //3. Exchange
+    //3. Exchange - nah
     //4. Set SWD Exchange Rate
     //5. Exit Program
 
 
-    // 1. Get account information
-    //2. Withdraw
+    //1. Get account information
+    //2. Withdraw - Done except for the combobox
     //3. Delete Account
     //4. Log out of Account - Done
 
