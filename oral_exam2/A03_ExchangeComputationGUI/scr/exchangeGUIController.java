@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -23,7 +24,7 @@ public class exchangeGUIController {
     /**
      * This is the ActionEvent section for the exchangeGUIfxml page.
      * Actions for the login button, create new account and set SWD rate.
-     * */
+     */
     @FXML // When login button is pressed on the main page
     private void takeMeToLoginPage(ActionEvent event) throws IOException {
         // Use objects because getResource could be null
@@ -56,7 +57,7 @@ public class exchangeGUIController {
 
     /**
      * This section holds methods that are called often
-     * */
+     */
 
     /* This method creates and displays an alert box of the message given.*/
     private void showAlert(String message) {
@@ -90,8 +91,9 @@ public class exchangeGUIController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML // This is the ActionEvent for any button that returns to the mainAccountPagefxml
-    private void takeMeToMainAccountfxml(ActionEvent event) throws IOException{
+    private void takeMeToMainAccountfxml(ActionEvent event) throws IOException {
         returnToMainAccountfxml(event);
     }
 
@@ -100,6 +102,7 @@ public class exchangeGUIController {
      */
     @FXML
     private TextField accountNumber; // TextField for logIn page that holds account number
+
     @FXML  // When login button is pressed on the login page
     private void loginAccountButtonPressed(ActionEvent event) throws IOException {
         /* This if statement checks
@@ -127,6 +130,7 @@ public class exchangeGUIController {
      */
     @FXML
     private TextField balanceAmount; // TextField for createAccount page that holds balance amount
+
     @FXML  // When create account button is pressed on the createAccount page
     private void createAccountPageButton(ActionEvent event) throws IOException {
         /* This if statement checks
@@ -151,10 +155,11 @@ public class exchangeGUIController {
     private TextField swdRate; // TextField where the user will put the number
     @FXML
     private TextArea displayOutput; // Will display a message updating the user
+
     @FXML  //When Submit button is pressed on the swdExchangeRatefxml page
     private void submitSetswdRate(ActionEvent ignoredEvent) {
         BigDecimal swdRequest = BigDecimal.valueOf(Double.parseDouble(swdRate.getText()));
-        displayOutput.setText(bank.upDateCurrency(swdRequest,"SWD"));
+        displayOutput.setText(bank.upDateCurrency(swdRequest, "SWD"));
     }
 
     /**
@@ -169,6 +174,7 @@ public class exchangeGUIController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML //  When delete account button is pressed
     private void deleteAccount(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("deleteAccountfxml.fxml")));
@@ -185,11 +191,12 @@ public class exchangeGUIController {
     private TextField withdrawAmount; // The TextField where the sure enters the amount they wish to withdraw
     @FXML
     private TextArea displayWithdraw; // Displays the amount of bills needed
+
     @FXML // When the submit request button for the withdrawal is pressed
     private void withdrawSubmitButton(ActionEvent ignoredEvent) {
         BigDecimal balanceAccount = bank.getBalance();
         BigDecimal withdrawRequest = BigDecimal.valueOf(Double.parseDouble(withdrawAmount.getText()));
-        if(balanceAccount.compareTo(withdrawRequest) < 0){
+        if (balanceAccount.compareTo(withdrawRequest) < 0) {
             showAlert("Not enough money");
         } else {
             displayWithdraw.setText(bank.withdrawalIn("SWD", Double.parseDouble(withdrawAmount.getText())));
@@ -209,8 +216,8 @@ public class exchangeGUIController {
     private Button takeHomeDeleteOne; // return to exchangeGUIfxml.fxml page
 
     /* The user has the options to either,
-    * 1. delete account or return to mainAccountPagefxml.fxml page
-    * 2. delete account and return to exchangeGUIfxml.fxml page  */
+     * 1. delete account or return to mainAccountPagefxml.fxml page
+     * 2. delete account and return to exchangeGUIfxml.fxml page  */
     @FXML
     private void deleteThisAccount(ActionEvent ignoredEvent) {
         accountInformationDisplay.setText(bank.deleteAccount(bank.getAccountNum()));
@@ -221,13 +228,14 @@ public class exchangeGUIController {
     }
 
     /**
-     *  This section holds the ActionEvent for when the account information button is pressed on the
-     *  mainAccountPagefxml.fxml page is pressed.
+     * This section holds the ActionEvent for when the account information button is pressed on the
+     * mainAccountPagefxml.fxml page is pressed.
      */
     @FXML
     private Label accountBalanceDisplay; // Displays the balance for the account
     @FXML
     private Label accountNumberDisplay; // Displays the number for the account
+
     @FXML
     private void accountInformation(ActionEvent ignoredEvent) {
         accountNumberDisplay.isDisable();
