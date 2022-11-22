@@ -1,6 +1,5 @@
-/* DriverPostNetEncoder by Fatima Kammona */
-
-/** This is the driver class for the PostNetEncoder program.*/
+// DriverPostNetEncoder by Fatima Kammona
+/* This is the driver class for the PostNetEncoder program. It asks for the zip and then displays the barcode. */
 
 import java.util.Scanner; // So that I write to the screen
 
