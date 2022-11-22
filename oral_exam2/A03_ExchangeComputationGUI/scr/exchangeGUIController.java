@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -85,6 +82,8 @@ public class exchangeGUIController {
             bank.makeNewAccount(number, Double.parseDouble(balanceAmount.getText()));
             currentAccountNum = number;
             number++;
+           // balanceAmountDisplay.setText("Hi");
+
             takeMeToMainAccountPage(event);
         }
     }
@@ -100,25 +99,18 @@ public class exchangeGUIController {
         stage.show();
     }
 
-    //@FXML
-    //private TextField balanceAmountDisplay;
-
-   // @FXML
-   // private TextField numberAccountDisplay = new TextField(String.valueOf(bank.getAccountNum()));
 
     /**
      * This method shows the mainAccountPagefxml scene.
      */
     private void takeMeToMainAccountPage(ActionEvent event) throws IOException {
-        //balanceAmountDisplay.setText(bank.getBalance().toString());
-
         root = FXMLLoader.load(getClass().getResource("mainAccountPagefxml.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
+
 
 
 
@@ -137,11 +129,7 @@ public class exchangeGUIController {
         returnToExchangeGUIfxml(event);
     }
 
-    @FXML  // Returns to the exchangeGUIfxml page
-    private void deleteAccount(ActionEvent event) throws IOException {
 
-        returnToExchangeGUIfxml(event);
-    }
 
     @FXML
     private void takeMeToWithdrawPage(ActionEvent event) throws IOException {
@@ -163,7 +151,6 @@ public class exchangeGUIController {
     private void withdrawSubmitButton(ActionEvent event) throws IOException{
         BigDecimal balanceAccount = bank.getBalance();
         BigDecimal withdrawRequest = new BigDecimal(Double.parseDouble(withdrawAmount.getText()));
-
         if(balanceAccount.compareTo(withdrawRequest) < 0){
             showAlert("Not enough money");
         } else {
@@ -193,6 +180,52 @@ public class exchangeGUIController {
     private void submitSetswdRate(ActionEvent event) throws IOException {
         BigDecimal swdRequest = BigDecimal.valueOf(Double.parseDouble(swdRate.getText()));
         displayOutput.setText(bank.upDateCurrency(swdRequest,"SWD"));
+    }
+
+
+    /* This section is for Account Information Page. */
+    @FXML
+    private TextArea accountInformationDisplay;
+
+    @FXML
+    private Label accountBalanceDisplay;
+
+    @FXML
+    private Label accountNumberDisplay;
+
+    @FXML
+    private void accountInformation(ActionEvent event) throws IOException{
+        accountNumberDisplay.isDisable();
+        accountBalanceDisplay.isDisable();
+        accountBalanceDisplay.setText(bank.getBalance().toString());
+        accountNumberDisplay.setText(String.valueOf(bank.getAccountNum()));
+    }
+
+    @FXML
+    private void deleteAccount(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("deleteAccountfxml.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button returnHome;
+
+    @FXML
+    private Button takeHomeDeleteOne;
+
+    @FXML
+    private void deleteThisAccount(ActionEvent event) throws IOException{
+        accountInformationDisplay.setText(bank.deleteAccount(bank.getAccountNum()));
+        returnHome.setVisible(true);
+        deleteButton.setDisable(true);
+        takeHomeDeleteOne.setDisable(true);
+        showAlert("Account Has been deleted");
     }
 
 }
