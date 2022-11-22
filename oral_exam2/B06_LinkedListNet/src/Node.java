@@ -1,19 +1,22 @@
-// Node by Fatima Kammona
-
-/** This is the Node class that creates a new
+// Node.java by Fatima Kammona
+/* This is the Node class that creates a new
  * node that will be inserted in the linked list.  */
 
 public class Node<T> {
-    /** Instance Variables */
+    /**
+     * Instance Variables
+     */
     public T data;
     public Node<T> nextNode; // reference to next linked node
 
-    /** Different constructors. */
+    /**
+     * Different constructors.
+     */
 
     /* A constructor that creates a new node with
-    * null reference to both instance variables.*/
-    public Node(){
-        this(null,null);
+     * null reference to both instance variables.*/
+    public Node() {
+        this(null, null);
     }
 
     /* A constructor that creates a new node given the data
@@ -23,13 +26,15 @@ public class Node<T> {
     }
 
     /* A constructor that creates a new node given information
-    * for both instance variables. */
+     * for both instance variables. */
     public Node(T object, Node<T> node) {
         data = object;
         nextNode = node;
     }
 
-    /** Accessor methods */
+    /**
+     * Accessor methods
+     */
     public void setData(T data) {
         this.data = data;
     }
