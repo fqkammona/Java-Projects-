@@ -1,6 +1,8 @@
-/* DriverUPCAencoder by Fatima Kammona */
-
-/** This is the driver class for the UPCA encoder program.*/
+// DriverUPCAencoder by Fatima Kammona
+/*
+ * This is the driver class for the UPCA encoder program. It asks for the product code and then displays
+ * the barcode.
+ */
 
 import java.util.Scanner; // So that I write to the screen
 
