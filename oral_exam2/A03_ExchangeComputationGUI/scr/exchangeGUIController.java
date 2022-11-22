@@ -1,7 +1,6 @@
-// TipCalculatorController.java
-// Controller that handles ... events
+// exchangeGUIController.java by Fatima Kammona
+// Controller that handles all the events
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,9 +9,9 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.swing.*;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class exchangeGUIController {
     private Stage stage;
@@ -20,22 +19,87 @@ public class exchangeGUIController {
     private Parent root;
     public static Bank bank = new Bank();
     private static int number = 1;
-    private int currentAccountNum;
 
+    /**
+     * This is the ActionEvent section for the exchangeGUIfxml page.
+     * Actions for the login button, create new account and set SWD rate.
+     * */
     @FXML // When login button is pressed on the main page
     private void takeMeToLoginPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("logInfxml.fxml"));
+        // Use objects because getResource could be null
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("logInfxml.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
+    @FXML // When create new account button is pressed on the main page
+    private void takeMeToCreateAccountPage(ActionEvent event) throws IOException {
+        // Use objects because getResource could be null
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("createAccountfxml.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML  // When Set SWD Rate is button is pressed
+    private void takeMeToswdExchangeRate(ActionEvent event) throws IOException {
+        // Use objects because getResource could be null
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("swdExchangeRatefxml.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * This section holds methods that are called often
+     * */
+
+    /* This method creates and displays an alert box of the message given.*/
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE); // Message box
+        alert.setAlertType(Alert.AlertType.ERROR); // set alert type
+        alert.setTitle(message);
+        alert.show(); // show the dialog
+    }
+
+    /*  This method shows the exchangeGUIfxml scene.  */
+    private void returnToExchangeGUIfxml(ActionEvent event) throws IOException {
+        // use object because the fxml could be null
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("exchangeGUIfxml.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML  // This is the ActionEvent for any button that returns to the exchangeGUIfxml
+    private void takeMeToExchangeGUIfxml(ActionEvent event) throws IOException {
+        returnToExchangeGUIfxml(event);
+    }
+
+    /*This method shows the mainAccountPagefxml scene. */
+    private void returnToMainAccountfxml(ActionEvent event) throws IOException {
+        // Use objects because getResource could be null
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("mainAccountPagefxml.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML // This is the ActionEvent for any button that returns to the mainAccountPagefxml
+    private void takeMeToMainAccountfxml(ActionEvent event) throws IOException{
+        returnToMainAccountfxml(event);
+    }
+
+    /**
+     * This section is all the methods and instance variables for the logInfxml.fxml page
+     */
     @FXML
     private TextField accountNumber; // TextField for logIn page that holds account number
-    @FXML
-    private TextField balanceAmount; // TextField for createAccount page that holds balance amount
-
     @FXML  // When login button is pressed on the login page
     private void loginAccountButtonPressed(ActionEvent event) throws IOException {
         /* This if statement checks
@@ -51,23 +115,18 @@ public class exchangeGUIController {
         } else { // if a number has actually been entered
             String foundAccount = bank.findAccount(Integer.parseInt(accountNumber.getText()));
             if (foundAccount.compareTo("Account has been found.") == 0) {
-                currentAccountNum = bank.getAccountNum();
-                takeMeToMainAccountPage(event);
+                takeMeToMainAccountfxml(event);
             } else {
                 showAlert(foundAccount);
             }
         }
     }
 
-    @FXML  // Takes user to create account page
-    private void takeMeToCreateAccountPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("createAccountfxml.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    /**
+     * This section is all the methods and instance variables for the createAccountfxml.fxml page
+     */
+    @FXML
+    private TextField balanceAmount; // TextField for createAccount page that holds balance amount
     @FXML  // When create account button is pressed on the createAccount page
     private void createAccountPageButton(ActionEvent event) throws IOException {
         /* This if statement checks
@@ -80,77 +139,56 @@ public class exchangeGUIController {
             showAlert("Please don't enter letters or negative numbers: ");
         } else {
             bank.makeNewAccount(number, Double.parseDouble(balanceAmount.getText()));
-            currentAccountNum = number;
             number++;
-           // balanceAmountDisplay.setText("Hi");
-
-            takeMeToMainAccountPage(event);
+            takeMeToMainAccountfxml(event);
         }
     }
 
     /**
-     * This method shows the exchangeGUIfxml scene.
+     * This section is the method and instance variables for the swdExchangeRatefxml.fxml page
      */
-    private void returnToExchangeGUIfxml(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("exchangeGUIfxml.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-    /**
-     * This method shows the mainAccountPagefxml scene.
-     */
-    private void takeMeToMainAccountPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("mainAccountPagefxml.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-
-
-    /**
-     * Creates alerts and displays them.
-     */
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.NONE); // Message box
-        alert.setAlertType(Alert.AlertType.ERROR); // set alert type
-        alert.setTitle(message);
-        alert.show(); // show the dialog
-    }
-
-    @FXML  // Returns to the exchangeGUIfxml page
-    private void takeMeToExchangeGUIfxml(ActionEvent event) throws IOException {
-        returnToExchangeGUIfxml(event);
-    }
-
-
-
     @FXML
+    private TextField swdRate; // TextField where the user will put the number
+    @FXML
+    private TextArea displayOutput; // Will display a message updating the user
+    @FXML  //When Submit button is pressed on the swdExchangeRatefxml page
+    private void submitSetswdRate(ActionEvent ignoredEvent) {
+        BigDecimal swdRequest = BigDecimal.valueOf(Double.parseDouble(swdRate.getText()));
+        displayOutput.setText(bank.upDateCurrency(swdRequest,"SWD"));
+    }
+
+    /**
+     * This is the ActionEvent section for the mainAccountPagefxml page.
+     * Actions for the withdrawal and delete account buttons.
+     */
+    @FXML //  When withdraw button is pressed
     private void takeMeToWithdrawPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("withDrawPagefxml.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("withDrawPagefxml.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    private ComboBox currencyOptions = new ComboBox(FXCollections.observableArrayList("SWD","uSD"));
-    @FXML
-    private TextField withdrawAmount;
+    @FXML //  When delete account button is pressed
+    private void deleteAccount(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("deleteAccountfxml.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    /**
+     * This section is the method and instance variables for the withDrawPagefxml.fxml page
+     */
     @FXML
-    private TextArea displayWithdraw;
-
+    private TextField withdrawAmount; // The TextField where the sure enters the amount they wish to withdraw
     @FXML
-    private void withdrawSubmitButton(ActionEvent event) throws IOException{
+    private TextArea displayWithdraw; // Displays the amount of bills needed
+    @FXML // When the submit request button for the withdrawal is pressed
+    private void withdrawSubmitButton(ActionEvent ignoredEvent) {
         BigDecimal balanceAccount = bank.getBalance();
-        BigDecimal withdrawRequest = new BigDecimal(Double.parseDouble(withdrawAmount.getText()));
+        BigDecimal withdrawRequest = BigDecimal.valueOf(Double.parseDouble(withdrawAmount.getText()));
         if(balanceAccount.compareTo(withdrawRequest) < 0){
             showAlert("Not enough money");
         } else {
@@ -158,69 +196,23 @@ public class exchangeGUIController {
         }
     }
 
+    /**
+     * This section is the method and instance variables for the deleteAccountfxml.fxml page
+     */
     @FXML
-    private void takeMeToMainPageButton(ActionEvent event) throws IOException{
-        takeMeToMainAccountPage(event);
-    }
-
-    @FXML  // Takes user to create account page
-    private void takeMeToswdExchangeRate(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("swdExchangeRatefxml.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private TextField swdRate;
-    @FXML
-    private TextArea displayOutput;
-    @FXML  // Takes user to create account page
-    private void submitSetswdRate(ActionEvent event) throws IOException {
-        BigDecimal swdRequest = BigDecimal.valueOf(Double.parseDouble(swdRate.getText()));
-        displayOutput.setText(bank.upDateCurrency(swdRequest,"SWD"));
-    }
-
-
-    /* This section is for Account Information Page. */
-    @FXML
-    private TextArea accountInformationDisplay;
-
-    @FXML
-    private Label accountBalanceDisplay;
-
-    @FXML
-    private Label accountNumberDisplay;
-
-    @FXML
-    private void accountInformation(ActionEvent event) throws IOException{
-        accountNumberDisplay.isDisable();
-        accountBalanceDisplay.isDisable();
-        accountBalanceDisplay.setText(bank.getBalance().toString());
-        accountNumberDisplay.setText(String.valueOf(bank.getAccountNum()));
-    }
-
-    @FXML
-    private void deleteAccount(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("deleteAccountfxml.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    private TextArea accountInformationDisplay; // Displays the amount of SWD to return
     @FXML
     private Button deleteButton;
-
     @FXML
-    private Button returnHome;
-
+    private Button returnHome; // return to mainAccountPagefxml.fxml page
     @FXML
-    private Button takeHomeDeleteOne;
+    private Button takeHomeDeleteOne; // return to exchangeGUIfxml.fxml page
 
+    /* The user has the options to either,
+    * 1. delete account or return to mainAccountPagefxml.fxml page
+    * 2. delete account and return to exchangeGUIfxml.fxml page  */
     @FXML
-    private void deleteThisAccount(ActionEvent event) throws IOException{
+    private void deleteThisAccount(ActionEvent ignoredEvent) {
         accountInformationDisplay.setText(bank.deleteAccount(bank.getAccountNum()));
         returnHome.setVisible(true);
         deleteButton.setDisable(true);
@@ -228,4 +220,19 @@ public class exchangeGUIController {
         showAlert("Account Has been deleted");
     }
 
+    /**
+     *  This section holds the ActionEvent for when the account information button is pressed on the
+     *  mainAccountPagefxml.fxml page is pressed.
+     */
+    @FXML
+    private Label accountBalanceDisplay; // Displays the balance for the account
+    @FXML
+    private Label accountNumberDisplay; // Displays the number for the account
+    @FXML
+    private void accountInformation(ActionEvent ignoredEvent) {
+        accountNumberDisplay.isDisable();
+        accountBalanceDisplay.isDisable();
+        accountBalanceDisplay.setText(bank.getBalance().toString());
+        accountNumberDisplay.setText(String.valueOf(bank.getAccountNum()));
+    }
 }
