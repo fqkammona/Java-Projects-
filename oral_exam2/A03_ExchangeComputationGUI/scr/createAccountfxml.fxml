@@ -19,6 +19,7 @@
             <Font size="33.0" />
          </font>
       </Label>
-      <Button layoutX="187.0" layoutY="157.0" mnemonicParsing="false" onAction="#createAccountPageButton" prefHeight="30.0" prefWidth="190.0" text="Create" />
+      <Button layoutX="83.0" layoutY="150.0" mnemonicParsing="false" onAction="#createAccountPageButton" prefHeight="30.0" prefWidth="190.0" text="Create" />
+      <Button layoutX="281.0" layoutY="150.0" mnemonicParsing="false" onAction="#takeMeToExchangeGUIfxml" prefHeight="30.0" prefWidth="190.0" text="Home" />
    </children>
 </AnchorPane>
