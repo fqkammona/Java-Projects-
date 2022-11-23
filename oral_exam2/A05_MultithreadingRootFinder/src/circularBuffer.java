@@ -1,4 +1,6 @@
-import java.util.concurrent.ArrayBlockingQueue;
+// circularBuffer.java by Fatima Kammona
+
+import java.util.concurrent.ArrayBlockingQueue; // Creates a synchronized buffer
 
 public class circularBuffer implements buffer{
     private final ArrayBlockingQueue<String[]> buffering; // shared buffer

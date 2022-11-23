@@ -1,6 +1,6 @@
+// buffer.java by Fatima Kammona
 public interface buffer {
-    public void blockingPut(String[] value) throws InterruptedException;
+    void blockingPut(String[] value) throws InterruptedException; // puts String[] value in buffer
 
-    // return String[] value from Buffer
-    public String[] blockingGet() throws InterruptedException;
+    String[] blockingGet() throws InterruptedException; // return String[] value from Buffer
 }
