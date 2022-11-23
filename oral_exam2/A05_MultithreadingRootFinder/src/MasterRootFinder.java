@@ -14,7 +14,7 @@ public class MasterRootFinder {
         circularBuffer masterBuffer= new circularBuffer();
         circularBuffer slaveBuffer = new circularBuffer();
 
-        executorService.awaitTermination(1, TimeUnit.MILLISECONDS);
+
         for(int i = 0; i < 10; i++){ // Creates 10 threads of slaves
             executorService.execute(new SlavesRootFinder(masterBuffer,slaveBuffer, i + 1));
         }
@@ -22,7 +22,7 @@ public class MasterRootFinder {
         // if(options == 300) printStats == true
         boolean printStats = option == 3000;
 
-        for(int i = 0; i < option; i++){
+        for(int i = 0; i < 11; i++){
             try{
                 Thread.sleep(100);
                 double[] hold = randomSetCoefficients();
@@ -34,27 +34,33 @@ public class MasterRootFinder {
 
                 masterBuffer.blockingPut(value);
 
-                Thread.sleep(100);
-                String[] roots = slaveBuffer.blockingGet();
+               Thread.sleep(100);
+               String[] roots = slaveBuffer.blockingGet();
 
                 if(!printStats)
                     System.out.println("Root 1: " + roots[0] + " Root 2: " + roots[1]);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException exception) {
+                Thread.currentThread().interrupt();
             }
         }
 
-        if(printStats){
-            HashMap<Integer,Integer> stats = SlavesRootFinder.getSlaveStats();
+        System.out.printf(
+                "Producer done producing%nTerminating Producer%n");
 
-            for(int threadsStats = 0; threadsStats < 10; threadsStats++){
-                System.out.println("Thread:  " + threadsStats + " Roots Solved: " + stats.get(threadsStats));
-            }
-        }
+//        if(printStats){
+//            HashMap<Integer,Integer> stats = SlavesRootFinder.getSlaveStats();
+//            System.out.print("1");
+//
+//            for(int threadsStats = 1; threadsStats <= 10; threadsStats++){
+//                System.out.println("Thread:  " + threadsStats + " Sets Solved: " + stats.get(threadsStats));
+//            }
+//        }
 
+      //  executorService.shutdown(); // shut down ExecutorService--it decides when to shut down threads
+       // System.exit(0);
 
-        executorService.shutdown(); // shut down ExecutorService--it decides when to shut down threads
-        System.exit(0);
+        executorService.shutdown();
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
     }
 
     private double[] randomSetCoefficients(){
