@@ -1,23 +1,32 @@
 // SlavesRootFinder.java by Fatima Kammona
 
+import java.util.HashMap;
+
 public class SlavesRootFinder implements Runnable {
     /*References to shared objects */
     private final circularBuffer masterBuffer;
     private final circularBuffer slaveBuffer;
     private final int numberOfSlave;
 
+    /* Keeps track of the amount of roots solved per thread */
+    private static final HashMap<Integer,Integer> slaveStats = new HashMap<>();
     public SlavesRootFinder(circularBuffer masterBuffer, circularBuffer slaveBuffer, int numberOfSlave){
         this.masterBuffer = masterBuffer;
         this.slaveBuffer = slaveBuffer;
         this.numberOfSlave = numberOfSlave;
+        slaveStats.put(numberOfSlave, 0);
     }
 
+    /** This method updates the slaveStats and get the coefficients from the master and then does all the math
+     * for finding the roots and then puts it in the slaveBuffer. */
     @Override
     public void run() {
-        System.out.println(numberOfSlave);
-
         try { // puts the thread to sleep for 1 second
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
+
+            /* Updates the number of roots solved for the thread */
+            slaveStats.put(numberOfSlave,slaveStats.get(numberOfSlave)+1);
+
             double root1, root2;
             String rootString1, rootString2;
 
@@ -49,5 +58,10 @@ public class SlavesRootFinder implements Runnable {
         catch (InterruptedException exception) {
             Thread.currentThread().interrupt(); // re-interrupt the thread
         }
+    }
+
+    /** Returns the Statics for the threads */
+    public static HashMap<Integer, Integer> getSlaveStats(){
+        return slaveStats;
     }
 }
