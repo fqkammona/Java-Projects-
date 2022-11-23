@@ -11,26 +11,33 @@ public class MasterRootFinder {
         executorService = Executors.newCachedThreadPool();
 
         /* create CircularBuffer to store the setOfCoefficients */
-        multithreadingBuffer masterBuffer = new multithreadingBuffer();
+       // multithreadingBuffer masterBuffer = new multithreadingBuffer();
+        circularBuffer masterBuffer= new circularBuffer();
+        circularBuffer slaveBuffer = new circularBuffer();
 
         executorService.awaitTermination(1, TimeUnit.MILLISECONDS);
         for(int i = 0; i < 10; i++){ // Creates 10 threads of slaves
-            executorService.execute(new SlavesRootFinder(masterBuffer, i + 1));
+            //executorService.execute(new SlavesRootFinder(masterBuffer, i + 1));
+            executorService.execute(new SlavesRootFinder(masterBuffer,slaveBuffer, i + 1));
         }
 
         for(int i = 0; i < option; i++){
             try{
                 Thread.sleep(100);
-                int[] hold = randomSetCoefficients();
-                masterBuffer.blockingPut(hold);
+                double[] hold = randomSetCoefficients();
+                // masterBuffer.blockingPut(hold);
 
-                for(int temp: hold)
-                    System.out.print(" " + temp);
+                String[] value = new String[3];
 
-                System.out.println("\n");
+                for(int j = 0; j < hold.length; j++){
+                    value[j] = String.valueOf(hold[j]);
+                }
+
+                masterBuffer.blockingPut(value);
 
                 Thread.sleep(100);
-                String[] roots = masterBuffer.blockingGetRoot();
+               // String[] roots = masterBuffer.blockingGetRoot();
+                String[] roots = slaveBuffer.blockingGet();
                 System.out.println("Root 1: " + roots[0] + " Root 2: " + roots[1]);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -41,13 +48,14 @@ public class MasterRootFinder {
         System.exit(0);
     }
 
-    private int[] randomSetCoefficients(){
-        int[] setOfCoefficients = new int[3];
-        SecureRandom generator = new SecureRandom();
+    private double[] randomSetCoefficients(){
+        double[] setOfCoefficients = new double[3];
+        int min = -1000;
+        int max = 1000;
 
         int i = 0;
         while(i < 3){
-            setOfCoefficients[i] = generator.nextInt(-1000,1000); // Fix this
+            setOfCoefficients[i] = Math.floor(Math.random()*(max-min+1)+min);
             i++;
         }
 
