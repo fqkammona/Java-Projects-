@@ -1,5 +1,6 @@
-// ServerWithGUIS by Fatima Kammona
-
+// ServerWithGUIS.java by Fatima Kammona
+/* This is the server that has access to the linked list and will take the response from the
+ * client and implement them in the linked list */
 import javax.swing.*;
 import java.awt.*;
 import java.io.EOFException;
@@ -8,10 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-/** This is the server that has access to the
- * linked list and will take the response from the
- * client and implement them in the linked list */
 
 public class ServerWithGUIS extends JFrame
 {
@@ -58,7 +55,7 @@ public class ServerWithGUIS extends JFrame
                     getStreams(); // get the input and output streams
                     processConnection(); // process connection
                 }
-                catch (EOFException eofException)
+                catch (EOFException eofException)  // Notify the end of the file/stream is reached
                 {
                     displayMessage("\nServerWithGUIS terminated connection");
                 }
@@ -88,7 +85,6 @@ public class ServerWithGUIS extends JFrame
     private void getStreams() throws IOException
     {
         output = new ObjectOutputStream(connection.getOutputStream()); // sets up the output stream for the objects
-     //   output.flush(); // flush output buffer to send header information
         input = new ObjectInputStream(connection.getInputStream()); // sets up the input stream for the objects
     }
 
@@ -113,9 +109,8 @@ public class ServerWithGUIS extends JFrame
         } while (!message.equals("CLIENT>>> TERMINATE"));
     }
 
+    /** */
     private void optionChoice(String message) throws IOException {
-        /* Converts they byte data to a string and then converts the string into an int */
-
         if(message.compareTo("Print List") == 0){
             sendData(fruitList.printList());
         } if(message.compareTo("Add Button") == 0){
@@ -186,7 +181,7 @@ public class ServerWithGUIS extends JFrame
         }
         catch (IOException ioException)
         {
-            ioException.printStackTrace();
+            ioException.printStackTrace(); // Prints out where the exception happened
         }
     }
 

@@ -11,7 +11,7 @@ public class TestClient {
 
         // if no command line args
         if (args.length == 0)
-            application = new ClientWithGUIS("128.255.17.113"); // localhost
+            application = new ClientWithGUIS("128.255.17.149"); // localhost
         else
             application = new ClientWithGUIS(args[0]); // use args
 
