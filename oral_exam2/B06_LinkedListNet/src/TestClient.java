@@ -1,12 +1,11 @@
-// TestClient by Fatima Kammona
+// TestClient.java by Fatima Kammona
+// This class runs the ClientWithGUIS class application
 
 import javax.swing.JFrame;
 
-/** This class runs the ClientWithGUIS class application */
 public class TestClient {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         ClientWithGUIS application; // declare client application
 
         // if no command line args

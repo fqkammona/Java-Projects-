@@ -1,4 +1,5 @@
 // ClientWithGUIS by Fatima Kammona
+/* This is the client class, it sends what to do with linked list to the server class which then implements it. */
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
-
-/** This is the client class, it sends
- * what to do with linked list to the server class
- * which then implements it. */
-
-public class ClientWithGUIS extends JFrame implements ActionListener{
+public class ClientWithGUIS extends JFrame implements ActionListener {
     private JTextField enterField; // for entering messages
     private Socket connection; // connection to server
     private String message = ""; // message from server
@@ -32,6 +28,11 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
     private GridBagConstraints constraints = new GridBagConstraints();
     private final String hostAddress; // Stores the IP address
     private final Container container; // The main container for the JFrame that holds the bagLayout
+
+    /**
+     * This is the constructor that takes the ip address and stores it in the hostAddress. The constructor is also
+     * created and all the of the buttons actionListeners are added and finally the runClient method is called.
+     */
     public ClientWithGUIS(String host) {
         super("Client");
 
@@ -45,7 +46,6 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         addButton.addActionListener(this);
         deleteButton.addActionListener(this);
         endButton.addActionListener(this);
-        //enterField.addActionListener(this);
 
         setSize(700, 500); // set window size
         setVisible(true); // show window
@@ -53,8 +53,11 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
 
         runClient();
     }
-    private void fillContainerButtons() {
 
+    /**
+     * This method initializes the components and fills the components in the frame.
+     */
+    private void fillContainerButtons() {
         /*The textArea initializing secction */
         instructionArea = new JTextArea("Instructions", 3, 25);
         constraints.fill = GridBagConstraints.BOTH;
@@ -75,6 +78,9 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         addButtonComponent(endButton, 3);
     }
 
+    /**
+     * This method fills the constraints needed to add the components to the container.
+     */
     private void addComponentText(Component c, int row, int col, int width, int height) {
         constraints.gridx = row;
         constraints.gridy = col;
@@ -91,79 +97,90 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         container.add(new JScrollPane(c), constraints);
     }
 
-    /** This method implements the construction of a button component given the component and the location on the y-axis,
-     * then adds the component with the constraint to the bagLayout which is then added to the mainContainer.*/
+    /**
+     * This method implements the construction of a button component given the component and the location on the y-axis,
+     * then adds the component with the constraint to the bagLayout which is then added to the mainContainer.
+     */
     private void addButtonComponent(Component cName, int gridy) {
         constraints = new GridBagConstraints(0, gridy, 1, 1, 0, 1.0,
-                GridBagConstraints.CENTER,  GridBagConstraints.BOTH, insets, 0, 0);
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
         bagLayout.setConstraints(cName, constraints);
         container.add(cName);
     }
 
-     public void actionPerformed(ActionEvent e) {
-         Object buttonPressed = e.getSource(); // Create an object of whatever button was pressed
+    /**
+     * This method is the actionPreformed section for all the buttons. It goes through an if statement to find
+     * which button is pressed.
+     */
+    public void actionPerformed(ActionEvent e) {
+        Object buttonPressed = e.getSource(); // Create an object of whatever button was pressed
 
-         if(buttonPressed == printListButton){
-             replayArea.append("\nPrinted List\n");
-             sendData("Print List");
-         } else if (buttonPressed == endButton){
-             closeConnection();
-         } else { // For an buttons that use the enterField
-             setTextFieldEditable(true);
-             if(buttonPressed == addButton){
-                 try {
-                     addButtonPressed();
-                 } catch (IOException ex) {
-                     throw new RuntimeException(ex);
-                 }
-             }
-             if(buttonPressed == deleteButton){
-                 try {
-                     deleteButtonPressed();
-                 } catch (IOException ex) {
-                     throw new RuntimeException(ex);
-                 }
-             }
-             // send message to server
-             enterField.addActionListener(
-                     /* Instead of having an annoymous ActionListener() public void ... we can use event ->
+        if (buttonPressed == printListButton) {
+            replayArea.append("\nPrinted List\n");
+            sendData("Print List");
+        } else if (buttonPressed == endButton) {
+            closeConnection();
+        } else { // For any buttons that use the enterField
+            setTextFieldEditable(true);
+            if (buttonPressed == addButton) {
+                try {
+                    addButtonPressed();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            if (buttonPressed == deleteButton) {
+                try {
+                    deleteButtonPressed();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            // send message to server
+            enterField.addActionListener(
+                    /* Instead of having an anonymous ActionListener() public void ... we can use event ->
                      * This is when the enter key is pressed, client sends the message from the textField to the server*/
-                     event -> {
-                         sendData(event.getActionCommand());
-                         setTextFieldEditable(false);
-                     }
-             );
-         }
-     }
+                    event -> {
+                        sendData(event.getActionCommand());
+                        setTextFieldEditable(false);
+                    }
+            );
+        }
+    }
 
-     /** When the add button is selected, the client will send a message to the server
-      * informing it that the add button was pressed and the server will send back the instructions. The instructions
-      * will be displayed and the text-field will be editable for the client to send back the required data to add
-      * a new item. */
-     public void addButtonPressed() throws IOException {
-         sendData("Add Button");
+    /**
+     * When the add button is selected, the client will send a message to the server
+     * informing it that the add button was pressed and the server will send back the instructions. The instructions
+     * will be displayed and the text-field will be editable for the client to send back the required data to add
+     * a new item.
+     */
+    public void addButtonPressed() throws IOException {
+        sendData("Add Button");
 
-         /* this is just until I figure out how to get the instructions to print here  */
-         instructionArea.setLineWrap(true);
-         instructionArea.append("\n\nPlease enter the name of item you would like to be add followed by a comma with the " +
-                 "word before/after and comma with the reference node" +
-                 " new node, before/after, reference node \n");
-     }
+        /* this is just until I figure out how to get the instructions to print here  */
+        instructionArea.setLineWrap(true);
+        instructionArea.append("\n\nPlease enter the name of item you would like to be add followed by a comma with the " +
+                "word before/after and comma with the reference node" +
+                " new node, before/after, reference node \n");
+    }
 
-    /** When the delete button is selected, the client will send a message to the server
+    /**
+     * When the delete button is selected, the client will send a message to the server
      * informing it that the delete button was pressed and the server will send back the instructions. The instructions
      * will be displayed and the text-field will be editable for the client to send back the required data to delete
-     * an item. */
-     public void deleteButtonPressed()throws IOException{
-         sendData("Delete Button");
+     * an item.
+     */
+    public void deleteButtonPressed() throws IOException {
+        sendData("Delete Button");
 
-         /* this is just until I figure out how to get the instructions to print here  */
-         instructionArea.setLineWrap(true);
-         instructionArea.append("\n\nPlease enter the name of item you would like to be removed.\n");
-     }
+        /* this is just until I figure out how to get the instructions to print here  */
+        instructionArea.setLineWrap(true);
+        instructionArea.append("\n\nPlease enter the name of item you would like to be removed.\n");
+    }
 
-
-    // connect to server and process messages from server
+    /**
+     * In a try catch statement this method connects to the server, gets the streams and process the connection
+     */
     public void runClient() {
         try // connect to server, get streams, process connection
         {
@@ -179,6 +196,9 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         }
     }
 
+    /**
+     * This method creates the socket to make the connection to the server and displays the connection information
+     */
     private void connectToServer() throws IOException {
         displayMessage("Attempting connection\n");
 
@@ -186,11 +206,12 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         connection = new Socket(InetAddress.getByName(hostAddress), 23603);
 
         // display connection information
-        displayMessage("Connected to: " +
-                connection.getInetAddress().getHostName());
+        displayMessage("Connected to: " + connection.getInetAddress().getHostName());
     }
 
-    // get streams to send and receive data
+    /**
+     * This method gets streams to send and receive data
+     */
     private void getStreams() throws IOException {
         // set up output stream for objects
         output = new ObjectOutputStream(connection.getOutputStream());
@@ -202,7 +223,9 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         displayMessage("\nGot I/O streams\n");
     }
 
-    // process connection with server
+    /**
+     * In a try catch block this method process the connection made with the server
+     */
     private void processConnection() throws IOException {
 
         do // process messages sent from server
@@ -218,10 +241,12 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         } while (!message.equals("SERVER>>> TERMINATE"));
     }
 
-    // close streams and socket
+    /**
+     * This method closes the streams and socket
+     */
     private void closeConnection() {
         displayMessage("\nClosing connection");
-       // sendData("TERMINATE");
+        // sendData("TERMINATE");
         setTextFieldEditable(false); // disable enterField
 
         try {
@@ -233,7 +258,9 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         }
     }
 
-    // send message to server
+    /**
+     * This is the method that sends the message to the server
+     */
     private void sendData(String message) {
         try // send object to server
         {
@@ -245,8 +272,9 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         }
     }
 
-    // manipulates displayArea in the event-dispatch thread
-    /** This method allows ....*/
+    /**
+     * This method allows the messages sent and received to display in the replayArea.
+     */
     private void displayMessage(final String messageToDisplay) {
         SwingUtilities.invokeLater(
                 /* instead of having an anonymous Runnable() public void run()... we can use () -> ...
@@ -258,8 +286,9 @@ public class ClientWithGUIS extends JFrame implements ActionListener{
         );
     }
 
-    // manipulates enterField in the event-dispatch thread
-    /** This method allows ....*/
+    /**
+     * This method allows the user to edit the enterField
+     */
     private void setTextFieldEditable(final boolean editable) {
         SwingUtilities.invokeLater(
              /* instead of having an anonymous Runnable() public void run()... we can use () -> ...
